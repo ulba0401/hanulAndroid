@@ -20,6 +20,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.main.BackPressCloseHandler;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity
 
     FragmentPagerAdapter adapterViewPager;
     private BackPressCloseHandler backPressCloseHandler;
+    public static TextView id, name;
+    public static ImageView profile;
 
     Notice_main notice;
     Complain_main complain;
@@ -59,6 +64,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //로그인 성공시 프로필 보여주기
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View nav_header_view = navigationView.getHeaderView(0);
+        id = nav_header_view.findViewById(R.id.navi_id);
+        name = nav_header_view.findViewById(R.id.navi_name);
+        profile=nav_header_view.findViewById(R.id.profile);
+
         //백버튼 누르면 종료되는 기능의 함수
         backPressCloseHandler = new BackPressCloseHandler(this);
 
@@ -72,7 +85,7 @@ public class MainActivity extends AppCompatActivity
 
         //메뉴 나오게 하기
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
