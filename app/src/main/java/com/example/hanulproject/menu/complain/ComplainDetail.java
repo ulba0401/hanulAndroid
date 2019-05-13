@@ -43,7 +43,7 @@ public class ComplainDetail extends AppCompatActivity {
         filename=findViewById(R.id.cpdfilename);
         modify=findViewById(R.id.modify);
         delete=findViewById(R.id.delete);
-        btnDownload=findViewById(R.id.btnDownload);
+        btnDownload=findViewById(R.id.btnPhotoLoad);
 
         back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -129,15 +129,7 @@ public class ComplainDetail extends AppCompatActivity {
             }
         });
 
-        DownLoad downLoad = new DownLoad(filepath);
-        mSaveBm = null;
-        try {
-            mSaveBm = downLoad.execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        download();
     }
 
     @Override
@@ -158,6 +150,8 @@ public class ComplainDetail extends AppCompatActivity {
                     vo.setContent(tmpContent);
                     vo.setFilename(tmpFileName);
 
+                    download();
+
                     break;
             }
         }
@@ -173,5 +167,17 @@ public class ComplainDetail extends AppCompatActivity {
         resultIntent.putExtra("result","result");
         setResult(RESULT_OK,resultIntent);
         finish();
+    }
+
+    void download(){
+        DownLoad downLoad = new DownLoad(filepath);
+        mSaveBm = null;
+        try {
+            mSaveBm = downLoad.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

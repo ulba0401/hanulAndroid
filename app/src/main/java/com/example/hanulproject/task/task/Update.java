@@ -17,7 +17,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 
+import java.io.File;
 import java.io.InputStream;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
@@ -30,8 +32,16 @@ public class Update extends AsyncTask<Void,Void,Void> {
     SettingVO svo;
     StatusVO stvo;
     UserVO uvo;
+    String uploadType, imageFilePathA, imageUploadPathA, uploadFileName;
 
     int controller;
+
+    public void setFileInfo(String uploadType,String imageFilePathA, String imageUploadPathA, String uploadFileName){
+        this.uploadType = uploadType;
+        this.imageFilePathA = imageFilePathA;
+        this.imageUploadPathA = imageUploadPathA;
+        this.uploadFileName = uploadFileName;
+    }
 
     public Update(NoticeVO nvo){
         this.nvo = nvo;
@@ -74,7 +84,12 @@ public class Update extends AsyncTask<Void,Void,Void> {
             builder.addTextBody("no", String.valueOf(cpvo.getNo()), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("title", cpvo.getTitle(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("content", cpvo.getContent(), ContentType.create("Multipart/related", "UTF-8"));
-
+            builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
+            if(uploadType.equals("image")){
+                builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addPart("image", new FileBody(new File(imageFilePathA)));
+            }
         } else if(controller == 3){
             postURL = ipConfig + "/AA/cmupdate";
 
@@ -87,7 +102,6 @@ public class Update extends AsyncTask<Void,Void,Void> {
         } else if(controller == 6){
             postURL = ipConfig + "/AA/stupdate";
         }
-
 
         try {
             //MultipartEntityBuilder 생성

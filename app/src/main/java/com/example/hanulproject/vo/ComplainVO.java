@@ -6,6 +6,7 @@ public class ComplainVO implements Serializable {
     int no;
     String title, content,writer, filename, filepath, admin;
     String isdel;
+    String uploadType;
 
     public ComplainVO () {}
 
@@ -17,6 +18,10 @@ public class ComplainVO implements Serializable {
         this.filename = filename;
         this.filepath = filepath;
     }
+    
+    public String getUploadType() { return uploadType; }
+
+    public void setUploadType(String uploadType) { this.uploadType = uploadType;}
 
     public String getAdmin() {
         return admin;

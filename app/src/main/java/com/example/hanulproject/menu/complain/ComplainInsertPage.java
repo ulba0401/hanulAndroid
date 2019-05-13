@@ -2,7 +2,6 @@ package com.example.hanulproject.menu.complain;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.R;
-import com.example.hanulproject.task.common.CommonMethod;
 import com.example.hanulproject.task.task.Insert;
 import com.example.hanulproject.vo.CommunityVO;
 
@@ -31,11 +29,11 @@ public class ComplainInsertPage extends AppCompatActivity {
     TextView fileName;
     CommunityVO vo;
     String title = "", content = "";
+
+    String uploadType, imageFilePathA, imageUploadPathA, uploadFileName;
+
     long now;
     Date date;
-    public String uploadType;
-    public String imageFilePathA, imageUploadPathA, uploadFileName;
-
     java.text.SimpleDateFormat tmpDateFormat;
 
     final int CAMERA_REQUEST = 1000;
@@ -57,7 +55,7 @@ public class ComplainInsertPage extends AppCompatActivity {
         cancel =findViewById(R.id.cancel);
         cpititle = findViewById(R.id.cpititle);
         cpicontent = findViewById(R.id.cpicontent);
-        btnPhotoLoad = findViewById(R.id.btnDownload);
+        btnPhotoLoad = findViewById(R.id.btnPhotoLoad);
         fileName = findViewById(R.id.fileName);
 
         uploadType="";
@@ -123,21 +121,18 @@ public class ComplainInsertPage extends AppCompatActivity {
 //                } else {
 //                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
 //                }
-
                 imageFilePathA = path;
                 Log.d("ComplainInsert", "imageFilePathA Path : " + imageFilePathA);
                 uploadFileName = tmpDateFormat.format(date)+(imageFilePathA.split("/")[imageFilePathA.split("/").length - 1]);
                 imageUploadPathA = ipConfig + "/AA/resources/images/upload/" + uploadFileName;
                 Log.d("ComplainInsert",uploadFileName);
                 fileName.setText(uploadFileName);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
             Log.d("ComplainInsert => ", "imagepath is null, whatever something is wrong!!");
         }
-
     }
 
     // Get the real path from the URI
