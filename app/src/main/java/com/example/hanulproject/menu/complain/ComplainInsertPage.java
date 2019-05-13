@@ -90,6 +90,10 @@ public class ComplainInsertPage extends AppCompatActivity {
             Insert insert = new Insert(title, content, 2, uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
             insert.execute();
 
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("result","result");
+            setResult(RESULT_OK,resultIntent);
+
             finish();
 
         }else{

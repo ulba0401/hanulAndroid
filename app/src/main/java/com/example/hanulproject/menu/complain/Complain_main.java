@@ -26,6 +26,8 @@ import com.example.hanulproject.vo.ComplainVO;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class Complain_main extends Fragment {
 
     Menu_main activity;
@@ -80,7 +82,25 @@ public class Complain_main extends Fragment {
             }
         });
 
-
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
+                case 200:
+                    refresh();
+                    Log.d("onActivityResult","성공함여");
+                    break;
+            }
+        }
+    }
+
+    public void refresh(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
     }
 }
