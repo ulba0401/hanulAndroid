@@ -113,12 +113,12 @@ public class ComplainInsertPage extends AppCompatActivity {
                     path = getPathFromURI(selectedImageUri);
                 }
                 // 이미지 돌리기 및 리사이즈
-                Bitmap newBitmap = CommonMethod.imageRotateAndResize(path);
-                if (newBitmap != null) {
-                    //imageView.setImageBitmap(newBitmap);
-                } else {
-                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
-                }
+//                Bitmap newBitmap = CommonMethod.imageRotateAndResize(path);
+//                if (newBitmap != null) {
+//                    //imageView.setImageBitmap(newBitmap);
+//                } else {
+//                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
+//                }
 
                 imageFilePathA = path;
                 Log.d("ComplainInsert", "imageFilePathA Path : " + imageFilePathA);

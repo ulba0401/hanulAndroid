@@ -28,25 +28,24 @@ public class CommonMethod {
         return cm.getActiveNetworkInfo() != null;
     }
 
-
     // 이미지 로테이트 및 사이즈 변경
     public static Bitmap imageRotateAndResize(String path){
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 10;
 
-        File file = new File(path);
-        if (file != null) {
-            // 돌아간 앵글각도 알기
-            int rotateAngle = setImageOrientation(file.getAbsolutePath());
-            Bitmap bitmapTmp = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+            File file = new File(path);
+            if (file != null) {
+                // 돌아간 앵글각도 알기
+                int rotateAngle = setImageOrientation(file.getAbsolutePath());
+                Bitmap bitmapTmp = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
 
-            // 사진 바로 보이게 이미지 돌리기
-            Bitmap bitmap = imgRotate(bitmapTmp, rotateAngle);
+                // 사진 바로 보이게 이미지 돌리기
+                Bitmap bitmap = imgRotate(bitmapTmp, rotateAngle);
 
-            // 이미지 돌린것 다시 저장
-            SaveBitmapToFileCache(bitmap, file.getAbsolutePath());
+                // 이미지 돌린것 다시 저장
+                SaveBitmapToFileCache(bitmap, file.getAbsolutePath());
 
-            return bitmap;
+                return bitmap;
         }
         return null;
     }
