@@ -70,7 +70,7 @@ public class Complain_main extends Fragment {
                 ComplainVO vo = (ComplainVO) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), ComplainDetail.class);
                 intent.putExtra("vo", vo);
-                startActivity(intent);
+                startActivityForResult(intent,200);
             }
         });
 
@@ -93,7 +93,7 @@ public class Complain_main extends Fragment {
                 // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
                 case 200:
                     refresh();
-                    Log.d("onActivityResult","성공함여");
+                    Log.d("onActivityResult","Complain 새로고침");
                     break;
             }
         }

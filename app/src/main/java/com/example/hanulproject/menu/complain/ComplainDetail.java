@@ -80,6 +80,9 @@ public class ComplainDetail extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Delete delete = new Delete(vo.getNo(),2);
                         delete.execute();
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("result","result");
+                        setResult(RESULT_OK,resultIntent);
                         finish();
                     }
                 });
