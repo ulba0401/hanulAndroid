@@ -35,6 +35,7 @@ import com.example.hanulproject.menu.settings.Settings_main;
 import me.relex.circleindicator.CircleIndicator;
 
 // 커밋테스트
+// 현지의 커밋테스트
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
