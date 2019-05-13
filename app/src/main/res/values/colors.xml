@@ -11,4 +11,7 @@
     <color name="onBtnColor">#82baff</color>
     <color name="offBtnColor">#4d4d4d</color>
     <color name="black">#000000</color>
+
+    <color name="complete">#00c100</color>
+    <color name="error">#f23c46</color>
 </resources>

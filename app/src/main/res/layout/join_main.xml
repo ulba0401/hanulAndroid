@@ -82,6 +82,23 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/titlebarcolor"
+                android:text="이메일"
+                android:textSize="@dimen/contentSize"/>
+            <EditText
+                android:id="@+id/joinEmail"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:textSize="@dimen/contentSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/titlebarcolor"
                 android:text="비밀번호"
                 android:textSize="@dimen/contentSize"/>
             <EditText
@@ -106,6 +123,38 @@
                 android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:textSize="@dimen/contentSize"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/jpwcompl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="비밀번호가 일치합니다."
+                android:textColor="@color/complete"
+                android:textSize="13dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/jpwfail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="비밀번호 불일치합니다."
+                android:textColor="@color/error"
+                android:textSize="13dp"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
