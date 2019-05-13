@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/uid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="uid" />
+
+    <TextView
+        android:id="@+id/upw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="upw" />
+
+    <TextView
+        android:id="@+id/uname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="uname" />
+
+    <TextView
+        android:id="@+id/uaddr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="uaddr" />
+
+    <TextView
+        android:id="@+id/uphone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="uphone" />
+
+    <TextView
+        android:id="@+id/uemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="uemail" />
+
+    <TextView
+        android:id="@+id/uprofile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="uprofile" />
+
+    <TextView
+        android:id="@+id/uadmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="uadmin" />
+</LinearLayout>

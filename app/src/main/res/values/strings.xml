@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">니집내집</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">게스트</string>
+    <string name="nav_header_subtitle">로그인을 해주세요^ㅁ^</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">메인화면</string>
+    <string name="menu_notice">공지사항</string>
+    <string name="menu_complain">고객센터</string>
+    <string name="menu_community">커뮤니티</string>
+    <string name="menu_settings">설정하기</string>
+    <string name="menu_list">회원관리</string>
+    <string name="menu_admin">admin menu</string>
+
+    <string name="login">로그인</string>
+    <string name="join">회원가입</string>
+
+    <string name="kakao_app_key">01b68915732638b0cd64857f3cd37f23</string>
+    <string name="facebook_app_id">326362824741911</string>
+    <string name="fb_login_protocol_scheme"> fb_login_protocol_scheme</string>
+
+
+    <string name="joinContent">본인이 만 14세 이상인 것과 서비스 이용약관, 개인정보 수집 및 이용 동의, 개인정보 처리방침에 동의 하십니까?</string>
+    <string name="search_id">본인확인을 위하여 이름과 이메일을 정확히 입력해주세요</string>
+    <string name="search_pw">본인확인을 위하여 아이디와 이름, 이메일을 정확히 입력해주세요</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

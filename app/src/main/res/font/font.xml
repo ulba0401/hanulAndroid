@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/kimberlly"
+        />
+    <font
+        android:font="@font/humyfriends"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        />
+    <font
+        android:font="@font/hublackgomusin"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        />
+    <font
+        android:font="@font/hugoodday"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        />
+    <font
+        android:font="@font/hulikefirst"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        />
+    <font
+        android:font="@font/humaskingtape"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        />
+    <font
+        android:font="@font/huseoulcontrychicken"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        />
+
+</font-family>

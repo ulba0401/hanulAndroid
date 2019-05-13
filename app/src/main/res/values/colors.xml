@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#82baff</color>
+
+    <color name="titlecolor">#ffffff</color>
+    <color name="titlebarcolor">#104aa8</color>
+
+    <color name="allbackg">#f0f0f0</color>
+    <color name="onBtnColor">#82baff</color>
+    <color name="offBtnColor">#4d4d4d</color>
+    <color name="black">#000000</color>
+</resources>
