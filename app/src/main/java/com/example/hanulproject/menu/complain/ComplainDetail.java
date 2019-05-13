@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,7 +49,7 @@ public class ComplainDetail extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+               reset();
             }
         });
 
@@ -65,7 +66,7 @@ public class ComplainDetail extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ComplainDetail.this,ComplainModify.class);
                 intent.putExtra("vo",vo);
-                startActivity(intent);
+                startActivityForResult(intent,200);
             }
         });
 
@@ -80,10 +81,8 @@ public class ComplainDetail extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Delete delete = new Delete(vo.getNo(),2);
                         delete.execute();
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra("result","result");
-                        setResult(RESULT_OK,resultIntent);
-                        finish();
+
+                        reset();
                     }
                 });
                 builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -139,6 +138,40 @@ public class ComplainDetail extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
+                case 200:
+                    String tmpTitle = data.getStringExtra("title");
+                    String tmpContent = data.getStringExtra("content");
+                    String tmpFileName = data.getStringExtra("filename");
+
+                    title.setText(tmpTitle);
+                    content.setText(tmpContent);
+                    filename.setText(tmpFileName);
+                    vo.setTitle(tmpTitle);
+                    vo.setContent(tmpContent);
+                    vo.setFilename(tmpFileName);
+
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    void reset(){
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("result","result");
+        setResult(RESULT_OK,resultIntent);
+        finish();
     }
 }

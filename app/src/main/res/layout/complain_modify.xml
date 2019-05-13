@@ -87,10 +87,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="사진첨부"/>
+
         <TextView
+            android:id="@+id/cpmfilename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="파일이름"/>
+            android:text="파일이름" />
 
     </LinearLayout>
 
