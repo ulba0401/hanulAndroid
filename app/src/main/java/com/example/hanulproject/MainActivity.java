@@ -36,6 +36,7 @@ import me.relex.circleindicator.CircleIndicator;
 
 // 커밋테스트
 // 현지의 커밋테스트
+// 영선의 커밋테스트
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
