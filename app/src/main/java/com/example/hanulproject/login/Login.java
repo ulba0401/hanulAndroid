@@ -49,7 +49,6 @@ public class Login extends AppCompatActivity {
                 finish();
             }
         });
-
         //슬라이드 화면 설정
         ViewPager vpPager = findViewById(R.id.loginVp);
 
@@ -58,7 +57,6 @@ public class Login extends AppCompatActivity {
 
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.loginIndicator);
         indicator.setViewPager(vpPager);
-
     }
 
     //슬라이드 화면
@@ -74,7 +72,6 @@ public class Login extends AppCompatActivity {
         public int getCount() {
             return NUM_ITEMS;
         }
-
         // Returns the fragment to display for that page
         @Override
         public Fragment getItem(int position) {
@@ -89,13 +86,11 @@ public class Login extends AppCompatActivity {
                     return null;
             }
         }
-
         // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
             return "Page " + position;
         }
-
     }
 
     /*

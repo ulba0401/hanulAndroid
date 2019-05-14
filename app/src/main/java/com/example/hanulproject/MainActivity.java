@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.main.BackPressCloseHandler;
 import com.example.hanulproject.menu.Menu_main;
 import com.example.hanulproject.menu.community.Community_main;
@@ -46,8 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentPagerAdapter adapterViewPager;
     private BackPressCloseHandler backPressCloseHandler;
-    public static TextView id, name;
-    public static ImageView profile;
+    public TextView id, name;
 
     Notice_main notice;
     Complain_main complain;
@@ -64,12 +64,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //로그인 성공시 프로필 보여주기
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        View nav_header_view = navigationView.getHeaderView(0);
-        id = nav_header_view.findViewById(R.id.navi_id);
-        name = nav_header_view.findViewById(R.id.navi_name);
 
         //백버튼 누르면 종료되는 기능의 함수
         backPressCloseHandler = new BackPressCloseHandler(this);
@@ -84,12 +78,24 @@ public class MainActivity extends AppCompatActivity
 
         //메뉴 나오게 하기
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView;
         navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        //로그인 성공시 프로필 보여주기
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View nav_header_view = navigationView.getHeaderView(0);
+        id = nav_header_view.findViewById(R.id.navi_id);
+        name = nav_header_view.findViewById(R.id.navi_name);
+
+        id.setText(LoginRequest.vo.getId());
+        name.setText(LoginRequest.vo.getName());
+
 
         //슬라이드 화면 설정
         ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);

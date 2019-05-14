@@ -21,7 +21,6 @@ import java.io.InputStreamReader;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 
-
 public class LoginRequest extends AsyncTask<Void,Void,Integer> {
 
     Context context;
@@ -29,6 +28,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     private String id;
     private String pw;
     boolean is_check = true;
+
 
     @Override
     protected void onPreExecute() {
@@ -75,11 +75,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             }else{
                 is_check = true;
             }*/
-
             readJsonStream(inputStream);
-
-
-
         } catch (Exception e){
             e.printStackTrace();
         }finally {

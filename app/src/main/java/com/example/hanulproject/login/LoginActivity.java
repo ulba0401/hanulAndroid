@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 
 
@@ -44,6 +45,15 @@ public class LoginActivity extends Activity {
                     return true;
                 }
                 return false;
+            }
+        });
+        Button login=findViewById(R.id.loginMenuBtn);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

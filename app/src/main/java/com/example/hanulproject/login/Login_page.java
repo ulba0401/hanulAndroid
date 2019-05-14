@@ -76,24 +76,23 @@ public class Login_page extends AppCompatActivity {
                     }else{pw.requestFocus();}
                     return;
                 }//로그인 비밀번호 아이디 공백시 다시 입력받게
-               /* LoginRequest request = new LoginRequest(id.getText().toString(), pw.getText().toString(), getApplicationContext());
+                LoginRequest request = new LoginRequest(id.getText().toString(), pw.getText().toString(), getApplicationContext());
                 try {
                     int check = request.execute().get();
                     if(check == 0){
                         Toast.makeText(Login_page.this, "아이디와 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
                     }else{
+                        String id = LoginRequest.vo.getId();
+                        String name = LoginRequest.vo.getName();
+                        Log.d("idCheck",id);
+                        Log.d("nameCheck",name);
                         Intent intent = new Intent(Login_page.this, MainActivity.class);
-                        LoginPage page = new LoginPage();
                         startActivity(intent);
                         finish();
                     }
-
                 }catch (Exception e) {
                     e.printStackTrace();
-                }*/
-                Intent intent = new Intent(Login_page.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                }
             }
         });
 
