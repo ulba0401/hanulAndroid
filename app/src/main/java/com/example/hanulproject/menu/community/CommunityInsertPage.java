@@ -48,6 +48,11 @@ public class CommunityInsertPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.community_insert);
+
+        now = System.currentTimeMillis();
+        date = new Date(now);
+        tmpDateFormat = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss");
+
         insert = findViewById(R.id.insert);
         cancel =findViewById(R.id.cancel);
         cmititle = findViewById(R.id.cmititle);
@@ -81,7 +86,7 @@ public class CommunityInsertPage extends AppCompatActivity {
         if (isNetworkConnected(this)==true){
             title = cmititle.getText().toString();
             content = cmicontent.getText().toString();
-            Insert insert = new Insert(title, content, 3);
+            Insert insert = new Insert(title, content, 3,uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
             insert.execute();
             finish();
 
@@ -113,9 +118,9 @@ public class CommunityInsertPage extends AppCompatActivity {
                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
                 }
                 imageFilePathA = path;
-                Log.d("CommunityInsert", "imageFilePathA Path : " + imageFilePathA);
+                int communityInsert = Log.d("CommunityInsert", "imageFilePathA Path : " + imageFilePathA);
                 uploadFileName = tmpDateFormat.format(date)+(imageFilePathA.split("/")[imageFilePathA.split("/").length - 1]);
-                imageUploadPathA = ipConfig + "/AA/resources/images/upload/" + uploadFileName;
+                imageUploadPathA = ipConfig + "/AA/resources/images/community/" + uploadFileName;
                 Log.d("CommunityInsert",uploadFileName);
 
             } catch (Exception e) {
