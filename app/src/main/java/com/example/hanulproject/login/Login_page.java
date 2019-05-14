@@ -66,7 +66,6 @@ public class Login_page extends AppCompatActivity {
         loginMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //로그인처리 할 부분
                 if(id.getText().toString().length()==0 || pw.getText().toString().length()==0){
                     Toast.makeText(Login_page.this, "아이디와 비밀번호는 필수사항입니다.", Toast.LENGTH_SHORT).show();

@@ -20,8 +20,7 @@ public class CommonMethod {
     public static int activityNum = 0;  // 0:Sub1,  1:Sub1Add,  2:Sub1Updatee, 3:Sub1Delete
 
     // 네트워크에 연결되어 있는가
-    public static boolean isNetworkConnected(Context context)
-    {
+    public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager)
                 context.getSystemService( Context.CONNECTIVITY_SERVICE );
 

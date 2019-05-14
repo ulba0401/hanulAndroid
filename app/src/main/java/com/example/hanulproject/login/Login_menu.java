@@ -31,7 +31,6 @@ public class Login_menu extends AppCompatActivity  {
     private LoginButton kakaoLoginButton;// 카카오 제공 Api의 로그인 버튼 뷰
     private com.facebook.login.widget.LoginButton FacebookLoginButton;// 페북 제공 Api의 로그인 버튼 뷰
 
-
     Button fake_kakao, fake_face, loginBtn;
     TextView jointxt, search_id, search_pw;
 
@@ -118,6 +117,7 @@ public class Login_menu extends AppCompatActivity  {
 
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //간편로그인시 호출 ,없으면 간편로그인시 로그인 성공화면으로 넘어가지 않음
@@ -132,19 +132,6 @@ public class Login_menu extends AppCompatActivity  {
         @Override
         public void onSessionOpened() {
             UserManagement.requestMe(new MeResponseCallback() {
-                @Override
-                public void onFailure(ErrorResult errorResult) {
-                    String message = "failed to get user info. msg=" + errorResult;
-                    Logger.d(message);
-
-                    ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
-                    if (result == ErrorCode.CLIENT_ERROR_CODE) {
-                        finish();
-                    } else {
-                        //redirectMainActivity();
-                    }
-                }
-                @Override
                 public void onSessionClosed(ErrorResult errorResult) {
                 }
                 @Override
@@ -152,8 +139,6 @@ public class Login_menu extends AppCompatActivity  {
                 }
                 @Override
                 public void onSuccess(UserProfile userProfile) {
-                    //로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
-                    //사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
                     Log.e("UserProfile", userProfile.toString());
                     Intent intent = new Intent(Login_menu.this, MainActivity.class);
                     startActivity(intent);
@@ -164,6 +149,9 @@ public class Login_menu extends AppCompatActivity  {
 
         @Override
         public void onSessionOpenFailed(KakaoException exception) {
+            if(exception != null) {
+                Logger.e(exception);
+            }
         }
     }
 
