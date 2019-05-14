@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
@@ -66,7 +67,7 @@ public class CommunityAdapter extends BaseAdapter {
         }
 
         //viewHolder.no.setText(arrayList.get(position).getNo());
-        viewHolder.title.setText(arrayList.get(position).getTitle());
+        viewHolder.title.setImageResource(R.drawable.com_facebook_button_icon);
         viewHolder.writer.setText(arrayList.get(position).getWriter());
         //viewHolder.content.setText(arrayList.get(position).getContent());
         //viewHolder.readcnt.setText(arrayList.get(position).getReadcnt());
@@ -84,7 +85,7 @@ public class CommunityAdapter extends BaseAdapter {
 
     public static class CommunityViewHolder{
         public TextView no;
-        public TextView title;
+        public ImageView title;
         public TextView content;
         public TextView writer;
         public TextView readcnt;

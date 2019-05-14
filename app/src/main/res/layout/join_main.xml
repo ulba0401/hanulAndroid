@@ -105,7 +105,8 @@
                 android:id="@+id/joinPw"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:textSize="@dimen/contentSize"/>
+                android:textSize="@dimen/contentSize"
+                android:inputType="textPassword" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,7 +123,8 @@
                 android:id="@+id/joinPwr"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:textSize="@dimen/contentSize"/>
+                android:textSize="@dimen/contentSize"
+                android:inputType="textPassword" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

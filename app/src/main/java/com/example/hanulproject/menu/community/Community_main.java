@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.hanulproject.R;
@@ -27,7 +28,7 @@ public class Community_main extends Fragment implements Serializable {
 
     Menu_main activity;
     ArrayList<CommunityVO> cmlist;
-    ListView listView;
+    GridView gridView;
     CommunityAdapter adapter;
     Select select;
     FloatingActionButton communityPlus;
@@ -49,16 +50,16 @@ public class Community_main extends Fragment implements Serializable {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.community_main, container, false);
         communityPlus=rootView.findViewById(R.id.communityPlus);
-        listView=rootView.findViewById(R.id.cmlist_view);
+        gridView=rootView.findViewById(R.id.grid_view);
 
         cmlist = new ArrayList<>();
         adapter = new CommunityAdapter(getActivity(), R.layout.community_list_view, cmlist);
-        listView.setAdapter(adapter);
+        gridView.setAdapter(adapter);
 
         select = new Select(cmlist, adapter);
         select.execute();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CommunityVO vo = (CommunityVO) adapter.getItem(position);
