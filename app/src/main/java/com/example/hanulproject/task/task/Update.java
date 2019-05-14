@@ -84,8 +84,8 @@ public class Update extends AsyncTask<Void,Void,Void> {
             builder.addTextBody("no", String.valueOf(cpvo.getNo()), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("title", cpvo.getTitle(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("content", cpvo.getContent(), ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
-            if(uploadType.equals("image")){
+            if(uploadType != null && uploadType.equals("image")){
+                builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addPart("image", new FileBody(new File(imageFilePathA)));
