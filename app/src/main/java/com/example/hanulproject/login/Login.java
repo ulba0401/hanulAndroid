@@ -92,7 +92,6 @@ public class Login extends AppCompatActivity {
             return "Page " + position;
         }
     }
-
     /*
     public static String getKeyHash(final Context context) {
 

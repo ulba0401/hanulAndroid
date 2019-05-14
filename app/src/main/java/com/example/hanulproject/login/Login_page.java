@@ -22,7 +22,6 @@ public class Login_page extends AppCompatActivity {
 
     private EditText id, pw;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +94,5 @@ public class Login_page extends AppCompatActivity {
                 }
             }
         });
-
     }
 }
