@@ -83,8 +83,6 @@ public class Login_page extends AppCompatActivity {
                         Toast.makeText(Login_page.this, "아이디와 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
                     }else{
                         Intent intent = new Intent(Login_page.this, MainActivity.class);
-                        String email = LoginRequest.dto.getEmail();
-                        String name = LoginRequest.dto.getName();
                         LoginPage page = new LoginPage();
                         startActivity(intent);
                         finish();

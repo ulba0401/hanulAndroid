@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class UserVO implements Serializable {
     String id, pw, name, addr, phone, email, profile, admin, isdel;
+    private String result;
 
     public UserVO () {}
 
@@ -16,6 +17,14 @@ public class UserVO implements Serializable {
         this.email = email;
         this.profile = profile;
         this.admin = admin;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public String getId() {

@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity
         View nav_header_view = navigationView.getHeaderView(0);
         id = nav_header_view.findViewById(R.id.navi_id);
         name = nav_header_view.findViewById(R.id.navi_name);
-        profile=nav_header_view.findViewById(R.id.profile);
 
         //백버튼 누르면 종료되는 기능의 함수
         backPressCloseHandler = new BackPressCloseHandler(this);

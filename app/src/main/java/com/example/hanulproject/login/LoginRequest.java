@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.widget.Toast;
 
-import com.example.hanulproject.Client.ClientDTO;
+import com.example.hanulproject.vo.UserVO;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,7 +25,7 @@ import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 public class LoginRequest extends AsyncTask<Void,Void,Integer> {
 
     Context context;
-    public static ClientDTO dto = new ClientDTO();
+    public static UserVO vo = new UserVO();
     private String id;
     private String pw;
     boolean is_check = true;
@@ -95,7 +95,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             if(httpClient != null){
                 httpClient = null;
             }
-            if(dto.getResult() != null && dto.getResult().equals("fail")){
+            if(vo.getResult() != null && vo.getResult().equals("fail")){
                 return 0;
             }
             return 1;
@@ -128,26 +128,26 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             String readStr = reader.nextName();
             if(readStr.equals("result")){
                 result = reader.nextString();
-                dto.setResult(result);
+                vo.setResult(result);
             }else if(readStr.equals("name")){
                 name = reader.nextString();
-                dto.setName(name);
-                dto.setResult("success");
+                vo.setName(name);
+                vo.setResult("success");
             }else if (readStr.equals("phone")){
                 phone = reader.nextString();
-                dto.setPhone(phone);
+                vo.setPhone(phone);
             }else if (readStr.equals("addr")){
                 addr = reader.nextString();
-                dto.setAddr(addr);
+                vo.setAddr(addr);
             }else if (readStr.equals("id")){
                 id = reader.nextString();
-                dto.setId(id);
+                vo.setId(id);
             }else if (readStr.equals("pw")){
                 pw = reader.nextString();
-                dto.setPw(pw);
+                vo.setPw(pw);
             }else if (readStr.equals("email")){
                 email = reader.nextString();
-                dto.setEmail(email);
+                vo.setEmail(email);
             }else{
                 reader.skipValue();
             }

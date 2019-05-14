@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 
 
