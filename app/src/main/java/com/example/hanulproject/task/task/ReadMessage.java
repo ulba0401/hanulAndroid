@@ -9,10 +9,12 @@ import com.example.hanulproject.vo.NoticeVO;
 import com.example.hanulproject.vo.SettingVO;
 import com.example.hanulproject.vo.StatusVO;
 import com.example.hanulproject.vo.UserVO;
+import com.example.hanulproject.vo.WeatherVO;
 
 import java.io.IOException;
 
 public class ReadMessage {
+
     public NoticeVO noticeReadMessage(JsonReader reader) throws IOException{
         int no = 0, readcnt = 0;
         String title="", content="", writedate="", filename="", filepath="";
