@@ -62,7 +62,6 @@ public class Login extends AppCompatActivity {
     //슬라이드 화면
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         private static int NUM_ITEMS = 3;
-
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
         }
