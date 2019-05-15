@@ -88,7 +88,7 @@ public class CommunityInsertPage extends AppCompatActivity {
             content = cmicontent.getText().toString();
             Insert insert = new Insert(title, content, 3,uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
             insert.execute();
-            finish();
+            reset();
 
         }else{
             Toast.makeText(this, "인터넷이 연결되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
@@ -144,6 +144,11 @@ public class CommunityInsertPage extends AppCompatActivity {
         return res;
     }
 
-
+    void reset(){
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("result","result");
+        setResult(RESULT_OK,resultIntent);
+        finish();
+    }
 
 }

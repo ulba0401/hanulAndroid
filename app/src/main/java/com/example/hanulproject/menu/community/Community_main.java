@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import com.example.hanulproject.vo.CommunityVO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 public class Community_main extends Fragment implements Serializable {
 
@@ -49,8 +53,8 @@ public class Community_main extends Fragment implements Serializable {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.community_main, container, false);
-        communityPlus=rootView.findViewById(R.id.communityPlus);
-        gridView=rootView.findViewById(R.id.grid_view);
+        communityPlus = rootView.findViewById(R.id.communityPlus);
+        gridView = rootView.findViewById(R.id.grid_view);
 
         cmlist = new ArrayList<>();
         adapter = new CommunityAdapter(getActivity(), R.layout.community_list_view, cmlist);
@@ -65,7 +69,7 @@ public class Community_main extends Fragment implements Serializable {
                 CommunityVO vo = (CommunityVO) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), CommunityDetail.class);
                 intent.putExtra("vo", vo);
-                startActivity(intent);
+                startActivityForResult(intent,200);
             }
         });
 
@@ -73,10 +77,29 @@ public class Community_main extends Fragment implements Serializable {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CommunityInsertPage.class);
-                startActivity(intent);
+                startActivityForResult(intent,200);
             }
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
+                case 200:
+                    refresh();
+                    Log.d("onActivityResult","Complain 새로고침");
+                    break;
+            }
+        }
+    }
+
+    public void refresh(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
     }
 }

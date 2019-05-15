@@ -31,7 +31,7 @@ public class CommonMethod {
     // 이미지 로테이트 및 사이즈 변경
     public static Bitmap imageRotateAndResize(String path){
         BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inSampleSize = 5;
+        options.inSampleSize = 4;
 
             File file = new File(path);
             if (file != null) {
@@ -151,4 +151,5 @@ public class CommonMethod {
             }
         }
     }
+
 }

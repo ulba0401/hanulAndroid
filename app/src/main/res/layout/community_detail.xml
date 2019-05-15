@@ -112,31 +112,29 @@
                 android:layout_height="wrap_content"
                 android:text="작성자" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="첨부파일 : "
-                style="@style/content"
-                />
 
-            <TextView
-                android:id="@+id/cmdfilename"
-                style="@style/content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="파일이름" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="첨부파일"/>
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="첨부파일 : "-->
+                <!--style="@style/content"-->
+                <!--/>-->
 
-
-
+            <!--<TextView-->
+                <!--android:id="@+id/cmdfilename"-->
+                <!--style="@style/content"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="파일이름" />-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="첨부파일"/>-->
+        <!--</LinearLayout>-->
     </LinearLayout>
 
 </LinearLayout>

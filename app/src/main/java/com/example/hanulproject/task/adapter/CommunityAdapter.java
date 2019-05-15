@@ -99,22 +99,22 @@ public class CommunityAdapter extends BaseAdapter {
                     viewHolder.iv_img, new ImageLoadingListener() {
                         @Override
                         public void onLoadingStarted(String s, View view) {
-                            viewHolder.progressBar.setVisibility(View.VISIBLE);
+//                            viewHolder.progressBar.setVisibility(View.VISIBLE);
                         }
 
                         @Override
                         public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            viewHolder.progressBar.setVisibility(View.GONE);
+//                            viewHolder.progressBar.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            viewHolder.progressBar.setVisibility(View.GONE);
+//                            viewHolder.progressBar.setVisibility(View.GONE);
                         }
 
                         @Override
                         public void onLoadingCancelled(String s, View view) {
-                            viewHolder.progressBar.setVisibility(View.GONE);
+//                            viewHolder.progressBar.setVisibility(View.GONE);
                         }
 
                     });
