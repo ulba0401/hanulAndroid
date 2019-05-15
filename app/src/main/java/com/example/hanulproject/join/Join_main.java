@@ -132,6 +132,7 @@ public class Join_main extends AppCompatActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     JoinInsert insert=new JoinInsert(jname, jid, jpw, jemail);
                     insert.execute();
+                    Toast.makeText(Join_main.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
 
                     finish();

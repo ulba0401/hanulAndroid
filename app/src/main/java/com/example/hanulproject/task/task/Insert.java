@@ -5,6 +5,7 @@ import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.task.adapter.CommunityAdapter;
 import com.example.hanulproject.task.adapter.ComplainAdapter;
 import com.example.hanulproject.task.adapter.NoticeAdapter;
@@ -42,11 +43,17 @@ public class Insert extends AsyncTask<Void, Void, Void> {
     String imageFilePathA; // 실제 업로드할 이미지 경로
     String uploadFileName;
     int controller;
+    String writer;
 
-    public Insert(String title, String content,int controller) {
+    public void setWriter() {
+        this.writer = LoginRequest.vo.getId();
+    }
+
+    public Insert(String title, String content, int controller) {
         this.title = title;
         this.content = content;
         this.controller = controller;
+        setWriter();
     }
 
     public Insert(String title, String content, int controller, String uploadType, String imageFilePathA, String imageUploadPathA, String uploadFileName) {
@@ -57,6 +64,7 @@ public class Insert extends AsyncTask<Void, Void, Void> {
         this.imageFilePathA = imageFilePathA;
         this.imageUploadPathA = imageUploadPathA;
         this.uploadFileName = uploadFileName;
+        setWriter();
     }
 
     HttpClient httpClient;
@@ -76,9 +84,10 @@ public class Insert extends AsyncTask<Void, Void, Void> {
             //문자열 및 데이터 추가
             builder.addTextBody("title", title, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("content", content, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("writer", writer, ContentType.create("Multipart/related", "UTF-8"));
 
-            if(uploadType.equals("image")){
+            if(uploadType != null && uploadType.equals("image")){
+                builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addPart("image", new FileBody(new File(imageFilePathA)));
