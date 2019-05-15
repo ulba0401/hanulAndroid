@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.hanulproject.R;
 import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.DownLoad;
+import com.example.hanulproject.task.task.detail.ComplainCallDetail;
 import com.example.hanulproject.vo.ComplainVO;
 
 import java.io.File;
@@ -32,6 +33,24 @@ public class ComplainDetail extends AppCompatActivity {
     String filepath, fileName;
     TextView no, title, content, writer, readcnt, filename;
     Bitmap mSaveBm;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ComplainCallDetail detail = new ComplainCallDetail(vo.getNo());
+        try {
+            vo = detail.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        title.setText(vo.getTitle());
+        writer.setText(vo.getWriter());
+        content.setText(vo.getContent());
+        filename.setText(vo.getFilename());
+        fileName = vo.getFilename();
+        filepath = vo.getFilepath();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +73,6 @@ public class ComplainDetail extends AppCompatActivity {
         });
 
         vo = (ComplainVO) getIntent().getSerializableExtra("vo");
-        title.setText(vo.getTitle());
-        writer.setText(vo.getWriter());
-        content.setText(vo.getContent());
-        filename.setText(vo.getFilename());
-        fileName = vo.getFilename();
-        filepath = vo.getFilepath();
 
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,16 +152,16 @@ public class ComplainDetail extends AppCompatActivity {
             switch (requestCode){
                 // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
                 case 200:
-                    String tmpTitle = data.getStringExtra("title");
-                    String tmpContent = data.getStringExtra("content");
-                    String tmpFileName = data.getStringExtra("filename");
-
-                    title.setText(tmpTitle);
-                    content.setText(tmpContent);
-                    filename.setText(tmpFileName);
-                    vo.setTitle(tmpTitle);
-                    vo.setContent(tmpContent);
-                    vo.setFilename(tmpFileName);
+//                    String tmpTitle = data.getStringExtra("title");
+//                    String tmpContent = data.getStringExtra("content");
+//                    String tmpFileName = data.getStringExtra("filename");
+//
+//                    title.setText(tmpTitle);
+//                    content.setText(tmpContent);
+//                    filename.setText(tmpFileName);
+//                    vo.setTitle(tmpTitle);
+//                    vo.setContent(tmpContent);
+//                    vo.setFilename(tmpFileName);
 
                     download();
 

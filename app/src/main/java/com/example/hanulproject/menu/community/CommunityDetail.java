@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.menu.notice.NoticeDetail;
+import com.example.hanulproject.task.task.detail.CommunityCallDetail;
 import com.example.hanulproject.vo.CommunityVO;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -50,13 +51,6 @@ public class CommunityDetail extends AppCompatActivity {
         });
 
         vo = (CommunityVO) getIntent().getSerializableExtra("vo");
-        title.setText(vo.getTitle());
-        writer.setText(vo.getWriter());
-        content.setText(vo.getContent());
-        filePath = vo.getFilepath();
-        //filename.setText(vo.getFilename());
-
-        imageLoad();
 
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +62,25 @@ public class CommunityDetail extends AppCompatActivity {
                 startActivityForResult(intent,200);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CommunityCallDetail detail = new CommunityCallDetail(vo.getNo());
+        try {
+            vo = detail.execute().get();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        title.setText(vo.getTitle());
+        writer.setText(vo.getWriter());
+        content.setText(vo.getContent());
+        filePath = vo.getFilepath();
+        //filename.setText(vo.getFilename());
+
+        imageLoad();
     }
 
     // 피니쉬할때 새로고침하게 해줌
@@ -86,17 +99,17 @@ public class CommunityDetail extends AppCompatActivity {
             switch (requestCode){
                 // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
                 case 200:
-                    String tmpTitle = data.getStringExtra("title");
-                    String tmpContent = data.getStringExtra("content");
-                    String tmpFilePath = data.getStringExtra("filePath");
-
-                    title.setText(tmpTitle);
-                    content.setText(tmpContent);
-                    vo.setTitle(tmpTitle);
-                    vo.setContent(tmpContent);
-                    vo.setFilepath(tmpFilePath);
-
-                    imageLoad();
+//                    String tmpTitle = data.getStringExtra("title");
+//                    String tmpContent = data.getStringExtra("content");
+//                    String tmpFilePath = data.getStringExtra("filePath");
+//
+//                    title.setText(tmpTitle);
+//                    content.setText(tmpContent);
+//                    vo.setTitle(tmpTitle);
+//                    vo.setContent(tmpContent);
+//                    vo.setFilepath(tmpFilePath);
+//
+//                    imageLoad();
 
                     break;
             }
