@@ -9,7 +9,6 @@ import com.example.hanulproject.vo.NoticeVO;
 import com.example.hanulproject.vo.SettingVO;
 import com.example.hanulproject.vo.StatusVO;
 import com.example.hanulproject.vo.UserVO;
-import com.example.hanulproject.vo.WeatherVO;
 
 import java.io.IOException;
 

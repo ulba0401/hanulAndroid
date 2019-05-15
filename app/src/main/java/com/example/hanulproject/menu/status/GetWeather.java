@@ -2,21 +2,17 @@ package com.example.hanulproject.menu.status;
 
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.example.hanulproject.vo.WeatherVO;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class GetWeather extends AsyncTask<String,Void,String> {
     int nx, ny;
-    ArrayList<WeatherVO> wlist;
 
     public GetWeather(int nx, int ny) {
         this.nx = nx;

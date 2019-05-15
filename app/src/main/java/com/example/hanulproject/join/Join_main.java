@@ -1,7 +1,6 @@
 package com.example.hanulproject.join;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +14,6 @@ import android.widget.ToggleButton;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.login.Login;
-import com.example.hanulproject.login.Login_menu;
 import com.example.hanulproject.login.Login_page;
 
 import org.w3c.dom.Text;
