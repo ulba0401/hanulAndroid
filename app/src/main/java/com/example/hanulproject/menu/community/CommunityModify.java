@@ -158,7 +158,7 @@ public class CommunityModify extends AppCompatActivity {
                 }
                 if(vo.getFilename() == null || vo.getFilename().equals("")){
                     imageFilePathA = path;
-                    int communityInsert = Log.d("CommunityInsert", "imageFilePathA Path : " + imageFilePathA);
+                    int communityInsert = Log.d("CommunityUpdate", "imageFilePathA Path : " + imageFilePathA);
                     uploadFileName = tmpDateFormat.format(date)+(imageFilePathA.split("/")[imageFilePathA.split("/").length - 1]);
                     imageUploadPathA = ipConfig + "/AA/resources/images/community/" + uploadFileName;
                     Log.d("CommunityUpdate",uploadFileName);

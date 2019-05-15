@@ -92,7 +92,15 @@ public class Update extends AsyncTask<Void,Void,Void> {
             }
         } else if(controller == 3){
             postURL = ipConfig + "/AA/cmupdate";
-
+            builder.addTextBody("no", String.valueOf(cmvo.getNo()), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("title", cmvo.getTitle(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("content", cmvo.getContent(), ContentType.create("Multipart/related", "UTF-8"));
+            if(uploadType != null && uploadType.equals("image")){
+                builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addPart("image", new FileBody(new File(imageFilePathA)));
+            }
         } else if(controller == 4){
             postURL = ipConfig + "/AA/supdate";
 
