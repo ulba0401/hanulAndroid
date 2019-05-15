@@ -74,11 +74,22 @@ public class Login_menu extends AppCompatActivity  {
         /**카카오톡 로그아웃 요청**/
         //한번 로그인이 성공하면 세션 정보가 남아있어서 로그인창이 뜨지 않고 바로 onSuccess()메서드를 호출합니다.
         //테스트 하시기 편하라고 매번 로그아웃 요청을 수행하도록 코드를 넣었습니다 ^^
-        UserManagement.requestLogout(new LogoutResponseCallback() {
+        UserManagement.getInstance().requestMe(new MeResponseCallback(){
             @Override
-            public void onCompleteLogout() {
-                //로그아웃 성공 후 하고싶은 내용 코딩 ~
+            public void onSuccess(UserProfile result) {
+
             }
+
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+
+            }
+
+            @Override
+            public void onNotSignedUp() {
+
+            }
+
         });
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
@@ -131,7 +142,7 @@ public class Login_menu extends AppCompatActivity  {
     private class SessionCallback implements ISessionCallback {
         @Override
         public void onSessionOpened() {
-            UserManagement.requestMe(new MeResponseCallback() {
+            UserManagement.getInstance().requestMe(new MeResponseCallback(){
                 public void onSessionClosed(ErrorResult errorResult) {
                 }
                 @Override
@@ -140,9 +151,15 @@ public class Login_menu extends AppCompatActivity  {
                 @Override
                 public void onSuccess(UserProfile userProfile) {
                     Log.e("UserProfile", userProfile.toString());
+                    Log.d("kakao", userProfile.getEmail());
+                    Log.d("kakao", userProfile.getNickname());
+
+                    LoginRequest.vo.setId(userProfile.getEmail());
+                    LoginRequest.vo.setName(userProfile.getNickname());
                     Intent intent = new Intent(Login_menu.this, MainActivity.class);
                     startActivity(intent);
                     finish();
+
                 }
             });
         }
