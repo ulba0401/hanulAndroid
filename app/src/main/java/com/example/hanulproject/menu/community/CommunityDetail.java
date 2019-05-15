@@ -3,6 +3,7 @@ package com.example.hanulproject.menu.community;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -55,6 +56,56 @@ public class CommunityDetail extends AppCompatActivity {
         filePath = vo.getFilepath();
         //filename.setText(vo.getFilename());
 
+        imageLoad();
+
+        modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CommunityDetail.this,CommunityModify.class);
+                intent.putExtra("vo",vo);
+                startActivityForResult(intent,200);
+            }
+        });
+    }
+
+    // 피니쉬할때 새로고침하게 해줌
+    void reset(){
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("result","result");
+        setResult(RESULT_OK,resultIntent);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
+                case 200:
+                    String tmpTitle = data.getStringExtra("title");
+                    String tmpContent = data.getStringExtra("content");
+                    String tmpFilePath = data.getStringExtra("filePath");
+
+                    title.setText(tmpTitle);
+                    content.setText(tmpContent);
+                    vo.setTitle(tmpTitle);
+                    vo.setContent(tmpContent);
+                    vo.setFilepath(tmpFilePath);
+
+                    imageLoad();
+
+                    break;
+            }
+        }
+
+    }
+
+
+    //이미지를 띄우는 메소드
+    private void imageLoad(){
+
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
@@ -89,21 +140,5 @@ public class CommunityDetail extends AppCompatActivity {
                         }
                     });
         }
-
-        modify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CommunityDetail.this,CommunityModify.class);
-                intent.putExtra("vo",vo);
-                startActivity(intent);
-            }
-        });
-    }
-
-    void reset(){
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("result","result");
-        setResult(RESULT_OK,resultIntent);
-        finish();
     }
 }

@@ -2,6 +2,7 @@ package com.example.hanulproject.menu.complain;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.task.common.CommonMethod;
 import com.example.hanulproject.task.task.Insert;
 import com.example.hanulproject.vo.CommunityVO;
 
@@ -45,7 +47,6 @@ public class ComplainInsertPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.complain_insert);
-
 
         now = System.currentTimeMillis();
         date = new Date(now);
@@ -115,12 +116,12 @@ public class ComplainInsertPage extends AppCompatActivity {
                     path = getPathFromURI(selectedImageUri);
                 }
                 // 이미지 돌리기 및 리사이즈
-//                Bitmap newBitmap = CommonMethod.imageRotateAndResize(path);
-//                if (newBitmap != null) {
-//                    //imageView.setImageBitmap(newBitmap);
-//                } else {
-//                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
-//                }
+                Bitmap newBitmap = CommonMethod.imageRotateAndResize(path);
+                if (newBitmap != null) {
+                    //imageView.setImageBitmap(newBitmap);
+                } else {
+                    Toast.makeText(this, "이미지가 null 입니다...", Toast.LENGTH_SHORT).show();
+                }
                 imageFilePathA = path;
                 Log.d("ComplainInsert", "imageFilePathA Path : " + imageFilePathA);
                 uploadFileName = tmpDateFormat.format(date)+(imageFilePathA.split("/")[imageFilePathA.split("/").length - 1]);
