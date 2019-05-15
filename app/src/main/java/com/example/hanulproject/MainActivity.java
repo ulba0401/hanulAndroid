@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentPagerAdapter adapterViewPager;
     private BackPressCloseHandler backPressCloseHandler;
-    public TextView id, name;
+    static public TextView id, name;
 
     Notice_main notice;
     Complain_main complain;
@@ -90,11 +90,12 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View nav_header_view = navigationView.getHeaderView(0);
-        id = nav_header_view.findViewById(R.id.navi_id);
-        name = nav_header_view.findViewById(R.id.navi_name);
 
-        id.setText(LoginRequest.vo.getId());
-        name.setText(LoginRequest.vo.getName());
+            id = nav_header_view.findViewById(R.id.navi_id);
+            name = nav_header_view.findViewById(R.id.navi_name);
+            id.setText(LoginRequest.vo.getId());
+            name.setText(LoginRequest.vo.getName());
+
 
 
         //슬라이드 화면 설정

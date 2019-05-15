@@ -19,6 +19,7 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.LoginButton;
+import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
@@ -26,6 +27,7 @@ import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
 public class Login_menu extends AppCompatActivity  {
+    SessionCallback callback;
     private LoginButton kakaoLoginButton;// 카카오 제공 Api의 로그인 버튼 뷰
     private com.facebook.login.widget.LoginButton FacebookLoginButton;// 페북 제공 Api의 로그인 버튼 뷰
 
@@ -69,6 +71,29 @@ public class Login_menu extends AppCompatActivity  {
             }
         });
 
+        /**카카오톡 로그아웃 요청**/
+        //한번 로그인이 성공하면 세션 정보가 남아있어서 로그인창이 뜨지 않고 바로 onSuccess()메서드를 호출합니다.
+        //테스트 하시기 편하라고 매번 로그아웃 요청을 수행하도록 코드를 넣었습니다 ^^
+        UserManagement.getInstance().requestMe(new MeResponseCallback(){
+            @Override
+            public void onSuccess(UserProfile result) {
+
+            }
+
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+
+            }
+
+            @Override
+            public void onNotSignedUp() {
+
+            }
+
+        });
+        callback = new SessionCallback();
+        Session.getCurrentSession().addCallback(callback);
+
         //로그인 버튼 눌렀을때
         loginBtn = findViewById(R.id.loginMenuBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +125,52 @@ public class Login_menu extends AppCompatActivity  {
                 kakaoLoginButton.performClick();
             }
         });
+
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //간편로그인시 호출 ,없으면 간편로그인시 로그인 성공화면으로 넘어가지 않음
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private class SessionCallback implements ISessionCallback {
+        @Override
+        public void onSessionOpened() {
+            UserManagement.getInstance().requestMe(new MeResponseCallback(){
+                public void onSessionClosed(ErrorResult errorResult) {
+                }
+                @Override
+                public void onNotSignedUp() {
+                }
+                @Override
+                public void onSuccess(UserProfile userProfile) {
+                    Log.e("UserProfile", userProfile.toString());
+                    Log.d("kakao", userProfile.getEmail());
+                    Log.d("kakao", userProfile.getNickname());
+
+                    LoginRequest.vo.setId(userProfile.getEmail());
+                    LoginRequest.vo.setName(userProfile.getNickname());
+                    Intent intent = new Intent(Login_menu.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+            });
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+            if(exception != null) {
+                Logger.e(exception);
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {
