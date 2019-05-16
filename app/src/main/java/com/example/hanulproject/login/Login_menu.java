@@ -14,6 +14,13 @@ import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 import com.example.hanulproject.join.Join_main;
 import com.example.hanulproject.login.search.Search_main;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -26,8 +33,15 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
+import org.json.JSONObject;
+
+import java.util.Arrays;
+
 public class Login_menu extends AppCompatActivity  {
     SessionCallback callback;
+
+    private CallbackManager callbackManager;
+
     private LoginButton kakaoLoginButton;// 카카오 제공 Api의 로그인 버튼 뷰
     private com.facebook.login.widget.LoginButton FacebookLoginButton;// 페북 제공 Api의 로그인 버튼 뷰
 
@@ -37,7 +51,60 @@ public class Login_menu extends AppCompatActivity  {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());//facebook sdk 초기화
         setContentView(R.layout.login_menu);
+        //페이스북 로그인
+        callbackManager = CallbackManager.Factory.create();
+
+        //페이스북 로그인 버튼 커스텀 적용
+        FacebookLoginButton = findViewById(R.id.facebook_login);
+        fake_face = findViewById(R.id.fake_face);
+        fake_face.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FacebookLoginButton.performClick();
+            }
+        });
+        FacebookLoginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+
+        FacebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                GraphRequest graphRequest
+                        = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken()
+                        , new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                Log.v("result",object.toString());
+
+                                Intent intent = new Intent(Login_menu.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
+                        });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                graphRequest.setParameters(parameters);
+                graphRequest.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("LoginErr",error.toString());
+            }
+        });
+
+
+
+
 
         //비밀번호 찾기 버튼
         search_pw = findViewById(R.id.search_pw);
@@ -91,8 +158,7 @@ public class Login_menu extends AppCompatActivity  {
             }
 
         });
-        callback = new SessionCallback();
-        Session.getCurrentSession().addCallback(callback);
+
 
         //로그인 버튼 눌렀을때
         loginBtn = findViewById(R.id.loginMenuBtn);
@@ -105,15 +171,6 @@ public class Login_menu extends AppCompatActivity  {
             }
         });
 
-        //페이스북 로그인 버튼 커스텀 적용
-        FacebookLoginButton = findViewById(R.id.facebook_login);
-        fake_face = findViewById(R.id.fake_face);
-        fake_face.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FacebookLoginButton.performClick();
-            }
-        });
 
         //카카오톡 로그인 버튼 커스텀 적용
         kakaoLoginButton = findViewById(R.id.com_kakao_login);
@@ -125,10 +182,12 @@ public class Login_menu extends AppCompatActivity  {
                 kakaoLoginButton.performClick();
             }
         });
-
+        callback = new SessionCallback();
+        Session.getCurrentSession().addCallback(callback);
 
     }
 
+    //카카오 로그인
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //간편로그인시 호출 ,없으면 간편로그인시 로그인 성공화면으로 넘어가지 않음
@@ -136,7 +195,12 @@ public class Login_menu extends AppCompatActivity  {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
+        //페이스북 콜백
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+
+
 
 
     private class SessionCallback implements ISessionCallback {
