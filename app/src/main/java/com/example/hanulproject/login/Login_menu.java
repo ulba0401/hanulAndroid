@@ -33,6 +33,7 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -70,13 +71,22 @@ public class Login_menu extends AppCompatActivity  {
         FacebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                GraphRequest graphRequest
-                        = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken()
+                GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken()
                         , new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 Log.v("result",object.toString());
+
+                                try {
+                                    LoginRequest.vo.setId(object.getString("email"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    LoginRequest.vo.setName(object.getString("name"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
                                 Intent intent = new Intent(Login_menu.this, MainActivity.class);
                                 startActivity(intent);

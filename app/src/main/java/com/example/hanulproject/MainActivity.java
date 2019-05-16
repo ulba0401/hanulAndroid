@@ -91,10 +91,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View nav_header_view = navigationView.getHeaderView(0);
 
-        email = nav_header_view.findViewById(R.id.navi_id);
-        name = nav_header_view.findViewById(R.id.navi_name);
-        email.setText(LoginRequest.vo.getId());
-        name.setText(LoginRequest.vo.getName());
+            email = nav_header_view.findViewById(R.id.navi_id);
+            name = nav_header_view.findViewById(R.id.navi_name);
+            email.setText(LoginRequest.vo.getEmail());
+            name.setText(LoginRequest.vo.getName());
 
 
 
