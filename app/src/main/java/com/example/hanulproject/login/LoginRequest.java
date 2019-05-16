@@ -27,6 +27,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     public static UserVO vo = new UserVO();
     private String id;
     private String pw;
+    private String admin;
     boolean is_check = true;
 
 
@@ -38,6 +39,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     public LoginRequest(String id, String pw, Context context){
         this.id = id;
         this.pw = pw;
+        this.admin=admin;
         this.context = context;
     }
 
@@ -48,9 +50,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
 
     @Override
     protected Integer doInBackground(Void... voids) {
-
         String postURL = ipConfig+"/AA/AloginRequest?id="+id+"&pw="+pw;
-
         try {
             //MultipartEntityBuild  생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -118,7 +118,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     }
 
     private void readMessage(JsonReader reader) throws IOException {
-        String name = "", phone="", addr="", id="", pw="", email="", result="";
+        String name = "", phone="", addr="", id="", pw="", email="", admin="", result="";
         reader.beginObject();
         while (reader.hasNext()){
             String readStr = reader.nextName();
@@ -144,7 +144,11 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             }else if (readStr.equals("email")){
                 email = reader.nextString();
                 vo.setEmail(email);
-            }else{
+            }else if(readStr.equals("admin")){
+                admin=reader.nextString();
+                vo.setAdmin(admin);
+            }
+            else{
                 reader.skipValue();
             }
         }

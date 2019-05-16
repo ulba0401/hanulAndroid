@@ -1,8 +1,11 @@
 package com.example.hanulproject;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -42,18 +47,20 @@ import me.relex.circleindicator.CircleIndicator;
 // 현지의 커밋테스트
 // 영선의 커밋테스트
 // 맏형의 커밋테스트
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     FragmentPagerAdapter adapterViewPager;
     private BackPressCloseHandler backPressCloseHandler;
     static public TextView email, name;
+
 
     Notice_main notice;
     Complain_main complain;
     Community_main community;
     Settings_main settings;
     List_main list;
+
+
 
     Intent intent = null;
 
@@ -62,6 +69,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+
+
+
         setSupportActionBar(toolbar);
 
 
@@ -97,6 +108,12 @@ public class MainActivity extends AppCompatActivity
             name.setText(LoginRequest.vo.getName());
 
 
+        //관리자 모드
+        MenuItem item = (MenuItem) findViewById(R.id.adminmenu);
+        Log.d("adminTest", LoginRequest.vo.getAdmin());
+        Log.d("adminTest", String.valueOf(item));
+
+
 
         //슬라이드 화면 설정
         ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
@@ -108,6 +125,8 @@ public class MainActivity extends AppCompatActivity
 
         checkDangerousPermissions();
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -121,6 +140,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     //네비게이션 메뉴 아이템 선택시
     @SuppressWarnings("StatementWithEmptyBody")
@@ -151,10 +171,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
 
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     //슬라이드 화면
     public static class MyPagerAdapter extends FragmentPagerAdapter {

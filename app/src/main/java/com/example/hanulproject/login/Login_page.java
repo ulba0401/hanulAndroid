@@ -82,8 +82,10 @@ public class Login_page extends AppCompatActivity {
                     }else{
                         String email = LoginRequest.vo.getEmail();
                         String name = LoginRequest.vo.getName();
+                        String admin=LoginRequest.vo.getAdmin();
                         Log.d("idCheck",email);
                         Log.d("nameCheck",name);
+                        Log.d("adminCheck",admin);
                         Intent intent = new Intent(Login_page.this, MainActivity.class);
                         startActivity(intent);
                         finish();
