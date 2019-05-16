@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class CommunityVO implements Serializable {
     int no, readcnt;
-    String title, content,writer, filename, filepath;
+    String title, content,writer, filename, filepath, uploadType;
     String isdel;
 
     public CommunityVO () {}
@@ -17,6 +17,14 @@ public class CommunityVO implements Serializable {
         this.filename = filename;
         this.filepath = filepath;
         this.readcnt = readcnt;
+    }
+
+    public String getUploadType() {
+        return uploadType;
+    }
+
+    public void setUploadType(String uploadType) {
+        this.uploadType = uploadType;
     }
 
     public String getFilename() {

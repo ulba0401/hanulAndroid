@@ -37,6 +37,7 @@ public class ComplainDetail extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         ComplainCallDetail detail = new ComplainCallDetail(vo.getNo());
         try {
             vo = detail.execute().get();
@@ -50,6 +51,7 @@ public class ComplainDetail extends AppCompatActivity {
         filename.setText(vo.getFilename());
         fileName = vo.getFilename();
         filepath = vo.getFilepath();
+        download();
     }
 
     @Override
@@ -142,7 +144,6 @@ public class ComplainDetail extends AppCompatActivity {
             }
         });
 
-        download();
     }
 
     @Override
@@ -150,20 +151,7 @@ public class ComplainDetail extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             switch (requestCode){
-                // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
                 case 200:
-//                    String tmpTitle = data.getStringExtra("title");
-//                    String tmpContent = data.getStringExtra("content");
-//                    String tmpFileName = data.getStringExtra("filename");
-//
-//                    title.setText(tmpTitle);
-//                    content.setText(tmpContent);
-//                    filename.setText(tmpFileName);
-//                    vo.setTitle(tmpTitle);
-//                    vo.setContent(tmpContent);
-//                    vo.setFilename(tmpFileName);
-
-                    download();
 
                     break;
             }
@@ -175,6 +163,7 @@ public class ComplainDetail extends AppCompatActivity {
 
     }
 
+    // finish 실행시 새로고침 시켜주는 함수
     void reset(){
         Intent resultIntent = new Intent();
         resultIntent.putExtra("result","result");
@@ -182,6 +171,7 @@ public class ComplainDetail extends AppCompatActivity {
         finish();
     }
 
+    //다운로드할수 있게 준비해주는 메소드 filePath 받아온 다음에 바로 실행해야함
     void download(){
         DownLoad downLoad = new DownLoad(filepath);
         mSaveBm = null;

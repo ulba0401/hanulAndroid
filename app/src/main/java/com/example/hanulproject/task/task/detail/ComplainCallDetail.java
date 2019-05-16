@@ -87,7 +87,7 @@ public class ComplainCallDetail extends AsyncTask<Void,Void, ComplainVO> {
             vo = (ReadMessage(reader));
 
         }finally {
-            //reader.close();
+            reader.close();
         }
         return vo;
     }

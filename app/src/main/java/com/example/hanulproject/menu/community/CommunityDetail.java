@@ -1,9 +1,11 @@
 package com.example.hanulproject.menu.community;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.menu.complain.ComplainDetail;
 import com.example.hanulproject.menu.notice.NoticeDetail;
+import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.detail.CommunityCallDetail;
 import com.example.hanulproject.vo.CommunityVO;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -57,9 +61,35 @@ public class CommunityDetail extends AppCompatActivity {
             public void onClick(View v) {
                 cmdImageView.setImageResource(R.drawable.blank);
                 cmdImageView.setVisibility(View.GONE);
+
                 Intent intent = new Intent(CommunityDetail.this,CommunityModify.class);
-                intent.putExtra("vo",vo);
+                //intent.putExtra("vo",vo);
                 startActivityForResult(intent,200);
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CommunityDetail.this);
+                builder.setTitle("삭제여부");
+                builder.setMessage("정말 삭제하시겠습니까?");
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Delete delete = new Delete(vo.getNo(),3);
+                        delete.execute();
+                        reset();
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
     }
@@ -99,17 +129,6 @@ public class CommunityDetail extends AppCompatActivity {
             switch (requestCode){
                 // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
                 case 200:
-//                    String tmpTitle = data.getStringExtra("title");
-//                    String tmpContent = data.getStringExtra("content");
-//                    String tmpFilePath = data.getStringExtra("filePath");
-//
-//                    title.setText(tmpTitle);
-//                    content.setText(tmpContent);
-//                    vo.setTitle(tmpTitle);
-//                    vo.setContent(tmpContent);
-//                    vo.setFilepath(tmpFilePath);
-//
-//                    imageLoad();
 
                     break;
             }

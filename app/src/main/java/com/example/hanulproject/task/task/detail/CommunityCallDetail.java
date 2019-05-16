@@ -89,7 +89,7 @@ public class CommunityCallDetail extends AsyncTask<Void,Void, CommunityVO> {
             vo = (ReadMessage(reader));
 
         }finally {
-            //reader.close();
+            reader.close();
         }
         return vo;
     }

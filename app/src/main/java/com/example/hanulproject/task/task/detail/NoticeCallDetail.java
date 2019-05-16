@@ -89,7 +89,7 @@ public class NoticeCallDetail extends AsyncTask<Void, Void, NoticeVO> {
                 vo = (ReadMessage(reader));
 
         }finally {
-            //reader.close();
+            reader.close();
         }
         return vo;
     }
