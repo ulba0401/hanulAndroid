@@ -3,7 +3,10 @@ package com.example.hanulproject;
 import android.Manifest;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +45,15 @@ import com.example.hanulproject.main.First_fragment;
 import com.example.hanulproject.main.Second_fragment;
 import com.example.hanulproject.menu.notice.Notice_main;
 import com.example.hanulproject.menu.settings.Settings_main;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -52,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     FragmentPagerAdapter adapterViewPager;
     private BackPressCloseHandler backPressCloseHandler;
-    static public TextView email, name;
+    public TextView email, name;
+    ImageView profile;
 
 
     Notice_main notice;
@@ -71,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
+        getHashKey();
         setSupportActionBar(toolbar);
 
 
@@ -98,10 +113,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         View nav_header_view = navigationView.getHeaderView(0);
 
+            profile = nav_header_view.findViewById(R.id.profileImage);
             email = nav_header_view.findViewById(R.id.navi_id);
             name = nav_header_view.findViewById(R.id.navi_name);
             email.setText(LoginRequest.vo.getEmail());
             name.setText(LoginRequest.vo.getName());
+            if(profile != null && !(profile.equals(""))){
+                ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                        .threadPriority(Thread.NORM_PRIORITY - 2)
+                        .denyCacheImageMultipleSizesInMemory()
+                        .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                        .tasksProcessingOrder(QueueProcessingType.LIFO)
+                        .writeDebugLogs() // Remove for release app
+                        .build();
+                ImageLoader.getInstance().init(config);
+
+                    profile.setVisibility(View.VISIBLE);
+                    ImageLoader.getInstance().displayImage(LoginRequest.vo.getProfile(),
+                            profile, new ImageLoadingListener() {
+                                @Override
+                                public void onLoadingStarted(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onLoadingFailed(String s, View view, FailReason failReason) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onLoadingCancelled(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                                }
+                            });
+            }
 
         //관리자 모드
         Menu nav_menu = navigationView.getMenu();
@@ -261,6 +311,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
                 }
+            }
+        }
+    }
+
+    private void getHashKey(){
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo == null)
+            Log.e("KeyHash", "KeyHash:null");
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
         }
     }

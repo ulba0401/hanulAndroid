@@ -231,6 +231,7 @@ public class Login_menu extends AppCompatActivity  {
                     LoginRequest.vo.setAdmin("N");
                     LoginRequest.vo.setEmail(userProfile.getEmail());
                     LoginRequest.vo.setName(userProfile.getNickname());
+                    LoginRequest.vo.setProfile(userProfile.getProfileImagePath());
                     Intent intent = new Intent(Login_menu.this, MainActivity.class);
                     startActivity(intent);
                     finish();
