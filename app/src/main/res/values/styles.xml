@@ -26,7 +26,7 @@
     <style name="titlebartext">
         <item name="android:textColor">@color/titlecolor</item>
         <item name="android:textSize">@dimen/titlesize</item>
-        <item name="android:fontFamily">@font/huseoulcontrychicken</item>
+        <item name="android:fontFamily">@font/humaskingtape</item>
         <item name="android:scaleX">1.5</item>
 
     </style>
