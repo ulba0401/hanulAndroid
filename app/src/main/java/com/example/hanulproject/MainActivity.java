@@ -89,16 +89,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //메뉴 나오게 하기
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView;
-        navigationView = findViewById(R.id.nav_view);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
 
         //로그인 성공시 프로필 보여주기
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View nav_header_view = navigationView.getHeaderView(0);
 
@@ -109,9 +107,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //관리자 모드
-        MenuItem item = (MenuItem) findViewById(R.id.adminmenu);
+        Menu nav_menu = navigationView.getMenu();
+        MenuItem menuItem = nav_menu.findItem(R.id.adminmenu);
+        if(LoginRequest.vo.getAdmin().equals("Y")){
+            menuItem.setVisible(true);
+        }else {
+            menuItem.setVisible(false);
+        }
+
+
+
+
         Log.d("adminTest", LoginRequest.vo.getAdmin());
-        Log.d("adminTest", String.valueOf(item));
+
+
+       /* Log.d("adminTest", String.valueOf(item));*/
 
 
 
@@ -140,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+
 
 
     //네비게이션 메뉴 아이템 선택시
