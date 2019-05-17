@@ -101,15 +101,16 @@ public class Select extends AsyncTask<Void,Void,Void> {
         this.controller = 5;
     }
 
-    HttpClient httpClient;
-    HttpPost httpPost;
-    HttpResponse httpResponse;
-    HttpEntity httpEntity;
+
 
 
     //execute()
     @Override
     protected Void doInBackground(Void... voids) {
+        HttpClient httpClient = null;
+        HttpPost httpPost = null;
+        HttpResponse httpResponse = null;
+        HttpEntity httpEntity = null;
 
         String result = "";
         String postURL = "";
@@ -157,9 +158,7 @@ public class Select extends AsyncTask<Void,Void,Void> {
             if(httpPost != null){
                 httpPost = null;
             }
-            if(httpClient != null){
-                httpClient = null;
-            }
+            ((AndroidHttpClient) httpClient).close();
         }
         return null;
     }
