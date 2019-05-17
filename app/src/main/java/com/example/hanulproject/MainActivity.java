@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent = new Intent(MainActivity.this, Menu_main.class);
             intent.putExtra("selectKey", 5);
             startActivity(intent);
-        } else if(id==R.id.nav_logout){
+        } else if(id == R.id.nav_logout){
             intent = new Intent(MainActivity.this, Login_menu.class);
             startActivity(intent);
         }

@@ -28,6 +28,10 @@ public class Delete extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+        HttpClient httpClient = null;
+        HttpPost httpPost = null;
+        HttpResponse httpResponse = null;
+        HttpEntity httpEntity = null;
         String postURL = "";
         try {
             //MultipartEntityBuilder 생성
@@ -58,16 +62,27 @@ public class Delete extends AsyncTask<Void,Void,Void> {
             }
             //전송
             InputStream inputStream = null;
-            HttpClient httpClient = AndroidHttpClient.newInstance("Android");
+            httpClient = AndroidHttpClient.newInstance("Android");
 
-            HttpPost httpPost = new HttpPost(postURL);
+            httpPost = new HttpPost(postURL);
             httpPost.setEntity(builder.build());
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            HttpEntity httpEntity = httpResponse.getEntity();
+            httpResponse = httpClient.execute(httpPost);
+            httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
         }
         catch (Exception e) {
             e.getMessage();
+        }finally {
+            if(httpEntity != null){
+                httpEntity = null;
+            }
+            if(httpResponse != null){
+                httpResponse = null;
+            }
+            if(httpPost != null){
+                httpPost = null;
+            }
+            ((AndroidHttpClient) httpClient).close();
         }
         return null;
     }

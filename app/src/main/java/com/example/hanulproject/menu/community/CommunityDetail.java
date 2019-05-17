@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.menu.complain.ComplainDetail;
 import com.example.hanulproject.menu.notice.NoticeDetail;
 import com.example.hanulproject.task.task.Delete;
@@ -55,6 +56,14 @@ public class CommunityDetail extends AppCompatActivity {
         });
 
         vo = (CommunityVO) getIntent().getSerializableExtra("vo");
+
+        if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y")){
+            modify.setVisibility(View.VISIBLE);
+            delete.setVisibility(View.VISIBLE);
+        }else{
+            modify.setVisibility(View.GONE);
+            delete.setVisibility(View.GONE);
+        }
 
         modify.setOnClickListener(new View.OnClickListener() {
             @Override

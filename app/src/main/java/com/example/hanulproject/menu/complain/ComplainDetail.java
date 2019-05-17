@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.DownLoad;
 import com.example.hanulproject.task.task.detail.ComplainCallDetail;
@@ -75,6 +76,14 @@ public class ComplainDetail extends AppCompatActivity {
         });
 
         vo = (ComplainVO) getIntent().getSerializableExtra("vo");
+
+        if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y")){
+            modify.setVisibility(View.VISIBLE);
+            delete.setVisibility(View.VISIBLE);
+        }else{
+            modify.setVisibility(View.GONE);
+            delete.setVisibility(View.GONE);
+        }
 
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
