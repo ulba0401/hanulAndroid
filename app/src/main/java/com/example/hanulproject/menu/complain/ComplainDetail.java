@@ -15,8 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.DownLoad;
+import com.example.hanulproject.task.task.detail.ComplainCallDetail;
 import com.example.hanulproject.vo.ComplainVO;
 
 import java.io.File;
@@ -32,6 +34,26 @@ public class ComplainDetail extends AppCompatActivity {
     String filepath, fileName;
     TextView no, title, content, writer, readcnt, filename;
     Bitmap mSaveBm;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ComplainCallDetail detail = new ComplainCallDetail(vo.getNo());
+        try {
+            vo = detail.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        title.setText(vo.getTitle());
+        writer.setText(vo.getWriter());
+        content.setText(vo.getContent());
+        filename.setText(vo.getFilename());
+        fileName = vo.getFilename();
+        filepath = vo.getFilepath();
+        download();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +76,14 @@ public class ComplainDetail extends AppCompatActivity {
         });
 
         vo = (ComplainVO) getIntent().getSerializableExtra("vo");
-        title.setText(vo.getTitle());
-        writer.setText(vo.getWriter());
-        content.setText(vo.getContent());
-        filename.setText(vo.getFilename());
-        fileName = vo.getFilename();
-        filepath = vo.getFilepath();
+
+        if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y")){
+            modify.setVisibility(View.VISIBLE);
+            delete.setVisibility(View.VISIBLE);
+        }else{
+            modify.setVisibility(View.GONE);
+            delete.setVisibility(View.GONE);
+        }
 
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +153,6 @@ public class ComplainDetail extends AppCompatActivity {
             }
         });
 
-        download();
     }
 
     @Override
@@ -137,20 +160,7 @@ public class ComplainDetail extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             switch (requestCode){
-                // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
                 case 200:
-                    String tmpTitle = data.getStringExtra("title");
-                    String tmpContent = data.getStringExtra("content");
-                    String tmpFileName = data.getStringExtra("filename");
-
-                    title.setText(tmpTitle);
-                    content.setText(tmpContent);
-                    filename.setText(tmpFileName);
-                    vo.setTitle(tmpTitle);
-                    vo.setContent(tmpContent);
-                    vo.setFilename(tmpFileName);
-
-                    download();
 
                     break;
             }
@@ -162,6 +172,7 @@ public class ComplainDetail extends AppCompatActivity {
 
     }
 
+    // finish 실행시 새로고침 시켜주는 함수
     void reset(){
         Intent resultIntent = new Intent();
         resultIntent.putExtra("result","result");
@@ -169,6 +180,7 @@ public class ComplainDetail extends AppCompatActivity {
         finish();
     }
 
+    //다운로드할수 있게 준비해주는 메소드 filePath 받아온 다음에 바로 실행해야함
     void download(){
         DownLoad downLoad = new DownLoad(filepath);
         mSaveBm = null;

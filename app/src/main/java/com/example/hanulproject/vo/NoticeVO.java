@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class NoticeVO implements Serializable {
     int no, readcnt;
-    String title, content, writedate, filename, filepath;
+    String title, content, writedate, filename, filepath, uploadType;
     String isdel;
 
     public NoticeVO () {}
@@ -17,6 +17,14 @@ public class NoticeVO implements Serializable {
         this.readcnt = readcnt;
         this.filename = filename;
         this.filepath = filepath;
+    }
+
+    public String getUploadType() {
+        return uploadType;
+    }
+
+    public void setUploadType(String uploadType) {
+        this.uploadType = uploadType;
     }
 
     public String getIsdel() {

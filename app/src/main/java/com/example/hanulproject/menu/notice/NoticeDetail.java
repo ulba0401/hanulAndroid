@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.task.task.detail.NoticeCallDetail;
 import com.example.hanulproject.vo.NoticeVO;
 
 public class NoticeDetail extends AppCompatActivity {
@@ -31,17 +32,20 @@ public class NoticeDetail extends AppCompatActivity {
         });
 
         vo = (NoticeVO) getIntent().getSerializableExtra("vo");
+//        title.setText(vo.getTitle());
+//        content.setText(vo.getContent());
+//        filename.setText(vo.getFilename());
+
+        try {
+            NoticeCallDetail detail = new NoticeCallDetail(vo.getNo());
+            vo = detail.execute().get();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         title.setText(vo.getTitle());
         content.setText(vo.getContent());
         filename.setText(vo.getFilename());
 
-        /*modify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NoticeDetail.this,NoticeModify.class);
-                intent.putExtra("vo",vo);
-                startActivity(intent);
-            }
-        });*/
     }
 }

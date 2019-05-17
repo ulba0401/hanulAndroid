@@ -1,8 +1,14 @@
 package com.example.hanulproject;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -13,6 +19,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Base64;
+import android.util.Log;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.login.LoginRequest;
+import com.example.hanulproject.login.Login_menu;
 import com.example.hanulproject.main.BackPressCloseHandler;
 import com.example.hanulproject.menu.Menu_main;
 import com.example.hanulproject.menu.community.Community_main;
@@ -35,6 +45,15 @@ import com.example.hanulproject.main.First_fragment;
 import com.example.hanulproject.main.Second_fragment;
 import com.example.hanulproject.menu.notice.Notice_main;
 import com.example.hanulproject.menu.settings.Settings_main;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import me.relex.circleindicator.CircleIndicator;
 
@@ -42,18 +61,21 @@ import me.relex.circleindicator.CircleIndicator;
 // 현지의 커밋테스트
 // 영선의 커밋테스트
 // 맏형의 커밋테스트
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     FragmentPagerAdapter adapterViewPager;
     private BackPressCloseHandler backPressCloseHandler;
-    static public TextView id, name;
+    public TextView email, name;
+    ImageView profile;
+
 
     Notice_main notice;
     Complain_main complain;
     Community_main community;
     Settings_main settings;
     List_main list;
+
+
 
     Intent intent = null;
 
@@ -62,6 +84,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+        getHashKey();
         setSupportActionBar(toolbar);
 
 
@@ -78,24 +102,70 @@ public class MainActivity extends AppCompatActivity
 
         //메뉴 나오게 하기
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView;
-        navigationView = findViewById(R.id.nav_view);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(this);
-
         //로그인 성공시 프로필 보여주기
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View nav_header_view = navigationView.getHeaderView(0);
 
-            id = nav_header_view.findViewById(R.id.navi_id);
+            profile = nav_header_view.findViewById(R.id.profileImage);
+            email = nav_header_view.findViewById(R.id.navi_id);
             name = nav_header_view.findViewById(R.id.navi_name);
-            id.setText(LoginRequest.vo.getId());
+            email.setText(LoginRequest.vo.getEmail());
             name.setText(LoginRequest.vo.getName());
+            profile.setImageResource(R.mipmap.ic_launcher_round);
+
+            if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){
+                ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                        .threadPriority(Thread.NORM_PRIORITY - 2)
+                        .denyCacheImageMultipleSizesInMemory()
+                        .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                        .tasksProcessingOrder(QueueProcessingType.LIFO)
+                        .writeDebugLogs() // Remove for release app
+                        .build();
+                ImageLoader.getInstance().init(config);
+
+                    profile.setVisibility(View.VISIBLE);
+                    ImageLoader.getInstance().displayImage(LoginRequest.vo.getProfile(),
+                            profile, new ImageLoadingListener() {
+                                @Override
+                                public void onLoadingStarted(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onLoadingFailed(String s, View view, FailReason failReason) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onLoadingCancelled(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                                }
+                            });
+            }
+
+        //관리자 모드
+        Menu nav_menu = navigationView.getMenu();
+        MenuItem menuItem = nav_menu.findItem(R.id.adminmenu);
+        //Log.d("adminTest", LoginRequest.vo.getAdmin());
+        if(LoginRequest.vo.getAdmin().equals("Y")){
+            menuItem.setVisible(true);
+        }else {
+            menuItem.setVisible(false);
+        }
+
+
 
 
 
@@ -110,6 +180,8 @@ public class MainActivity extends AppCompatActivity
         checkDangerousPermissions();
     }
 
+
+
     @Override
     public void onBackPressed() {
         backPressCloseHandler.onBackPressed();
@@ -122,6 +194,9 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+
+
 
     //네비게이션 메뉴 아이템 선택시
     @SuppressWarnings("StatementWithEmptyBody")
@@ -150,12 +225,17 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(MainActivity.this, Menu_main.class);
             intent.putExtra("selectKey", 5);
             startActivity(intent);
+        } else if(id == R.id.nav_logout){
+            intent = new Intent(MainActivity.this, Login_menu.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     //슬라이드 화면
     public static class MyPagerAdapter extends FragmentPagerAdapter {

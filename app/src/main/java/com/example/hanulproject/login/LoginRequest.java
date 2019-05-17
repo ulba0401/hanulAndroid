@@ -14,6 +14,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     public static UserVO vo = new UserVO();
     private String id;
     private String pw;
+    private String admin;
     boolean is_check = true;
 
 
@@ -41,16 +43,16 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
         this.context = context;
     }
 
-    HttpClient httpClient;
-    HttpPost httpPost;
-    HttpResponse httpResponse;
-    HttpEntity httpEntity;
+
 
     @Override
     protected Integer doInBackground(Void... voids) {
+        HttpClient httpClient = null;
+        HttpPost httpPost = null;
+        HttpResponse httpResponse = null;
+        HttpEntity httpEntity = null;
 
         String postURL = ipConfig+"/AA/AloginRequest?id="+id+"&pw="+pw;
-
         try {
             //MultipartEntityBuild  생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -66,6 +68,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
+
             /*String line;
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             line = br.readLine();
@@ -79,18 +82,16 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
         } catch (Exception e){
             e.printStackTrace();
         }finally {
-            if(httpEntity != null){
-                httpEntity = null;
-            }
-            if(httpResponse != null){
-                httpResponse = null;
-            }
-            if(httpPost != null){
-                httpPost = null;
-            }
-            if(httpClient != null){
-                httpClient = null;
-            }
+//            if(httpEntity != null){
+//                httpEntity = null;
+//            }
+//            if(httpResponse != null){
+//                httpResponse = null;
+//            }
+//            if(httpPost != null){
+//                httpPost = null;
+//            }
+            ((AndroidHttpClient) httpClient).close();
             if(vo.getResult() != null && vo.getResult().equals("fail")){
                 return 0;
             }
@@ -100,10 +101,13 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
 
     private void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
+
         try {
+            reader.beginObject();
             while (reader.hasNext()){
                 readMessage(reader);
             }
+            reader.endObject();
         }finally {
             reader.close();
         }
@@ -118,8 +122,8 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     }
 
     private void readMessage(JsonReader reader) throws IOException {
-        String name = "", phone="", addr="", id="", pw="", email="", result="";
-        reader.beginObject();
+        String name = "", phone="", addr="", id="", pw="", email="", admin="", result="";
+
         while (reader.hasNext()){
             String readStr = reader.nextName();
             if(readStr.equals("result")){
@@ -144,10 +148,14 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             }else if (readStr.equals("email")){
                 email = reader.nextString();
                 vo.setEmail(email);
-            }else{
+            }else if(readStr.equals("admin")){
+                admin=reader.nextString();
+                    vo.setAdmin(admin);
+            }
+            else{
                 reader.skipValue();
             }
         }
-        reader.endObject();
+
     }
 }
