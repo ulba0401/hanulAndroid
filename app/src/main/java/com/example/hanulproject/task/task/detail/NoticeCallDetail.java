@@ -26,14 +26,15 @@ public class NoticeCallDetail extends AsyncTask<Void, Void, NoticeVO> {
         this.no = no;
     }
 
-    HttpClient httpClient;
-    HttpPost httpPost;
-    HttpResponse httpResponse;
-    HttpEntity httpEntity;
     String postURL = null;
 
     @Override
     protected NoticeVO doInBackground(Void... voids) {
+        HttpClient httpClient = null;
+        HttpPost httpPost = null;
+        HttpResponse httpResponse = null;
+        HttpEntity httpEntity = null;
+
         NoticeVO vo = null;
 
         postURL = ipConfig + "/AA/ndetail?no="+no;
@@ -67,9 +68,7 @@ public class NoticeCallDetail extends AsyncTask<Void, Void, NoticeVO> {
             if(httpPost != null){
                 httpPost = null;
             }
-            if(httpClient != null){
-                httpClient = null;
-            }
+            ((AndroidHttpClient) httpClient).close();
         }
 
         return null;

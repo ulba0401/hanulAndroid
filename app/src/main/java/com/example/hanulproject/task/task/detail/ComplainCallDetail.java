@@ -22,10 +22,6 @@ import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 public class ComplainCallDetail extends AsyncTask<Void,Void, ComplainVO> {
     int no;
 
-    HttpClient httpClient;
-    HttpPost httpPost;
-    HttpResponse httpResponse;
-    HttpEntity httpEntity;
     String postURL = null;
 
     public ComplainCallDetail(int no){
@@ -34,6 +30,11 @@ public class ComplainCallDetail extends AsyncTask<Void,Void, ComplainVO> {
 
     @Override
     protected ComplainVO doInBackground(Void... voids) {
+        HttpClient httpClient = null;
+        HttpPost httpPost = null;
+        HttpResponse httpResponse = null;
+        HttpEntity httpEntity = null;
+
         postURL = ipConfig + "/AA/cpdetail?no="+no;
 
         try {
@@ -65,9 +66,7 @@ public class ComplainCallDetail extends AsyncTask<Void,Void, ComplainVO> {
             if(httpPost != null){
                 httpPost = null;
             }
-            if(httpClient != null){
-                httpClient = null;
-            }
+            ((AndroidHttpClient) httpClient).close();
         }
 
         return null;

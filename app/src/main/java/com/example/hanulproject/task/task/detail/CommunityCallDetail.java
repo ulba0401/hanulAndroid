@@ -28,14 +28,15 @@ public class CommunityCallDetail extends AsyncTask<Void,Void, CommunityVO> {
         this.no = no;
     }
 
-    HttpClient httpClient;
-    HttpPost httpPost;
-    HttpResponse httpResponse;
-    HttpEntity httpEntity;
     String postURL = null;
 
     @Override
     protected CommunityVO doInBackground(Void... voids) {
+        HttpClient httpClient = null;
+        HttpPost httpPost = null;
+        HttpResponse httpResponse = null;
+        HttpEntity httpEntity = null;
+
         postURL = ipConfig + "/AA/cmdetail?no="+no;
 
         try {
@@ -67,9 +68,7 @@ public class CommunityCallDetail extends AsyncTask<Void,Void, CommunityVO> {
             if(httpPost != null){
                 httpPost = null;
             }
-            if(httpClient != null){
-                httpClient = null;
-            }
+            ((AndroidHttpClient) httpClient).close();
         }
 
         return null;
