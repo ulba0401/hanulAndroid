@@ -2,6 +2,8 @@ package com.example.hanulproject.menu.status;
 
 
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 
 import java.io.BufferedReader;
@@ -9,7 +11,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class GetWeather extends AsyncTask<String,Void,String> {
     int nx, ny;
@@ -59,7 +63,7 @@ public class GetWeather extends AsyncTask<String,Void,String> {
 
             String total_url = urlstr + ServiceKey + date + time + nx_ny + type;
 
-            System.out.println(total_url);
+            //System.out.println(total_url);
             URL url = new URL(total_url);
             HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
             urlconnection.setRequestMethod("GET");
