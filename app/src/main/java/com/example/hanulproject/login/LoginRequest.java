@@ -100,10 +100,13 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
 
     private void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
+
         try {
+            reader.beginObject();
             while (reader.hasNext()){
                 readMessage(reader);
             }
+            reader.endObject();
         }finally {
             reader.close();
         }
@@ -119,7 +122,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
 
     private void readMessage(JsonReader reader) throws IOException {
         String name = "", phone="", addr="", id="", pw="", email="", admin="", result="";
-        reader.beginObject();
+
         while (reader.hasNext()){
             String readStr = reader.nextName();
             if(readStr.equals("result")){
@@ -152,6 +155,6 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
                 reader.skipValue();
             }
         }
-        reader.endObject();
+
     }
 }
