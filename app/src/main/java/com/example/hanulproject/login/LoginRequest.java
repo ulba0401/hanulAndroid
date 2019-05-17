@@ -39,7 +39,6 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     public LoginRequest(String id, String pw, Context context){
         this.id = id;
         this.pw = pw;
-        this.admin=admin;
         this.context = context;
     }
 
@@ -149,7 +148,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
                 vo.setEmail(email);
             }else if(readStr.equals("admin")){
                 admin=reader.nextString();
-                vo.setAdmin(admin);
+                    vo.setAdmin(admin);
             }
             else{
                 reader.skipValue();

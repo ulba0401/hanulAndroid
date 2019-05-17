@@ -78,7 +78,8 @@ public class Login_menu extends AppCompatActivity  {
                                 Log.v("result",object.toString());
 
                                 try {
-                                    LoginRequest.vo.setId(object.getString("email"));
+                                    LoginRequest.vo.setEmail(object.getString("email"));
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -87,7 +88,7 @@ public class Login_menu extends AppCompatActivity  {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
+                                LoginRequest.vo.setAdmin("N");
                                 Intent intent = new Intent(Login_menu.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -227,8 +228,8 @@ public class Login_menu extends AppCompatActivity  {
                     Log.e("UserProfile", userProfile.toString());
                     Log.d("kakao", userProfile.getEmail());
                     Log.d("kakao", userProfile.getNickname());
-
-                    LoginRequest.vo.setId(userProfile.getEmail());
+                    LoginRequest.vo.setAdmin("N");
+                    LoginRequest.vo.setEmail(userProfile.getEmail());
                     LoginRequest.vo.setName(userProfile.getNickname());
                     Intent intent = new Intent(Login_menu.this, MainActivity.class);
                     startActivity(intent);

@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.login.LoginRequest;
+import com.example.hanulproject.login.Login_menu;
 import com.example.hanulproject.main.BackPressCloseHandler;
 import com.example.hanulproject.menu.Menu_main;
 import com.example.hanulproject.menu.community.Community_main;
@@ -70,9 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-
-
-
         setSupportActionBar(toolbar);
 
 
@@ -105,10 +103,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             email.setText(LoginRequest.vo.getEmail());
             name.setText(LoginRequest.vo.getName());
 
-
         //관리자 모드
         Menu nav_menu = navigationView.getMenu();
         MenuItem menuItem = nav_menu.findItem(R.id.adminmenu);
+        //Log.d("adminTest", LoginRequest.vo.getAdmin());
         if(LoginRequest.vo.getAdmin().equals("Y")){
             menuItem.setVisible(true);
         }else {
@@ -116,12 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-
-
-        Log.d("adminTest", LoginRequest.vo.getAdmin());
-
-
-       /* Log.d("adminTest", String.valueOf(item));*/
 
 
 
@@ -181,8 +173,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent = new Intent(MainActivity.this, Menu_main.class);
             intent.putExtra("selectKey", 5);
             startActivity(intent);
+        } else if(id==R.id.nav_logout){
+            intent = new Intent(MainActivity.this, Login_menu.class);
+            startActivity(intent);
         }
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
