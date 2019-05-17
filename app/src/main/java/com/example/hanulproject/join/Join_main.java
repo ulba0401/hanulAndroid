@@ -44,8 +44,6 @@ public class Join_main extends AppCompatActivity {
         jpwcompl=findViewById(R.id.jpwcompl);
         jpwfail=findViewById(R.id.jpwfail);
 
-
-
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
