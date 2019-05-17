@@ -52,14 +52,14 @@ public class UserAdapter extends BaseAdapter {
 
             viewHolder = new UserAdapter.MyProfileViewHolder();
             viewHolder.id = convertView.findViewById(R.id.uid);
-            viewHolder.pw = convertView.findViewById(R.id.upw);
+            /*viewHolder.pw = convertView.findViewById(R.id.upw);*/
             viewHolder.name = convertView.findViewById(R.id.uname);
-            viewHolder.addr = convertView.findViewById(R.id.uaddr);
+            /*viewHolder.addr = convertView.findViewById(R.id.uaddr);
             viewHolder.phone = convertView.findViewById(R.id.uphone);
             viewHolder.email = convertView.findViewById(R.id.uemail);
             viewHolder.profile = convertView.findViewById(R.id.uprofile);
             viewHolder.admin = convertView.findViewById(R.id.uadmin);
-
+*/
 
             convertView.setTag(viewHolder);
         }else{
@@ -67,13 +67,13 @@ public class UserAdapter extends BaseAdapter {
         }
 
         viewHolder.id.setText(arrayList.get(position).getId());
-        viewHolder.pw.setText(arrayList.get(position).getPw());
+        /*viewHolder.pw.setText(arrayList.get(position).getPw());*/
         viewHolder.name.setText(arrayList.get(position).getName());
-        viewHolder.addr.setText(arrayList.get(position).getAddr());
+       /* viewHolder.addr.setText(arrayList.get(position).getAddr());
         viewHolder.phone.setText(arrayList.get(position).getPhone());
         viewHolder.email.setText(arrayList.get(position).getEmail());
         viewHolder.profile.setText(arrayList.get(position).getProfile());
-        viewHolder.admin.setText(arrayList.get(position).getAdmin());
+        viewHolder.admin.setText(arrayList.get(position).getAdmin());*/
 
         return convertView;
     }

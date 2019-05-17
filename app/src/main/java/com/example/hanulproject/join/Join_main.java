@@ -125,7 +125,6 @@ public class Join_main extends AppCompatActivity {
                     String jpw=pw.getText().toString();
                     String jemail=email.getText().toString();
 
-
                     Intent intent = new Intent(Join_main.this, Login_page.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     JoinInsert insert=new JoinInsert(jname, jid, jpw, jemail);
@@ -134,7 +133,6 @@ public class Join_main extends AppCompatActivity {
                     startActivity(intent);
 
                     finish();
-
                 }else{
                     Toast.makeText(Join_main.this, "내용을 확인해 주세요", Toast.LENGTH_SHORT).show();
                 }

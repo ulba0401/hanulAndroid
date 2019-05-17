@@ -50,6 +50,7 @@
         <activity android:name=".join.Join_main" />
         <activity android:name=".login.Login_menu" />
         <activity android:name=".login.Login" />
+        <activity android:name=".menu.list.ListDetail"/>
         <activity android:name=".menu.notice.NoticeDetail" />
         <activity android:name=".menu.complain.ComplainDetail" />
         <activity android:name=".menu.community.CommunityDetail" />

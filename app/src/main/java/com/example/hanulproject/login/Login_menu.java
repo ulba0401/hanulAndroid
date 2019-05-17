@@ -79,7 +79,6 @@ public class Login_menu extends AppCompatActivity  {
 
                                 try {
                                     LoginRequest.vo.setEmail(object.getString("email"));
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
