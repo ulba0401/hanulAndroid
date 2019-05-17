@@ -118,7 +118,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             name = nav_header_view.findViewById(R.id.navi_name);
             email.setText(LoginRequest.vo.getEmail());
             name.setText(LoginRequest.vo.getName());
-            if(profile != null && !(profile.equals(""))){
+            profile.setImageResource(R.mipmap.ic_launcher_round);
+
+            if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){
                 ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                         .threadPriority(Thread.NORM_PRIORITY - 2)
                         .denyCacheImageMultipleSizesInMemory()
