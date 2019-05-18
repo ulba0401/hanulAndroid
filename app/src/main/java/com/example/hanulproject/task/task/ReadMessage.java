@@ -105,38 +105,40 @@ public class ReadMessage {
 
         return new CommunityVO(no,title,content,writer, filename,filepath, readcnt);
     }
-
-    public UserVO userReadMessage(JsonReader reader) throws IOException{
-        String id="", pw="", name="", addr="", phone="", email="", profile="", admin="";
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String readStr = reader.nextName();
-            if (readStr.equals("id")) {
-                id = reader.nextString();
-            } else if (readStr.equals("pw")) {
-                pw = reader.nextString();
-            } else if (readStr.equals("name")) {
-                name = reader.nextString();
-            } else if (readStr.equals("addr")) {
-                addr = reader.nextString();
-            } else if (readStr.equals("phone")) {
-                phone = reader.nextString();
-            } else if (readStr.equals("email")) {
-                email = reader.nextString();
-            } else if (readStr.equals("profile")) {
-                profile = reader.nextString();
-            } else if (readStr.equals("admin")) {
-                admin = reader.nextString();
-            } else {
-                reader.skipValue();
-            }
-        }
-
-        reader.endObject();
-
-        return new UserVO(id, pw, name, addr, phone, email, profile, admin);
-    }
+// LoginRequest에서 요청함
+//    public UserVO userReadMessage(JsonReader reader) throws IOException{
+//        String id="", pw="", name="", addr="", phone="", email="", profile="", admin="", profileName="";
+//
+//        reader.beginObject();
+//        while (reader.hasNext()) {
+//            String readStr = reader.nextName();
+//            if (readStr.equals("id")) {
+//                id = reader.nextString();
+//            } else if (readStr.equals("pw")) {
+//                pw = reader.nextString();
+//            } else if (readStr.equals("name")) {
+//                name = reader.nextString();
+//            } else if (readStr.equals("addr")) {
+//                addr = reader.nextString();
+//            } else if (readStr.equals("phone")) {
+//                phone = reader.nextString();
+//            } else if (readStr.equals("email")) {
+//                email = reader.nextString();
+//            } else if (readStr.equals("profile")) {
+//                profile = reader.nextString();
+//            } else if (readStr.equals("admin")) {
+//                admin = reader.nextString();
+//            } else if (readStr.equals("profileName")) {
+//                profileName = reader.nextString();
+//            }else {
+//                reader.skipValue();
+//            }
+//        }
+//
+//        reader.endObject();
+//
+//        return new UserVO(id, pw, name, addr, phone, email, profile, admin, profileName);
+//    }
 
     public SettingVO settingReadMessage(JsonReader reader) throws IOException {
 

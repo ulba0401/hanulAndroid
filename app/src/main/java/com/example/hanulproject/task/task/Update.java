@@ -106,6 +106,15 @@ public class Update extends AsyncTask<Void,Void,Void> {
 
         } else if(controller == 5){
             postURL = ipConfig + "/AA/uupdate";
+            builder.addTextBody("id", uvo.getId(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("name", uvo.getName(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("pw", uvo.getPw(), ContentType.create("Multipart/related", "UTF-8"));
+            if(uploadType != null && uploadType.equals("image")){
+                builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
+                builder.addPart("image", new FileBody(new File(imageFilePathA)));
+            }
 
         } else if(controller == 6){
             postURL = ipConfig + "/AA/stupdate";

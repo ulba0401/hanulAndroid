@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             email.setText(LoginRequest.vo.getEmail());
             name.setText(LoginRequest.vo.getName());
             profile.setImageResource(R.mipmap.ic_launcher_round);
-//로그인 프로필 받아오기
+            //로그인 프로필 받아오기
             if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){
                 ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                         .threadPriority(Thread.NORM_PRIORITY - 2)
