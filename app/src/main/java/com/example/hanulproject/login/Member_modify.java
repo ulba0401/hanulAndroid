@@ -33,18 +33,29 @@ import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 public class Member_modify extends AppCompatActivity {
 
     ImageView modify_profile;
-    Button modify_photoLoad, memberModify_update;
+    Button modify_photoLoad, memberModify_update, back, modify_photoDelete;
     EditText modify_name, modify_pw, modify_change_pw, modify_check_pw;
     UserVO vo = LoginRequest.vo;
 
     final int LOAD_IMAGE = 1001;
 
     String uploadType, imageFilePathA, imageUploadPathA, uploadFileName;
+    boolean is_check = false;
 
     long now;
     Date date;
     java.text.SimpleDateFormat tmpDateFormat;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        if(is_check){
+            loadImage();
+            is_check = false;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,51 +68,35 @@ public class Member_modify extends AppCompatActivity {
 
         modify_profile = findViewById(R.id.modify_profile);
         modify_photoLoad = findViewById(R.id.modify_photoLoad);
+        modify_photoDelete = findViewById(R.id.modify_photoDelete);
         modify_name = findViewById(R.id.modify_name);
         modify_pw = findViewById(R.id.modify_pw);
         modify_change_pw = findViewById(R.id.modify_change_pw);
         modify_check_pw = findViewById(R.id.modify_check_pw);
         memberModify_update = findViewById(R.id.memberModify_update);
+        back = findViewById(R.id.back);
 
         modify_name.setText(vo.getName());
         modify_profile.setImageResource(R.mipmap.ic_launcher_round);
 
-        //로그인 프로필 받아오기
-        if(vo.getProfile() != null && !(vo.getProfile().equals(""))){
-            ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-                    .threadPriority(Thread.NORM_PRIORITY - 2)
-                    .denyCacheImageMultipleSizesInMemory()
-                    .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                    .tasksProcessingOrder(QueueProcessingType.LIFO)
-                    .writeDebugLogs() // Remove for release app
-                    .build();
-            ImageLoader.getInstance().init(config);
+        loadImage();
 
-            modify_profile.setVisibility(View.VISIBLE);
-            ImageLoader.getInstance().displayImage(LoginRequest.vo.getProfile(),
-                    modify_profile, new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
-//                            viewHolder.progressBar.setVisibility(View.VISIBLE);
-                        }
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-//                            viewHolder.progressBar.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-//                            viewHolder.progressBar.setVisibility(View.GONE);
-                        }
-
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-//                            viewHolder.progressBar.setVisibility(View.GONE);
-                        }
-                    });
-        }
-
+        modify_photoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modify_profile.setImageResource(R.mipmap.ic_launcher_round);
+                LoginRequest.vo.setProfile("");
+                LoginRequest.vo.setProfileName("");
+                uploadType = "delete";
+            }
+        });
 
         modify_photoLoad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,15 +112,25 @@ public class Member_modify extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 vo.setName(modify_name.getText().toString());
-                vo.setPw(modify_change_pw.getText().toString());
-                Update update = new Update(vo);
-                update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
-                update.execute();
+                vo.setPw(modify_pw.getText().toString());
 
-                finish();
+                if(vo.getPw().equals(modify_pw.getText().toString())){
+                    if(modify_change_pw.getText().toString().equals(modify_check_pw.getText().toString())){
+                        Update update = new Update(vo);
+                        update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
+                        update.execute();
+                        is_check = true;
+                        LoginRequest.vo.setName(modify_name.getText().toString());
+                        finish();
+                    }else{
+                        Toast.makeText(Member_modify.this, "새로입력하신 비밀번호와 확인한 비밀번호가 서로 다릅니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(Member_modify.this, "현재 비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-
 
     }
 
@@ -185,5 +190,43 @@ public class Member_modify extends AppCompatActivity {
         }
         cursor.close();
         return res;
+    }
+
+    private void loadImage(){
+        //로그인 프로필 받아오기
+        if(vo.getProfile() != null && !(vo.getProfile().equals(""))){
+            ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                    .threadPriority(Thread.NORM_PRIORITY - 2)
+                    .denyCacheImageMultipleSizesInMemory()
+                    .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                    .tasksProcessingOrder(QueueProcessingType.LIFO)
+                    .writeDebugLogs() // Remove for release app
+                    .build();
+            ImageLoader.getInstance().init(config);
+
+            modify_profile.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(LoginRequest.vo.getProfile(),
+                    modify_profile, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                        }
+                    });
+        }
     }
 }

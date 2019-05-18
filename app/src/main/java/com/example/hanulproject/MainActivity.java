@@ -80,6 +80,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent intent = null;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        //네비게이션바 프로필 설정
+        email.setText(LoginRequest.vo.getEmail());
+        name.setText(LoginRequest.vo.getName());
+        profile.setImageResource(R.mipmap.ic_launcher_round);
+
+        //로그인 프로필 받아오기
+        if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){
+            ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                    .threadPriority(Thread.NORM_PRIORITY - 2)
+                    .denyCacheImageMultipleSizesInMemory()
+                    .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                    .tasksProcessingOrder(QueueProcessingType.LIFO)
+                    .writeDebugLogs() // Remove for release app
+                    .build();
+            ImageLoader.getInstance().init(config);
+
+            profile.setVisibility(View.VISIBLE);
+            ImageLoader.getInstance().displayImage(LoginRequest.vo.getProfile(),
+                    profile, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+//                            viewHolder.progressBar.setVisibility(View.GONE);
+                        }
+                    });
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -115,44 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             profile = nav_header_view.findViewById(R.id.profileImage);
             email = nav_header_view.findViewById(R.id.navi_id);
             name = nav_header_view.findViewById(R.id.navi_name);
-            email.setText(LoginRequest.vo.getEmail());
-            name.setText(LoginRequest.vo.getName());
-            profile.setImageResource(R.mipmap.ic_launcher_round);
-            //로그인 프로필 받아오기
-            if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){
-                ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-                        .threadPriority(Thread.NORM_PRIORITY - 2)
-                        .denyCacheImageMultipleSizesInMemory()
-                        .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                        .tasksProcessingOrder(QueueProcessingType.LIFO)
-                        .writeDebugLogs() // Remove for release app
-                        .build();
-                ImageLoader.getInstance().init(config);
 
-                    profile.setVisibility(View.VISIBLE);
-                    ImageLoader.getInstance().displayImage(LoginRequest.vo.getProfile(),
-                            profile, new ImageLoadingListener() {
-                                @Override
-                                public void onLoadingStarted(String s, View view) {
-//                            viewHolder.progressBar.setVisibility(View.VISIBLE);
-                                }
-
-                                @Override
-                                public void onLoadingFailed(String s, View view, FailReason failReason) {
-//                            viewHolder.progressBar.setVisibility(View.GONE);
-                                }
-
-                                @Override
-                                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-//                            viewHolder.progressBar.setVisibility(View.GONE);
-                                }
-
-                                @Override
-                                public void onLoadingCancelled(String s, View view) {
-//                            viewHolder.progressBar.setVisibility(View.GONE);
-                                }
-                            });
-            }
 
         //관리자 모드
         Menu nav_menu = navigationView.getMenu();
@@ -163,10 +173,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else {
             menuItem.setVisible(false);
         }
-
-
-
-
 
         //슬라이드 화면 설정
         ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);

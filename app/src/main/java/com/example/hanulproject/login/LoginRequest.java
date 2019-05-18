@@ -30,7 +30,6 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     private String pw;
     boolean is_check = true;
 
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -65,29 +64,11 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-
-            /*String line;
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            line = br.readLine();
-            if(line.equals("fail")){
-                is_check = false;
-                return 0;
-            }else{
-                is_check = true;
-            }*/
             readJsonStream(inputStream);
         } catch (Exception e){
             e.printStackTrace();
         }finally {
-//            if(httpEntity != null){
-//                httpEntity = null;
-//            }
-//            if(httpResponse != null){
-//                httpResponse = null;
-//            }
-//            if(httpPost != null){
-//                httpPost = null;
-//            }
+
             ((AndroidHttpClient) httpClient).close();
             if(vo.getResult() != null && vo.getResult().equals("fail")){
                 return 0;
@@ -162,6 +143,5 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
                 reader.skipValue();
             }
         }
-
     }
 }
