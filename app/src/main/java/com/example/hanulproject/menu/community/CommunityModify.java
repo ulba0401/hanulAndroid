@@ -34,7 +34,7 @@ import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 public class CommunityModify extends AppCompatActivity {
 
     ImageView cmmImageView;
-    Button modify, cancel, cmmPhotonLoad;
+    Button modify, cancel, cmmPhotonLoad, btnPhotoDelete;
     EditText cmmtitle, cmmcontent;
     CommunityVO vo;
     String title = "", content = "";
@@ -66,13 +66,16 @@ public class CommunityModify extends AppCompatActivity {
         cmmPhotonLoad = findViewById(R.id.cmmPhotonLoad);
         cmmtitle = findViewById(R.id.cmmtitle);
         cmmcontent = findViewById(R.id.cmmcontent);
+        btnPhotoDelete = findViewById(R.id.btnPhotoDelete);
 
         cmmtitle.setText(vo.getTitle());
         cmmcontent.setText(vo.getContent());
+        cmmImageView.setVisibility(View.GONE);
 
         cmmPhotonLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cmmImageView.setVisibility(View.VISIBLE);
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
@@ -96,6 +99,14 @@ public class CommunityModify extends AppCompatActivity {
                 resultIntent.putExtra("filePath",vo.getFilepath());
                 setResult(RESULT_OK,resultIntent);
                 finish();
+            }
+        });
+
+        btnPhotoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadType = "delete";
+                cmmImageView.setVisibility(View.GONE);
             }
         });
 

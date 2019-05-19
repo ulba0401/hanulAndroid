@@ -72,7 +72,7 @@ public class CommunityDetail extends AppCompatActivity {
                 cmdImageView.setVisibility(View.GONE);
 
                 Intent intent = new Intent(CommunityDetail.this,CommunityModify.class);
-                //intent.putExtra("vo",vo);
+                intent.putExtra("vo",vo);
                 startActivityForResult(intent,200);
             }
         });

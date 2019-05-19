@@ -28,7 +28,7 @@ import static com.example.hanulproject.task.common.CommonMethod.isNetworkConnect
 
 public class CommunityInsertPage extends AppCompatActivity {
     ImageView cmiImageView;
-    Button insert, cancel, cmiPhotonLoad;
+    Button insert, cancel, cmiPhotonLoad, btnPhotoDelete;
     EditText cmititle, cmicontent;
     CommunityVO vo;
     String title = "", content = "";
@@ -59,6 +59,7 @@ public class CommunityInsertPage extends AppCompatActivity {
         cmicontent = findViewById(R.id.cmicontent);
         cmiPhotonLoad = findViewById(R.id.cmiPhotonLoad);
         cmiImageView = findViewById(R.id.cmiImageView);
+        btnPhotoDelete = findViewById(R.id.btnPhotoDelete);
 
         cmiImageView.setVisibility(View.GONE);
 
@@ -80,6 +81,17 @@ public class CommunityInsertPage extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE);
             }
         });
+
+        btnPhotoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadType = "";
+                imageFilePathA = "";
+                imageUploadPathA = "";
+                uploadFileName = "";
+                cmiImageView.setVisibility(View.GONE);
+            }
+        });
     }
 
     public void btnAddClicked(View v){
@@ -89,7 +101,6 @@ public class CommunityInsertPage extends AppCompatActivity {
             Insert insert = new Insert(title, content, 3,uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
             insert.execute();
             reset();
-
         }else{
             Toast.makeText(this, "인터넷이 연결되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
         }

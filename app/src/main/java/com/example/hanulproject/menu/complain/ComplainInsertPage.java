@@ -26,7 +26,7 @@ import static com.example.hanulproject.task.common.CommonMethod.isNetworkConnect
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 
 public class ComplainInsertPage extends AppCompatActivity {
-    Button insert, cancel, btnPhotoLoad;
+    Button insert, cancel, btnPhotoLoad, btnPhotoDelete;
     EditText cpititle, cpicontent;
     TextView fileName;
     CommunityVO vo;
@@ -58,6 +58,7 @@ public class ComplainInsertPage extends AppCompatActivity {
         cpicontent = findViewById(R.id.cpicontent);
         btnPhotoLoad = findViewById(R.id.btnPhotoLoad);
         fileName = findViewById(R.id.fileName);
+        btnPhotoDelete = findViewById(R.id.btnPhotoDelete);
 
         uploadType="";
         imageFilePathA="";
@@ -80,6 +81,17 @@ public class ComplainInsertPage extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE);
             }
         });
+
+        btnPhotoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadType = "";
+                imageFilePathA = "";
+                imageUploadPathA = "";
+                uploadFileName = "";
+                fileName.setText("");
+            }
+        });
     }
 
     public void btnAddClicked(View v){
@@ -88,11 +100,9 @@ public class ComplainInsertPage extends AppCompatActivity {
             content = cpicontent.getText().toString();
             Insert insert = new Insert(title, content, 2, uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
             insert.execute();
-
             Intent resultIntent = new Intent();
             resultIntent.putExtra("result","result");
             setResult(RESULT_OK,resultIntent);
-
             finish();
 
         }else{
