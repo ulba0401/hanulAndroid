@@ -67,12 +67,55 @@
                 android:textColor="@color/titlebarcolor"
                 android:text="아이디"
                 android:textSize="@dimen/contentSize"/>
+
             <EditText
                 android:id="@+id/joinId"
-                android:layout_width="250dp"
+                android:layout_width="180dp"
                 android:layout_height="50dp"
-                android:textSize="@dimen/contentSize"/>
+                android:textSize="@dimen/contentSize" />
+
+            <Button
+                android:id="@+id/idcheck"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_on"
+                android:text="중복확인"
+                android:textColor="@color/allbackg"
+                android:textSize="14sp" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/idcompl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="사용가능한 아이디입니다."
+                android:textColor="@color/complete"
+                android:textSize="13dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/idfail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="중복된 아이디가 존재합니다."
+                android:textColor="@color/error"
+                android:textSize="13dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

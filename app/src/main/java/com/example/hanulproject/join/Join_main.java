@@ -1,10 +1,12 @@
 package com.example.hanulproject.join;
 
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.ToggleButton;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.login.Login;
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.login.Login_page;
 
 import org.w3c.dom.Text;
@@ -24,10 +27,12 @@ import static com.example.hanulproject.task.common.CommonMethod.isNetworkConnect
 public class Join_main extends AppCompatActivity {
 
     ToggleButton checkBtn;
-    Button joinBtn;
+    Button joinBtn, idcheck;
     int check = 0;
     EditText name, id, pw, pwc, email;
-    TextView jpwcompl, jpwfail;
+    TextView jpwcompl, jpwfail, idcompl, idfail;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,9 @@ public class Join_main extends AppCompatActivity {
         email=findViewById(R.id.joinEmail);
         jpwcompl=findViewById(R.id.jpwcompl);
         jpwfail=findViewById(R.id.jpwfail);
+        idcheck=findViewById(R.id.idcheck);
+        idcompl=findViewById(R.id.idcompl);
+        idfail=findViewById(R.id.idfail);
 
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +94,26 @@ public class Join_main extends AppCompatActivity {
             public void afterTextChanged(Editable s) { }
         });
 
+        //아이디 중복체크
+        idcheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IdCheck idCheck=new IdCheck(id.getText().toString(), getApplicationContext());
+                try {
+                    int check=idCheck.execute().get();
+                    if (check == 0) {
+                        idcompl.setVisibility(View.VISIBLE);
+                        idfail.setVisibility(View.GONE);
+                    } else if (check == 1) {
+                        idcompl.setVisibility(View.GONE);
+                        idfail.setVisibility(View.VISIBLE);
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,21 +144,39 @@ public class Join_main extends AppCompatActivity {
                     return;
                 }
 
+
                 if (isNetworkConnected(Join_main.this)==true){
                     /* 회원가입 처리할 부분 */
                     String jname=name.getText().toString();
                     String jid=id.getText().toString();
                     String jpw=pw.getText().toString();
                     String jemail=email.getText().toString();
-
-                    Intent intent = new Intent(Join_main.this, Login_page.class);
+                    IdCheck idCheck=new IdCheck(id.getText().toString(), getApplicationContext());
+                    try {
+                        int check=idCheck.execute().get();
+                        if (check == 0) {
+                            Intent intent = new Intent(Join_main.this, Login_page.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            JoinInsert insert=new JoinInsert(jname, jid, jpw, jemail);
+                            insert.execute();
+                            Toast.makeText(Join_main.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                            finish();
+                        } else if (check == 1) {
+                            Toast.makeText(Join_main.this, "아이디 중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
+                            id.requestFocus();
+                            return;
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    /*Intent intent = new Intent(Join_main.this, Login_page.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     JoinInsert insert=new JoinInsert(jname, jid, jpw, jemail);
                     insert.execute();
                     Toast.makeText(Join_main.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
-
-                    finish();
+                    finish();*/
                 }else{
                     Toast.makeText(Join_main.this, "내용을 확인해 주세요", Toast.LENGTH_SHORT).show();
                 }

@@ -1,4 +1,4 @@
-package com.example.hanulproject.login;
+package com.example.hanulproject.join;
 
 import android.content.Context;
 import android.net.http.AndroidHttpClient;
@@ -14,7 +14,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,15 +21,13 @@ import java.io.InputStreamReader;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 
-public class LoginRequest extends AsyncTask<Void,Void,Integer> {
+public class IdCheck extends AsyncTask<Void,Void,Integer> {
 
     Context context;
-    public static UserVO vo = new UserVO();
+    public static UserVO vo=new UserVO();
     private String id;
-    private String pw;
-    private String admin;
     boolean is_check = true;
-    private String profile, profileName;
+
 
 
     @Override
@@ -38,12 +35,10 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
         super.onPreExecute();
     }
 
-    public LoginRequest(String id, String pw, Context context){
+    public IdCheck(String id, Context context){
         this.id = id;
-        this.pw = pw;
         this.context = context;
     }
-
     @Override
     protected Integer doInBackground(Void... voids) {
         HttpClient httpClient = null;
@@ -51,7 +46,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
         HttpResponse httpResponse = null;
         HttpEntity httpEntity = null;
 
-        String postURL = ipConfig+"/AA/AloginRequest?id="+id+"&pw="+pw;
+        String postURL = ipConfig+"/AA/AloginCheck?id="+id;
         try {
             //MultipartEntityBuild  생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -81,12 +76,20 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
         } catch (Exception e){
             e.printStackTrace();
         }finally {
-
+//            if(httpEntity != null){
+//                httpEntity = null;
+//            }
+//            if(httpResponse != null){
+//                httpResponse = null;
+//            }
+//            if(httpPost != null){
+//                httpPost = null;
+//            }
             ((AndroidHttpClient) httpClient).close();
             if(vo.getResult() != null && vo.getResult().equals("fail")){
                 return 0;
             }
-            vo.setLogintype(true);
+
             return 1;
         }
     }
@@ -103,18 +106,18 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
         }finally {
             reader.close();
         }
-    }
 
+    }
     @Override
     protected void onPostExecute(Integer check) {
         super.onPostExecute(check);
         if(!is_check) {
-            Toast.makeText(context, "아이디와 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "아이디가 중복됐습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void readMessage(JsonReader reader) throws IOException {
-        String name = "", phone="", addr="", id="", pw="", email="", admin="", result="";
+        String name = "", phone="", addr="", id="", pw="", email="",  result="";
 
         while (reader.hasNext()){
             String readStr = reader.nextName();
@@ -140,22 +143,11 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             }else if (readStr.equals("email")){
                 email = reader.nextString();
                 vo.setEmail(email);
-            }else if(readStr.equals("admin")){
-                admin=reader.nextString();
-                vo.setAdmin(admin);
-            } else if (readStr.equals("profile")) {
-                profile = reader.nextString();
-                vo.setProfile(profile);
-            } else if (readStr.equals("admin")) {
-                admin = reader.nextString();
-                vo.setAdmin(admin);
-            } else if (readStr.equals("profileName")) {
-                profileName = reader.nextString();
-                vo.setProfileName(profileName);
-            }else{
+            } else{
                 reader.skipValue();
             }
         }
+
 
     }
 }
