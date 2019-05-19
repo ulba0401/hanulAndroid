@@ -144,12 +144,14 @@
                 android:textColor="@color/titlebarcolor"
                 android:text="비밀번호"
                 android:textSize="@dimen/contentSize"/>
+
             <EditText
                 android:id="@+id/joinPw"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:textSize="@dimen/contentSize"
-                android:inputType="textPassword" />
+                android:hint="대소문자와 특수문자를 포함시켜주세요."
+                android:inputType="textPassword"
+                android:textSize="@dimen/contentSize" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

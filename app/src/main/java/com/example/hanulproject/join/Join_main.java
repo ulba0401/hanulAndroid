@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,8 @@ import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.login.Login_page;
 
 import org.w3c.dom.Text;
+
+import java.util.regex.Pattern;
 
 import static com.example.hanulproject.task.common.CommonMethod.isNetworkConnected;
 
@@ -117,7 +120,6 @@ public class Join_main extends AppCompatActivity {
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(name.getText().toString().length()==0){
                     Toast.makeText(Join_main.this, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
                     name.requestFocus();
@@ -128,18 +130,18 @@ public class Join_main extends AppCompatActivity {
                     id.requestFocus();
                     return;
                 }
-                if(email.getText().toString().length()==0){
-                    Toast.makeText(Join_main.this, "이메일을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    id.requestFocus();
+                if(email.getText().toString().length()==0 || !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
+                    Toast.makeText(Join_main.this, "이메일을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    email.requestFocus();
                     return;
                 }
-                if(pw.getText().toString().length()==0){
-                    Toast.makeText(Join_main.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                if(pw.getText().toString().length()==0||!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", pw.getText().toString())){
+                    Toast.makeText(Join_main.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                     pw.requestFocus();
                     return;
                 }
                 if(pwc.getText().toString().length()==0){
-                    Toast.makeText(Join_main.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Join_main.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     pwc.requestFocus();
                     return;
                 }
