@@ -3,12 +3,13 @@ package com.example.hanulproject.vo;
 import java.io.Serializable;
 
 public class UserVO implements Serializable {
-    String id, pw, name, addr, phone, email, profile, admin, isdel;
+    String id, pw, name, addr, phone, email, profile, admin, isdel, profileName;
     private String result;
+    boolean logintype;
 
     public UserVO () {}
 
-    public UserVO(String id, String pw, String name, String addr, String phone, String email, String profile, String admin) {
+    public UserVO(String id, String pw, String name, String addr, String phone, String email, String profile, String admin, String profileName) {
         this.id = id;
         this.pw = pw;
         this.name = name;
@@ -17,6 +18,23 @@ public class UserVO implements Serializable {
         this.email = email;
         this.profile = profile;
         this.admin = admin;
+        this.profileName = profileName;
+    }
+
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
+    public boolean isLogintype() {
+        return logintype;
+    }
+
+    public void setLogintype(boolean logintype) {
+        this.logintype = logintype;
     }
 
     public String getResult() {

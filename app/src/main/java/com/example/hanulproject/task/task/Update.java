@@ -3,6 +3,7 @@ package com.example.hanulproject.task.task;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.vo.CommunityVO;
 import com.example.hanulproject.vo.ComplainVO;
 import com.example.hanulproject.vo.NoticeVO;
@@ -84,8 +85,9 @@ public class Update extends AsyncTask<Void,Void,Void> {
             builder.addTextBody("no", String.valueOf(cpvo.getNo()), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("title", cpvo.getTitle(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("content", cpvo.getContent(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
             if(uploadType != null && uploadType.equals("image")){
-                builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
+
                 builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addPart("image", new FileBody(new File(imageFilePathA)));
@@ -95,8 +97,9 @@ public class Update extends AsyncTask<Void,Void,Void> {
             builder.addTextBody("no", String.valueOf(cmvo.getNo()), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("title", cmvo.getTitle(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("content", cmvo.getContent(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
             if(uploadType != null && uploadType.equals("image")){
-                builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
+
                 builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
                 builder.addPart("image", new FileBody(new File(imageFilePathA)));
@@ -106,6 +109,18 @@ public class Update extends AsyncTask<Void,Void,Void> {
 
         } else if(controller == 5){
             postURL = ipConfig + "/AA/uupdate";
+            builder.addTextBody("id", uvo.getId(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("name", uvo.getName(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("pw", uvo.getPw(), ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
+            if(uploadType != null && uploadType.equals("image")){
+
+                builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
+                LoginRequest.vo.setProfileName(uploadFileName);
+                builder.addTextBody("dbImgPath", imageUploadPathA, ContentType.create("Multipart/related", "UTF-8"));
+                LoginRequest.vo.setProfile(imageUploadPathA);
+                builder.addPart("image", new FileBody(new File(imageFilePathA)));
+            }
 
         } else if(controller == 6){
             postURL = ipConfig + "/AA/stupdate";

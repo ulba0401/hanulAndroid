@@ -107,7 +107,7 @@ public class ReadMessage {
     }
 
     public UserVO userReadMessage(JsonReader reader) throws IOException{
-        String id="", pw="", name="", addr="", phone="", email="", profile="", admin="";
+        String id="", pw="", name="", addr="", phone="", email="", profile="", admin="", profileName="";
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -128,14 +128,16 @@ public class ReadMessage {
                 profile = reader.nextString();
             } else if (readStr.equals("admin")) {
                 admin = reader.nextString();
-            } else {
+            } else if (readStr.equals("profileName")) {
+                profileName = reader.nextString();
+            }else {
                 reader.skipValue();
             }
         }
 
         reader.endObject();
 
-        return new UserVO(id, pw, name, addr, phone, email, profile, admin);
+        return new UserVO(id, pw, name, addr, phone, email, profile, admin, profileName);
     }
 
     public SettingVO settingReadMessage(JsonReader reader) throws IOException {

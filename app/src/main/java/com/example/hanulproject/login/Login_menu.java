@@ -88,6 +88,7 @@ public class Login_menu extends AppCompatActivity  {
                                     e.printStackTrace();
                                 }
                                 LoginRequest.vo.setAdmin("N");
+                                LoginRequest.vo.setLogintype(false);
                                 Intent intent = new Intent(Login_menu.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -231,6 +232,7 @@ public class Login_menu extends AppCompatActivity  {
                     LoginRequest.vo.setEmail(userProfile.getEmail());
                     LoginRequest.vo.setName(userProfile.getNickname());
                     LoginRequest.vo.setProfile(userProfile.getProfileImagePath());
+                    LoginRequest.vo.setLogintype(false);
                     Intent intent = new Intent(Login_menu.this, MainActivity.class);
                     startActivity(intent);
                     finish();

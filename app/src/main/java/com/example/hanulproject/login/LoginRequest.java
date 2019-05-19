@@ -28,9 +28,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     public static UserVO vo = new UserVO();
     private String id;
     private String pw;
-    private String admin;
     boolean is_check = true;
-
 
     @Override
     protected void onPreExecute() {
@@ -42,8 +40,6 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
         this.pw = pw;
         this.context = context;
     }
-
-
 
     @Override
     protected Integer doInBackground(Void... voids) {
@@ -68,33 +64,16 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-
-            /*String line;
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            line = br.readLine();
-            if(line.equals("fail")){
-                is_check = false;
-                return 0;
-            }else{
-                is_check = true;
-            }*/
             readJsonStream(inputStream);
         } catch (Exception e){
             e.printStackTrace();
         }finally {
-//            if(httpEntity != null){
-//                httpEntity = null;
-//            }
-//            if(httpResponse != null){
-//                httpResponse = null;
-//            }
-//            if(httpPost != null){
-//                httpPost = null;
-//            }
+
             ((AndroidHttpClient) httpClient).close();
             if(vo.getResult() != null && vo.getResult().equals("fail")){
                 return 0;
             }
+            vo.setLogintype(true);
             return 1;
         }
     }
@@ -122,7 +101,7 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
     }
 
     private void readMessage(JsonReader reader) throws IOException {
-        String name = "", phone="", addr="", id="", pw="", email="", admin="", result="";
+        String name = "", phone="", addr="", id="", pw="", email="", admin="", result="", profile="", profileName="";
 
         while (reader.hasNext()){
             String readStr = reader.nextName();
@@ -150,12 +129,19 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
                 vo.setEmail(email);
             }else if(readStr.equals("admin")){
                 admin=reader.nextString();
-                    vo.setAdmin(admin);
-            }
-            else{
+                vo.setAdmin(admin);
+            } else if (readStr.equals("profile")) {
+                profile = reader.nextString();
+                vo.setProfile(profile);
+            } else if (readStr.equals("admin")) {
+                admin = reader.nextString();
+                vo.setAdmin(admin);
+            } else if (readStr.equals("profileName")) {
+                profileName = reader.nextString();
+                vo.setProfileName(profileName);
+            }else{
                 reader.skipValue();
             }
         }
-
     }
 }
