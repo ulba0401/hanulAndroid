@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.login.Login;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class Intro extends AppCompatActivity {
@@ -22,6 +24,12 @@ public class Intro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro); //xml , java 소스 연결
+
+        FirebaseInstanceId.getInstance().getToken();
+
+        if(FirebaseInstanceId.getInstance().getToken() != null){
+            Log.d("token", "token : "+FirebaseInstanceId.getInstance().getToken());
+        }
 
         progressBar = findViewById(R.id.progressBar_intro);
 

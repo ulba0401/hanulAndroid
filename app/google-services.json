@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "882529943829",
+    "firebase_url": "https://hanulproject.firebaseio.com",
+    "project_id": "hanulproject",
+    "storage_bucket": "hanulproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882529943829:android:3a4552240c1a03ea",
+        "android_client_info": {
+          "package_name": "com.example.hanulproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882529943829-3nu6nfro4msoqhqbbdkl3iln8td22mkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBJd10D-GQst1cxczKBJo-0xUp4CRT8yY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882529943829-3nu6nfro4msoqhqbbdkl3iln8td22mkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
