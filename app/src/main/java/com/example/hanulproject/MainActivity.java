@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hanulproject.firebase.DeviceToken;
 import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.login.Login_menu;
 import com.example.hanulproject.main.BackPressCloseHandler;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static public SharedPreferences appData;
     //static public boolean saveLoginData;
 
+    //로그아웃버튼 누를시 true 로 활성화 됨
     static public boolean logout_check = false;
 
     FragmentPagerAdapter adapterViewPager;
@@ -130,8 +132,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     });
         }
 
-
         save(true);
+        DeviceToken deviceToken = new DeviceToken(LoginRequest.vo.getDeviceToken(),LoginRequest.vo.getId());
+        deviceToken.execute();
     }
 
 
@@ -148,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(FirebaseInstanceId.getInstance().getToken() != null){
             String token = FirebaseInstanceId.getInstance().getToken();
             Log.d("pushToken", "pushToken : "+token);
+            LoginRequest.vo.setDeviceToken(token);
         }
 
         //백버튼 누르면 종료되는 기능의 함수
@@ -183,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Menu nav_menu = navigationView.getMenu();
         MenuItem menuItem = nav_menu.findItem(R.id.adminmenu);
         //Log.d("adminTest", LoginRequest.vo.getAdmin());
-        if(LoginRequest.vo.getAdmin().equals("Y")){
+        if(LoginRequest.vo.getAdmin() != null && LoginRequest.vo.getAdmin().equals("Y")){
             menuItem.setVisible(true);
         }else {
             menuItem.setVisible(false);
@@ -419,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    // 설정값을 저장하는 함수
+    //로그인 설정값을 저장하는 함수
     private void save(boolean check) {
         // SharedPreferences 객체만으론 저장 불가능 Editor 사용
         SharedPreferences.Editor editor = appData.edit();
@@ -427,12 +431,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
         // 저장시킬 이름이 이미 존재하면 덮어씌움
         if(check){
-            editor.putBoolean("SAVE_LOGIN_DATA", true);
+            //editor.putBoolean("SAVE_LOGIN_DATA", true);
             editor.putString("ID",LoginRequest.vo.getId());
             editor.putString("PWD",LoginRequest.vo.getPw());
             editor.putString("Email", LoginRequest.vo.getEmail());
         }else{
-            editor.putBoolean("SAVE_LOGIN_DATA", true);
+            //로그아웃 처리
+            //editor.putBoolean("SAVE_LOGIN_DATA", true);
             editor.putString("ID","");
             editor.putString("PWD","");
             editor.putString("Email","");

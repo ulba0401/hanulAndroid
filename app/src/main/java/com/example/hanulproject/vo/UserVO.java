@@ -3,7 +3,7 @@ package com.example.hanulproject.vo;
 import java.io.Serializable;
 
 public class UserVO implements Serializable {
-    String id, pw, name, addr, phone, email, profile, admin, isdel, profileName;
+    String id, pw, name, addr, phone, email, profile, admin, isdel, profileName, deviceToken;
     private String result;
     boolean logintype;
 
@@ -19,6 +19,14 @@ public class UserVO implements Serializable {
         this.profile = profile;
         this.admin = admin;
         this.profileName = profileName;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public String getProfileName() {
