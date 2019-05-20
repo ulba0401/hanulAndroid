@@ -14,18 +14,23 @@ import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 import com.example.hanulproject.join.Join_main;
 import com.example.hanulproject.login.search.Search_main;
+import com.example.hanulproject.main.BackPressCloseHandler;
 
 public class Login_page extends AppCompatActivity {
 
     Button loginMenuBtn;
     TextView jointxt, search_id, search_pw;
-
     private EditText id, pw;
+
+    private BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+
+        //백버튼 종료
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
         id=findViewById(R.id.input_id);
         pw=findViewById(R.id.input_pw);
@@ -80,6 +85,7 @@ public class Login_page extends AppCompatActivity {
                     if(check == 0){
                         Toast.makeText(Login_page.this, "아이디와 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
                     }else{
+                        MainActivity.logout_check = false;
                         String email = LoginRequest.vo.getEmail();
                         String name = LoginRequest.vo.getName();
                         String admin=LoginRequest.vo.getAdmin();
@@ -95,5 +101,12 @@ public class Login_page extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
