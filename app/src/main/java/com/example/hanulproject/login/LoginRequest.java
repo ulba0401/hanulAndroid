@@ -66,8 +66,6 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             httpResponse = httpClient.execute(httpPost);
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
-
-
             /*String line;
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             line = br.readLine();

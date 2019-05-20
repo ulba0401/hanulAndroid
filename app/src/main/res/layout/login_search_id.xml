@@ -42,7 +42,7 @@
             android:text="이름"
             android:textSize="@dimen/contentSize"/>
         <EditText
-            android:id="@+id/joinName"
+            android:id="@+id/finame"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:textSize="@dimen/contentSize"/>
@@ -63,20 +63,48 @@
             android:textSize="@dimen/contentSize" />
 
         <EditText
-            android:id="@+id/joinEmail"
+            android:id="@+id/fiemail"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:textSize="@dimen/contentSize" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/id1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="찾으시는 아이디는 '"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/id2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="찾을 아이디"
+            android:textColor="@color/com_facebook_button_send_background_color_pressed"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/id3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="' 입니다."
+            android:visibility="gone"/>
+    </LinearLayout>
     <Button
-        android:id="@+id/realJoin"
+        android:id="@+id/findId"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:background="@drawable/btn_on"
+        android:onClick="btnAddClicked"
         android:text="조회하기"
-        android:textSize="@dimen/btnSize"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textSize="@dimen/btnSize" />
 
 </LinearLayout>
