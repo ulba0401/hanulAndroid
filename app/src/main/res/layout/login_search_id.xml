@@ -47,23 +47,26 @@
             android:layout_height="50dp"
             android:textSize="@dimen/contentSize"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/titlebarcolor"
             android:text="이메일"
-            android:textSize="@dimen/contentSize"
-            android:layout_marginTop="20dp"/>
+            android:textColor="@color/titlebarcolor"
+            android:textSize="@dimen/contentSize" />
+
         <EditText
             android:id="@+id/joinEmail"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:textSize="@dimen/contentSize"/>
+            android:textSize="@dimen/contentSize" />
     </LinearLayout>
     <Button
         android:id="@+id/realJoin"
