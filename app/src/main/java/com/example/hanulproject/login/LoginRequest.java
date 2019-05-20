@@ -146,9 +146,6 @@ public class LoginRequest extends AsyncTask<Void,Void,Integer> {
             } else if (readStr.equals("profile")) {
                 profile = reader.nextString();
                 vo.setProfile(profile);
-            } else if (readStr.equals("admin")) {
-                admin = reader.nextString();
-                vo.setAdmin(admin);
             } else if (readStr.equals("profileName")) {
                 profileName = reader.nextString();
                 vo.setProfileName(profileName);

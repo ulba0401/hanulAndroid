@@ -88,7 +88,18 @@ public class Join_main extends AppCompatActivity {
                     jpwcompl.setVisibility(View.GONE);
                     jpwfail.setVisibility(View.VISIBLE);
                 }
+                if(confirm.equals(password)){
+                    jpwcompl.setVisibility(View.VISIBLE);
+                    jpwfail.setVisibility(View.GONE);
+                }else{
+                    jpwcompl.setVisibility(View.GONE);
+                    jpwfail.setVisibility(View.VISIBLE);
+                }
                 if(pw.getText().toString().length()==0 || pwc.getText().toString().length()==0){
+                    jpwcompl.setVisibility(View.GONE);
+                    jpwfail.setVisibility(View.GONE);
+                }
+                if(pwc.getText().toString().length()==0 || pw.getText().toString().length()==0){
                     jpwcompl.setVisibility(View.GONE);
                     jpwfail.setVisibility(View.GONE);
                 }
@@ -145,8 +156,6 @@ public class Join_main extends AppCompatActivity {
                     pwc.requestFocus();
                     return;
                 }
-
-
                 if (isNetworkConnected(Join_main.this)==true){
                     /* 회원가입 처리할 부분 */
                     String jname=name.getText().toString();
@@ -165,7 +174,7 @@ public class Join_main extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else if (check == 1) {
-                            Toast.makeText(Join_main.this, "아이디 중복체크를 해주세요.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Join_main.this, "아이디 중복체크를 확인해주세요.", Toast.LENGTH_SHORT).show();
                             id.requestFocus();
                             return;
                         }
