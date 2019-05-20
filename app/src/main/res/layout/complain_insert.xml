@@ -64,16 +64,16 @@
             android:text="내용 "/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="300dp">
 
         <EditText
             android:id="@+id/cpicontent"
+            style="@style/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            style="@style/content"
             android:gravity="top"
             android:hint="내용을 입력하세요"
             android:inputType="textMultiLine" />
@@ -86,13 +86,24 @@
             android:id="@+id/btnPhotoLoad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:text="사진첨부" />
 
         <TextView
             android:id="@+id/fileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnPhotoDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사진삭제" />
 
     </LinearLayout>
 

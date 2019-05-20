@@ -24,7 +24,7 @@ import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 public class ComplainModify extends AppCompatActivity {
     ComplainVO vo;
     EditText cpmtitle , cpmcontent;
-    Button back, modify, btnPhotoLoad;
+    Button back, modify, btnPhotoLoad, btnPhotoDelete;
     TextView cpmfilename, fileName;
     String uploadType, imageFilePathA, imageUploadPathA, uploadFileName;
 
@@ -49,6 +49,7 @@ public class ComplainModify extends AppCompatActivity {
         modify = findViewById(R.id.modify);
         cpmfilename = findViewById(R.id.cpmfilename);
         btnPhotoLoad = findViewById(R.id.btnPhotoLoad);
+        btnPhotoDelete  = findViewById(R.id.btnPhotoDelete);
         fileName = findViewById(R.id.cpmfilename);
 
         now = System.currentTimeMillis();
@@ -96,6 +97,14 @@ public class ComplainModify extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE);
+            }
+        });
+
+        btnPhotoDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadType = "delete";
+                cpmfilename.setText("");
             }
         });
     }
