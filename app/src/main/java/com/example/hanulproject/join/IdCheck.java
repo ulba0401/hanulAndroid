@@ -89,7 +89,6 @@ public class IdCheck extends AsyncTask<Void,Void,Integer> {
             if(vo.getResult() != null && vo.getResult().equals("fail")){
                 return 0;
             }
-
             return 1;
         }
     }
