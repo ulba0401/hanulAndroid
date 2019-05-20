@@ -1,35 +1,39 @@
 package com.example.hanulproject.main;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
-import com.example.hanulproject.menu.status.GeoPoint;
-import com.example.hanulproject.menu.status.GeoTrans;
 import com.example.hanulproject.menu.status.GetDust;
 import com.example.hanulproject.menu.status.GetWeather;
 import com.example.hanulproject.menu.status.TranslateXY;
 import com.example.hanulproject.task.task.ReadMessage;
 import com.example.hanulproject.vo.DustInfoVO;
-import com.example.hanulproject.vo.DustStationVO;
-import com.example.hanulproject.vo.MyhomeVO;
 import com.example.hanulproject.vo.TranslatexyVO;
 import com.example.hanulproject.vo.WeatherInfoVO;
+
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class First_fragment extends Fragment {
     // Store instance variables
@@ -43,6 +47,15 @@ public class First_fragment extends Fragment {
     ReadMessage rm = new ReadMessage();
     TranslatexyVO tvo;
     ArrayList<DustInfoVO> dustinfolist = new ArrayList<>();
+    Context context;
+    TextView hide_lat_msg;
+    TextView hide_lon_msg;
+    Button loc_btn;
+    Double latitude = 0.0;
+    Double longitude = 0.0;
+    WeatherInfoVO info = new WeatherInfoVO();
+    GlideDrawableImageViewTarget gifImage;
+    String lat, lon;
 
     // newInstance constructor for creating fragment with arguments
     public static First_fragment newInstance(int page, String title) {
@@ -60,20 +73,12 @@ public class First_fragment extends Fragment {
         super.onCreate(savedInstanceState);
         page = getArguments().getInt("someInt", 0);
         title = getArguments().getString("someTitle");
-
-
     }
 
     // Inflate the view for the fragment based on layout XML
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment1, container, false);
-
-        //위경도 기상청용 xy로 변환
-        TranslateXY txy = new TranslateXY();
-        TranslatexyVO tvo = txy.getTransXY(33.380799580047004, 126.54054857471584);
-        WeatherInfoVO info = new WeatherInfoVO();
-
 
 //        //GeoTrans 클래스 사용 예시
 //        GeoPoint in_pt = new GeoPoint(127., 38.);
@@ -98,70 +103,39 @@ public class First_fragment extends Fragment {
         weather_icon = view.findViewById(R.id.weather_icon);
         dvalue = view.findViewById(R.id.dvalue);
         udvalue = view.findViewById(R.id.udvalue);
+        hide_lat_msg = view.findViewById(R.id.hide_lat_msg);
+        hide_lon_msg = view.findViewById(R.id.hide_lon_msg);
 
-        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(weather_back);
+        startLocationService();
 
-        //미세먼지 근처 3군데 3시간 평균값 리스트 받아오기
-        GetDust dust = null;
-        dust = new GetDust(33.380799580047004, 126.54054857471584);
+        loc_btn = view.findViewById(R.id.gps_btn);
 
-        try {
-            dustinfolist = dust.execute().get();
+        loc_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lat = hide_lat_msg.getText().toString();
+                lon = hide_lon_msg.getText().toString();
 
-            for (int i = 0; i < dustinfolist.size(); i++){
+                Log.d("abc", "" + latitude + longitude);
 
-                int a = dustinfolist.get(i).getPm10Value();
-                if (dustinfolist.get(i).getPm10Grade() != 0) {
-                    if (dustinfolist.get(i).getPm10Grade() == 1) {
-                        finedust.setImageResource(R.drawable.verygood);
-                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
-                        break;
-                    } else if (dustinfolist.get(i).getPm10Grade() == 2) {
-                        finedust.setImageResource(R.drawable.soso);
-                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
-                        break;
-                    } else if (dustinfolist.get(i).getPm10Grade() == 3) {
-                        finedust.setImageResource(R.drawable.bad);
-                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
-                        break;
-                    } else if (dustinfolist.get(i).getPm10Grade() == 4) {
-                        finedust.setImageResource(R.drawable.verybad);
-                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
-                        break;
-                    }
-                }
+                getdust();
+                getweather();
+                startLocationService();
             }
+        });
 
-
-            for (int i = 0; i < dustinfolist.size(); i++){
-
-                int a = dustinfolist.get(i).getPm25Value();
-                if (dustinfolist.get(i).getPm25Grade() != 0) {
-                    if (dustinfolist.get(i).getPm25Grade() == 1) {
-                        ufinedust.setImageResource(R.drawable.verygood);
-                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
-                        break;
-                    } else if (dustinfolist.get(i).getPm25Grade() == 2) {
-                        ufinedust.setImageResource(R.drawable.soso);
-                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
-                        break;
-                    } else if (dustinfolist.get(i).getPm25Grade() == 3) {
-                        ufinedust.setImageResource(R.drawable.bad);
-                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
-                        break;
-                    } else if (dustinfolist.get(i).getPm25Grade() == 4) {
-                        ufinedust.setImageResource(R.drawable.verybad);
-                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
-                        break;
-                    }
-                }
-            }
-        }catch (Exception e ){
-            e.getMessage();
-        }
+        return view;
+    }
 
 
 
+    //집 리스트 조회처리
+
+    public void getweather(){
+        //위경도 기상청용 xy로 변환
+        TranslateXY txy = new TranslateXY();
+        gifImage = new GlideDrawableImageViewTarget(weather_back);
+        TranslatexyVO tvo = txy.getTransXY(latitude, longitude);
         //날씨받아오기
         GetWeather gw = new GetWeather(tvo.getX(), tvo.getY());
         try {
@@ -249,12 +223,138 @@ public class First_fragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        return view;
     }
 
+    private void startLocationService() {
+        LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        GPSListener gpsListener = new GPSListener();
+        long minTime = 2147483647;
+        float minDistance = 0;
 
-    //집 리스트 조회처리
+        try {
+            manager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,  //기지국
+                    minTime,
+                    minDistance,
+                    gpsListener
+            );
 
+            manager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,  //위성
+                    minTime,
+                    minDistance,
+                    gpsListener
+            );
+
+            Location lastLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (lastLocation != null) {
+                latitude = lastLocation.getLatitude(); //위도
+                longitude = lastLocation.getLongitude(); //경도
+
+                hide_lat_msg.setText(String.valueOf(latitude));
+                hide_lon_msg.setText(String.valueOf(longitude));
+
+                String msg = "Latitude1 : " + latitude + "\nLongitute1" + longitude;
+
+            }
+
+
+        } catch (SecurityException e) {
+            Log.d("Main: gps error ", e.getMessage());
+
+        }
+    }
+
+    public void getdust() {
+        //미세먼지 근처 3군데 3시간 평균값 리스트 받아오기
+
+        GetDust dust = null;
+        dust = new GetDust(latitude, longitude);
+
+        try {
+            dustinfolist = dust.execute().get();
+
+            for (int i = 0; i < dustinfolist.size(); i++) {
+
+                int a = dustinfolist.get(i).getPm10Value();
+                if (dustinfolist.get(i).getPm10Grade() != 0) {
+                    if (dustinfolist.get(i).getPm10Grade() == 1) {
+                        finedust.setImageResource(R.drawable.verygood);
+                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
+                        break;
+                    } else if (dustinfolist.get(i).getPm10Grade() == 2) {
+                        finedust.setImageResource(R.drawable.soso);
+                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
+                        break;
+                    } else if (dustinfolist.get(i).getPm10Grade() == 3) {
+                        finedust.setImageResource(R.drawable.bad);
+                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
+                        break;
+                    } else if (dustinfolist.get(i).getPm10Grade() == 4) {
+                        finedust.setImageResource(R.drawable.verybad);
+                        dvalue.setText(String.valueOf(dustinfolist.get(i).getPm10Value()));
+                        break;
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < dustinfolist.size(); i++) {
+
+                int a = dustinfolist.get(i).getPm25Value();
+                if (dustinfolist.get(i).getPm25Grade() != 0) {
+                    if (dustinfolist.get(i).getPm25Grade() == 1) {
+                        ufinedust.setImageResource(R.drawable.verygood);
+                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
+                        break;
+                    } else if (dustinfolist.get(i).getPm25Grade() == 2) {
+                        ufinedust.setImageResource(R.drawable.soso);
+                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
+                        break;
+                    } else if (dustinfolist.get(i).getPm25Grade() == 3) {
+                        ufinedust.setImageResource(R.drawable.bad);
+                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
+                        break;
+                    } else if (dustinfolist.get(i).getPm25Grade() == 4) {
+                        ufinedust.setImageResource(R.drawable.verybad);
+                        udvalue.setText(String.valueOf(dustinfolist.get(i).getPm25Value()));
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+    private class GPSListener implements LocationListener {
+
+
+        @Override
+        public void onLocationChanged(Location location) {
+            latitude = location.getLatitude(); //위도
+            longitude = location.getLongitude(); //경도
+
+            String msg = "Latitude : " + latitude + "\nLongitute" + longitude;
+
+            // hide_msg.setText(msg);
+            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    }
 }

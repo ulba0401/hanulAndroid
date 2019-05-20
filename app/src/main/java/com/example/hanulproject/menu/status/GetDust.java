@@ -114,11 +114,6 @@ public class GetDust extends AsyncTask<ArrayList<DustInfoVO>, Void, ArrayList<Du
                     }
                 }
 
-                Log.d("sum", "" + pm10sum);
-                Log.d("sum", "" + pm25sum);
-                Log.d("sum", "" + pm10gsum);
-                Log.d("sum", "" + pm25gsum);
-
                 vo = new DustInfoVO((pm10gsum/cnt), (pm10sum/cnt), (pm25gsum/cnt), (pm25sum/cnt));
                 vo.setStation(stationList.get(i).getStationName());
                 //Log.d("abc", "" + vo.getPm10Grade());

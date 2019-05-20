@@ -2,12 +2,16 @@ package com.example.hanulproject;
 
 import android.Manifest;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -30,6 +34,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,13 +72,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BackPressCloseHandler backPressCloseHandler;
     public TextView email, name;
     ImageView profile;
-
+    TextView hide_msg;
 
     Notice_main notice;
     Complain_main complain;
     Community_main community;
     Settings_main settings;
     List_main list;
+
+
+
 
 
 
@@ -86,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //네비게이션바 프로필 설정
         email.setText(LoginRequest.vo.getEmail());
         name.setText(LoginRequest.vo.getName());
-        profile.setImageResource(R.mipmap.ic_launcher_round);
+        //profile.setImageResource(R.mipmap.ic_launcher_round);
 
         //로그인 프로필 받아오기
         if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){
@@ -126,14 +134,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
-
 
         //백버튼 누르면 종료되는 기능의 함수
         backPressCloseHandler = new BackPressCloseHandler(this);
@@ -159,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         View nav_header_view = navigationView.getHeaderView(0);
 
-            profile = nav_header_view.findViewById(R.id.profileImage);
+            //profile = nav_header_view.findViewById(R.id.profileImage);
             email = nav_header_view.findViewById(R.id.navi_id);
             name = nav_header_view.findViewById(R.id.navi_name);
 
@@ -183,7 +190,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         indicator.setViewPager(vpPager);
 
         checkDangerousPermissions();
+
     }
+
+
 
 
 
@@ -319,6 +329,82 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
                 }
             }
+        }
+    }
+
+    private void startLocationService() {
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        GPSListener gpsListener = new GPSListener();
+        long minTime = 10000;
+        float minDistance = 0;
+
+        try {
+            manager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,  //기지국
+                    minTime,
+                    minDistance,
+                    gpsListener
+            );
+
+            manager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,  //위성
+                    minTime,
+                    minDistance,
+                    gpsListener
+            );
+
+            Location lastLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (lastLocation != null){
+                Double latitude = lastLocation.getLatitude(); //위도
+                Double longitude = lastLocation.getLongitude(); //경도
+
+                String msg = "Latitude1 : " + latitude + "\nLongitute1" + longitude;
+
+                hide_msg.setText(msg);
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        } catch (SecurityException e){
+            Log.d("Main: gps error ", e.getMessage());
+
+        }
+
+
+
+
+    }
+
+    private class GPSListener implements LocationListener {
+
+
+        @Override
+        public void onLocationChanged(Location location) {
+            Double latitude = location.getLatitude(); //위도
+            Double longitude = location.getLongitude(); //경도
+
+            String msg = "Latitude : " + latitude + "\nLongitute" + longitude;
+
+            hide_msg.setText(msg);
+            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
         }
     }
 
