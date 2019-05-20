@@ -67,6 +67,7 @@
                 android:id="@+id/joinId"
                 android:layout_width="180dp"
                 android:layout_height="50dp"
+                android:hint="소문자와 숫자를 입력해주세요"
                 android:textSize="@dimen/contentSize" />
 
             <Button

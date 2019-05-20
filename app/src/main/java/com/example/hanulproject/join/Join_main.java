@@ -136,7 +136,7 @@ public class Join_main extends AppCompatActivity {
                     name.requestFocus();
                     return;
                 }
-                if(id.getText().toString().length()==0){
+                if(id.getText().toString().length()==0  ||!Pattern.matches("^(?=.*\\d)(?=.*[a-z]).{8,20}$", id.getText().toString()) ){
                     Toast.makeText(Join_main.this, "아이디를 입력하세요.", Toast.LENGTH_SHORT).show();
                     id.requestFocus();
                     return;
@@ -165,6 +165,7 @@ public class Join_main extends AppCompatActivity {
                     IdCheck idCheck=new IdCheck(id.getText().toString(), getApplicationContext());
                     try {
                         int check=idCheck.execute().get();
+                        //아이디 중복확인이 되어야 회원가입이 완료
                         if (check == 0) {
                             Intent intent = new Intent(Join_main.this, Login_page.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
