@@ -27,5 +27,100 @@
         android:text="@string/search_pw"
         android:layout_gravity="center"
         android:layout_marginTop="80dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/titlebarcolor"
+            android:text="아이디"
+            android:textSize="@dimen/contentSize"/>
+        <EditText
+            android:id="@+id/fpid"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:textSize="@dimen/contentSize"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/titlebarcolor"
+            android:text="이름"
+            android:textSize="@dimen/contentSize"/>
+        <EditText
+            android:id="@+id/fpname"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:textSize="@dimen/contentSize"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="이메일"
+            android:textColor="@color/titlebarcolor"
+            android:textSize="@dimen/contentSize" />
+
+        <EditText
+            android:id="@+id/fpemail"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:textSize="@dimen/contentSize" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/pw1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="찾으시는 아이디의 비밀번호는 '"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/pw2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="찾을 아이디"
+            android:textColor="@color/com_facebook_button_send_background_color_pressed"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/pw3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="' 입니다."
+            android:visibility="gone"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/findPw"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_on"
+        android:onClick="btnAddClicked"
+        android:text="조회하기"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/btnSize" />
 
 </LinearLayout>

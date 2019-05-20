@@ -4,8 +4,6 @@ import android.content.Context;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.hanulproject.vo.UserVO;
 
@@ -22,19 +20,19 @@ import java.io.InputStreamReader;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 
-public class FindId extends AsyncTask<Void, Void, Integer> {
+public class FindPw extends AsyncTask<Void, Void, Integer> {
 
     Context context;
     public static UserVO vo = new UserVO();
-    private String name, email;
+    private String  id, name, email;
     boolean is_check = true;
 
-    public FindId(String name, String email, Context context) {
+    public FindPw( String id, String name, String email, Context context){
+        this.id=id;
         this.name = name;
         this.email = email;
-        this.context = context;
+        this.context=context;
     }
-
 
 
     @Override
@@ -49,7 +47,7 @@ public class FindId extends AsyncTask<Void, Void, Integer> {
         HttpResponse httpResponse = null;
         HttpEntity httpEntity = null;
 
-        String postURL = ipConfig + "/AA/AFindId?name="+name+"&email="+email;
+        String postURL = ipConfig+"/AA/AFindPw?id="+id+"&name="+name+"&email="+email;
         try {
             //MultipartEntityBuild  생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -67,11 +65,8 @@ public class FindId extends AsyncTask<Void, Void, Integer> {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
             ((AndroidHttpClient) httpClient).close();
-
-            if(vo.getResult() != null && vo.getResult().equals("fail")){
-
+            if (vo.getResult() != null && vo.getResult().equals("fail")) {
                 return 0;
             }
             return 1;
@@ -89,13 +84,6 @@ public class FindId extends AsyncTask<Void, Void, Integer> {
             reader.endObject();
         } finally {
             reader.close();
-        }
-    }
-    @Override
-    protected void onPostExecute(Integer check) {
-        super.onPostExecute(check);
-        if(!is_check) {
-            Toast.makeText(context, "아이디가 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -131,4 +119,5 @@ public class FindId extends AsyncTask<Void, Void, Integer> {
             }
         }
     }
+
 }
