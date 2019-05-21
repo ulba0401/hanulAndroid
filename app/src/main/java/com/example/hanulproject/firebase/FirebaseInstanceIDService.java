@@ -17,6 +17,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
      * 구글 토큰을 얻는 값입니다.
      * 아래 토큰은 앱이 설치된 디바이스에 대한 고유값으로 푸시를 보낼때 사용됩니다.
      * **/
+    static boolean sendNotification_is_check = false;
 
     @Override
     public void onNewToken(String s) {
@@ -48,48 +49,49 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
         /**
          * 오레오 버전부터는 Notification Channel이 없으면 푸시가 생성되지 않는 현상이 있습니다.
          * **/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            String channel = "채널";
-            String channel_nm = "채널명";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            NotificationManager notichannel = (android.app.NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel channelMessage = new NotificationChannel(channel, channel_nm,
-                    android.app.NotificationManager.IMPORTANCE_DEFAULT);
-            channelMessage.setDescription("채널에 대한 설명.");
-            channelMessage.enableLights(true);
-            channelMessage.enableVibration(true);
-            channelMessage.setShowBadge(false);
-            channelMessage.setVibrationPattern(new long[]{100, 200, 100, 200});
-            notichannel.createNotificationChannel(channelMessage);
+                String channel = "채널";
+                String channel_nm = "채널명";
 
-            NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(this, channel)
-                            .setSmallIcon(R.drawable.ic_launcher_background)
-                            .setContentTitle(title)
-                            .setContentText(message)
-                            .setChannelId(channel)
-                            .setAutoCancel(true)
-                            .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+                NotificationManager notichannel = (android.app.NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationChannel channelMessage = new NotificationChannel(channel, channel_nm,
+                        android.app.NotificationManager.IMPORTANCE_DEFAULT);
+                channelMessage.setDescription("채널에 대한 설명.");
+                channelMessage.enableLights(true);
+                channelMessage.enableVibration(true);
+                channelMessage.setShowBadge(false);
+                channelMessage.setVibrationPattern(new long[]{100, 200, 100, 200});
+                notichannel.createNotificationChannel(channelMessage);
 
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationCompat.Builder notificationBuilder =
+                        new NotificationCompat.Builder(this, channel)
+                                .setSmallIcon(R.drawable.ic_launcher_background)
+                                .setContentTitle(title)
+                                .setContentText(message)
+                                .setChannelId(channel)
+                                .setAutoCancel(true)
+                                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
-            notificationManager.notify(9999, notificationBuilder.build());
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        } else {
-            NotificationCompat.Builder notificationBuilder =
-                    new NotificationCompat.Builder(this, "")
-                            .setSmallIcon(R.drawable.ic_launcher_background)
-                            .setContentTitle(title)
-                            .setContentText(message)
-                            .setAutoCancel(true)
-                            .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+                notificationManager.notify(9999, notificationBuilder.build());
 
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            } else {
+                NotificationCompat.Builder notificationBuilder =
+                        new NotificationCompat.Builder(this, "")
+                                .setSmallIcon(R.drawable.ic_launcher_background)
+                                .setContentTitle(title)
+                                .setContentText(message)
+                                .setAutoCancel(true)
+                                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
-            notificationManager.notify(9999, notificationBuilder.build());
-        }
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                notificationManager.notify(9999, notificationBuilder.build());
+            }
     }
 }

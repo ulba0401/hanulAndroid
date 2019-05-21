@@ -69,6 +69,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     static public SharedPreferences appData;
+    SharedPreferences.Editor editor = appData.edit();
     //static public boolean saveLoginData;
 
     //로그아웃버튼 누를시 true 로 활성화 됨
@@ -154,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.d("pushToken", "pushToken : "+token);
             LoginRequest.vo.setDeviceToken(token);
         }
+
+
 
         //백버튼 누르면 종료되는 기능의 함수
         backPressCloseHandler = new BackPressCloseHandler(this);
@@ -429,12 +432,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //로그인 설정값을 저장하는 함수
     private void save(boolean check) {
         // SharedPreferences 객체만으론 저장 불가능 Editor 사용
-        SharedPreferences.Editor editor = appData.edit();
+
 
         // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
         // 저장시킬 이름이 이미 존재하면 덮어씌움
         if(check){
-            //editor.putBoolean("SAVE_LOGIN_DATA", true);
+            editor.putBoolean("PushSetting", true);
             editor.putString("ID",LoginRequest.vo.getId());
             editor.putString("PWD",LoginRequest.vo.getPw());
             editor.putString("Email", LoginRequest.vo.getEmail());
