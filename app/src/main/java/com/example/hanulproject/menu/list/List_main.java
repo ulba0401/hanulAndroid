@@ -61,6 +61,7 @@ public class List_main extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserVO vo= (UserVO) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), ListDetail.class);
+                intent.putExtra("vo",vo);
                 startActivityForResult(intent, 200);
             }
         });
