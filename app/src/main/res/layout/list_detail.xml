@@ -4,52 +4,154 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/uid"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="uid" />
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/titlebarcolor">
 
-    <TextView
-        android:id="@+id/upw"
-        android:layout_width="match_parent"
+        <Button
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/back"
+            android:paddingLeft="10dp" />
+        <TextView
+            android:id="@+id/bartext"
+            style="@style/bartext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원 상세정보" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="upw" />
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/uname"
-        android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/emptyprofile" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="uname" />
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 아이디"/>
+        <TextView
+            android:id="@+id/uid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유저 비밀번호"/>
+        <TextView
+            android:id="@+id/upw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 이름"/>
+        <TextView
+            android:id="@+id/uname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 주소"/>
+        <TextView
+            android:id="@+id/uaddr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 이메일"/>
+        <TextView
+            android:id="@+id/uemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <Button
+            android:id="@+id/umodify"
+            android:background="@drawable/btn_on"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="수정"
+            android:textColor="#ffffff"
+            android:textSize="15dp"/>
+        <Button
+            android:id="@+id/udelete"
+            android:background="@drawable/btn_on"
+            android:layout_marginLeft="10dp"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:text="취소"
+            android:textColor="#ffffff"
+            android:textSize="15dp"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/uaddr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="uaddr" />
 
-    <TextView
-        android:id="@+id/uphone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="uphone" />
-
-    <TextView
-        android:id="@+id/uemail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="uemail" />
-
-    <TextView
-        android:id="@+id/uprofile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="uprofile" />
-
-    <TextView
-        android:id="@+id/uadmin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="uadmin" />
 </LinearLayout>

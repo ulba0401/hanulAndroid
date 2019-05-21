@@ -59,8 +59,7 @@
                 android:layout_height="wrap_content"
                 android:text="첨부파일 : "
                 android:layout_marginLeft="20dp"
-                style="@style/content"
-                />
+                style="@style/content"/>
 
             <TextView
                 android:id="@+id/ndfilename"
