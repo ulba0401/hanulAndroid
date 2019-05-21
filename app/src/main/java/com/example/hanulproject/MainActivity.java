@@ -41,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.firebase.DeviceToken;
+import com.example.hanulproject.firebase.TokenLogout;
 import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.login.Login_menu;
 import com.example.hanulproject.main.BackPressCloseHandler;
@@ -253,6 +254,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent.putExtra("selectKey", 5);
             startActivity(intent);
         } else if(id == R.id.nav_logout){
+            TokenLogout tokenLogout = new TokenLogout(LoginRequest.vo.getId());
+            tokenLogout.execute();
             logout_check = true;
             save(false);
             intent = new Intent(MainActivity.this, Login_menu.class);
