@@ -72,8 +72,6 @@ public class Search_id extends Fragment {
                         id1.setVisibility(View.VISIBLE);
                         id2.setVisibility(View.VISIBLE);
                         id3.setVisibility(View.VISIBLE);
-
-
                     }
                 }catch (Exception e){
                     e.printStackTrace();
