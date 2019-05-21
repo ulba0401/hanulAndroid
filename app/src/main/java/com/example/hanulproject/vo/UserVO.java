@@ -21,6 +21,15 @@ public class UserVO implements Serializable {
         this.profileName = profileName;
     }
 
+    public UserVO(String id,String pw,String name,String email,String addr,String profile){
+        this.id = id;
+        this.pw = pw;
+        this.name = name;
+        this.email = email;
+        this.addr = addr;
+        this.profile = profile;
+    }
+
     public String getDeviceToken() {
         return deviceToken;
     }

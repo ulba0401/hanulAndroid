@@ -1,4 +1,4 @@
-package com.example.hanulproject.menu.list;
+package com.example.hanulproject.task.task.detail;
 
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
@@ -38,7 +38,7 @@ public class MemberListDetailCall extends AsyncTask<Void,Void, UserVO> {
         HttpResponse httpResponse = null;
         HttpEntity httpEntity = null;
 
-        postURL = ipConfig + "/AA/Mlistdetail?id="+id;
+        postURL = ipConfig + "/AA/udetail?id="+id;
 
         try {
             //MultipartEntityBuild  생성
@@ -83,7 +83,7 @@ public class MemberListDetailCall extends AsyncTask<Void,Void, UserVO> {
         UserVO vo = null;
         reader.beginObject();
         try {
-            readMessage(reader);
+            vo = readMessage(reader);
         }finally {
             reader.close();
         }
@@ -91,7 +91,7 @@ public class MemberListDetailCall extends AsyncTask<Void,Void, UserVO> {
     }
 
 
-    private void readMessage(JsonReader reader) throws IOException {
+    private UserVO readMessage(JsonReader reader) throws IOException {
         String name = "", phone="", addr="", id="", pw="", email="",  result="", profile="";
 
         while (reader.hasNext()){
@@ -125,5 +125,8 @@ public class MemberListDetailCall extends AsyncTask<Void,Void, UserVO> {
                 reader.skipValue();
             }
         }
+        reader.endObject();
+
+        return new UserVO(id,pw,name,email,addr,profile);
     }
 }

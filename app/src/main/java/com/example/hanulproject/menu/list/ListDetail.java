@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
-import com.example.hanulproject.join.IdCheck;
-import com.example.hanulproject.task.task.detail.CommunityCallDetail;
+import com.example.hanulproject.task.task.detail.MemberListDetailCall;
 import com.example.hanulproject.vo.UserVO;
 
 public class ListDetail extends AppCompatActivity {
