@@ -4,9 +4,7 @@ import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
-import com.example.hanulproject.vo.CommunityVO;
 import com.example.hanulproject.vo.UserVO;
-import com.kakao.usermgmt.response.model.User;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

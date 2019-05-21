@@ -52,13 +52,13 @@ public class ListAdapter extends BaseAdapter {
 
             viewHolder = new ListAdapter.UserprofileViewHolder();
             viewHolder.id = convertView.findViewById(R.id.uid);
-            viewHolder.pw = convertView.findViewById(R.id.upw);
+      /*      viewHolder.pw = convertView.findViewById(R.id.upw);*/
             viewHolder.name = convertView.findViewById(R.id.uname);
-            viewHolder.addr = convertView.findViewById(R.id.uaddr);
+          /*  viewHolder.addr = convertView.findViewById(R.id.uaddr);
             viewHolder.phone = convertView.findViewById(R.id.uphone);
             viewHolder.email = convertView.findViewById(R.id.uemail);
             viewHolder.profile = convertView.findViewById(R.id.uprofile);
-            viewHolder.admin = convertView.findViewById(R.id.uadmin);
+            viewHolder.admin = convertView.findViewById(R.id.uadmin);*/
 
 
             convertView.setTag(viewHolder);
