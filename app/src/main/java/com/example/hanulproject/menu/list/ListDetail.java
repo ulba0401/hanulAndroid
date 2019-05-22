@@ -55,6 +55,7 @@ public class ListDetail extends AppCompatActivity {
                 Intent intent = new Intent(ListDetail.this, List_Modify.class);
                 intent.putExtra("vo", "vo");
                 startActivity(intent);
+                finish();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
