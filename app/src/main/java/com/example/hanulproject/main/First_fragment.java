@@ -66,6 +66,8 @@ public class First_fragment extends Fragment implements Serializable {
     GlideDrawableImageViewTarget gifImage;
     String lat, lon;
 
+    static boolean is_excute = true;
+
 
     //집 조회처리
     Select select;
@@ -87,6 +89,8 @@ public class First_fragment extends Fragment implements Serializable {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MyhomeVO vo = (MyhomeVO) adapter.getItem(position);
                 //클릭시 할 처리
+                getdust(vo.getNx(), vo.getNy());
+                getweather(vo.getNx(), vo.getNy());
             }
         });
     }
@@ -141,11 +145,12 @@ public class First_fragment extends Fragment implements Serializable {
         hide_lon_msg = view.findViewById(R.id.hide_lon_msg);
 
 
-        startLocationService();
-        getdust();
 
-        startLocationService();
-        getweather();
+        while(is_excute){
+            startLocationService();
+        }
+        getdust(latitude, longitude);
+        getweather(latitude, longitude);
         myHomelist(my_home_list);
 
         loc_btn = view.findViewById(R.id.gps_btn);
@@ -158,9 +163,9 @@ public class First_fragment extends Fragment implements Serializable {
 
                 Log.d("abc", "" + latitude + longitude);
                 startLocationService();
-                getdust();
+                getdust(latitude, longitude);
                 startLocationService();
-                getweather();
+                getweather(latitude, longitude);
 
             }
         });
@@ -172,11 +177,11 @@ public class First_fragment extends Fragment implements Serializable {
 
     //집 리스트 조회처리
 
-    public void getweather(){
+    public void getweather(double x, double y){
         //위경도 기상청용 xy로 변환
         TranslateXY txy = new TranslateXY();
         gifImage = new GlideDrawableImageViewTarget(weather_back);
-        TranslatexyVO tvo = txy.getTransXY(latitude, longitude);
+        TranslatexyVO tvo = txy.getTransXY(x, y);
         //날씨받아오기
         GetWeather gw = new GetWeather(tvo.getX(), tvo.getY());
         try {
@@ -305,13 +310,16 @@ public class First_fragment extends Fragment implements Serializable {
             Log.d("Main: gps error ", e.getMessage());
 
         }
+        finally {
+            First_fragment.is_excute = false;
+        }
     }
 
-    public void getdust() {
+    public void getdust(double x, double y) {
         //미세먼지 근처 3군데 3시간 평균값 리스트 받아오기
 
         GetDust dust = null;
-        dust = new GetDust(latitude, longitude);
+        dust = new GetDust(x, y);
 
         try {
             dustinfolist = dust.execute().get();
