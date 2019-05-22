@@ -154,10 +154,6 @@ public class Select extends AsyncTask<Void,Void,Void> {
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             builder.setCharset(Charset.forName("UTF-8"));
 
-            if (controller == 7) {
-                builder.addTextBody("id", id, ContentType.create("Multipart/related", "uUTF-8"));
-            }
-
             //전송
             InputStream inputStream = null;
             httpClient = AndroidHttpClient.newInstance("Android");
@@ -189,11 +185,9 @@ public class Select extends AsyncTask<Void,Void,Void> {
     }
 
     private void readJsonStream(InputStream inputStream) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
+         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
             reader.beginArray();
-
-
                 if(controller == 1) {
                     while (reader.hasNext()){
                         nlist.add(new ReadMessage().noticeReadMessage(reader));

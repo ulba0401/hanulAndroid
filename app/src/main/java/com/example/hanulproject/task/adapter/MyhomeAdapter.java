@@ -58,8 +58,15 @@ public class MyhomeAdapter extends BaseAdapter {
         }else{
             viewHolder = (MyhomeViewHolder) convertView.getTag();
         }
+        viewHolder.addr.setText(arrayList.get(position).getAddr());
 
-        return null;
+        return convertView;
+    }
+
+    //아이템 지우기
+    public void removeAllItem(){
+        arrayList.clear();
+        notifyDataSetChanged();
     }
 
     public static class MyhomeViewHolder{

@@ -139,7 +139,6 @@ public class First_fragment extends Fragment implements Serializable {
         udvalue = view.findViewById(R.id.udvalue);
         hide_lat_msg = view.findViewById(R.id.hide_lat_msg);
         hide_lon_msg = view.findViewById(R.id.hide_lon_msg);
-        listView = view.findViewById(R.id.my_home_list);
 
 
         startLocationService();
@@ -147,7 +146,7 @@ public class First_fragment extends Fragment implements Serializable {
 
         startLocationService();
         getweather();
-        //myHomelist(listView);
+        myHomelist(my_home_list);
 
         loc_btn = view.findViewById(R.id.gps_btn);
 

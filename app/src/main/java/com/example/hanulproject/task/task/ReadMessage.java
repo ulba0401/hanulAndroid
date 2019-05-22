@@ -109,8 +109,8 @@ public class ReadMessage {
 
     public MyhomeVO homeReadMessage(JsonReader reader) throws IOException{
         String id="", addr="";
-        int nx=0, ny=0;
-        reader.beginObject();;
+        double nx=0, ny=0;
+        reader.beginObject();
 
         while (reader.hasNext()){
             String readStr = reader.nextName();
@@ -119,16 +119,18 @@ public class ReadMessage {
             } else if (readStr.equals("addr")){
                 addr = reader.nextString();
             } else if (readStr.equals("nx")){
-                nx = reader.nextInt();
+                nx = reader.nextDouble();
             } else if (readStr.equals("ny")){
-                ny = reader.nextInt();
+                ny = reader.nextDouble();
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
+        int tmpX = (int)nx;
+        int tmpy = (int)ny;
 
-        return new MyhomeVO(id, addr, nx, ny);
+        return new MyhomeVO(id, addr, tmpX, tmpy);
     }
 
     public UserVO userReadMessage(JsonReader reader) throws IOException{
