@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.hanulproject.vo.CommunityVO;
 import com.example.hanulproject.vo.ComplainVO;
+import com.example.hanulproject.vo.MyhomeVO;
 import com.example.hanulproject.vo.NoticeVO;
 import com.example.hanulproject.vo.SettingVO;
 import com.example.hanulproject.vo.StatusVO;
@@ -106,6 +107,30 @@ public class ReadMessage {
         return new CommunityVO(no,title,content,writer, filename,filepath, readcnt);
     }
 
+    public MyhomeVO homeReadMessage(JsonReader reader) throws IOException{
+        String id="", addr="";
+        int nx=0, ny=0;
+        reader.beginObject();;
+
+        while (reader.hasNext()){
+            String readStr = reader.nextName();
+            if (readStr.equals("id")){
+                id = reader.nextString();
+            } else if (readStr.equals("addr")){
+                addr = reader.nextString();
+            } else if (readStr.equals("nx")){
+                nx = reader.nextInt();
+            } else if (readStr.equals("ny")){
+                ny = reader.nextInt();
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+
+        return new MyhomeVO(id, addr, nx, ny);
+    }
+
     public UserVO userReadMessage(JsonReader reader) throws IOException{
         String id="", pw="", name="", addr="", phone="", email="", profile="", admin="", profileName="";
 
@@ -149,5 +174,6 @@ public class ReadMessage {
 
         return null;
     }
+
 
 }

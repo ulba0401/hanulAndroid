@@ -1,6 +1,8 @@
 package com.example.hanulproject.main;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,12 +23,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.menu.status.GetDust;
 import com.example.hanulproject.menu.status.GetWeather;
 import com.example.hanulproject.menu.status.TranslateXY;
+import com.example.hanulproject.task.adapter.MyhomeAdapter;
 import com.example.hanulproject.task.task.ReadMessage;
+import com.example.hanulproject.task.task.Select;
 import com.example.hanulproject.vo.DustInfoVO;
+import com.example.hanulproject.vo.MyhomeVO;
 import com.example.hanulproject.vo.TranslatexyVO;
+import com.example.hanulproject.vo.UserVO;
 import com.example.hanulproject.vo.WeatherInfoVO;
 
 
@@ -33,9 +41,10 @@ import com.example.hanulproject.vo.WeatherInfoVO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class First_fragment extends Fragment {
+public class First_fragment extends Fragment implements Serializable {
     // Store instance variables
     private String title;
     private int page;
@@ -56,6 +65,31 @@ public class First_fragment extends Fragment {
     WeatherInfoVO info = new WeatherInfoVO();
     GlideDrawableImageViewTarget gifImage;
     String lat, lon;
+
+
+    //집 조회처리
+    Select select;
+    ArrayList<MyhomeVO> hlist = new ArrayList<>();
+    ListView listView;
+    MyhomeAdapter adapter;
+
+
+    private void myHomelist (ListView listView2){
+        activity = (MainActivity) getActivity();
+        adapter = new MyhomeAdapter(getActivity(), R.layout.main_my_home_list_view, hlist);
+        listView2.setAdapter(adapter);
+
+        select = new Select(hlist, adapter, LoginRequest.vo.getId());
+        select.execute();
+
+        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MyhomeVO vo = (MyhomeVO) adapter.getItem(position);
+                //클릭시 할 처리
+            }
+        });
+    }
 
     // newInstance constructor for creating fragment with arguments
     public static First_fragment newInstance(int page, String title) {
@@ -105,13 +139,15 @@ public class First_fragment extends Fragment {
         udvalue = view.findViewById(R.id.udvalue);
         hide_lat_msg = view.findViewById(R.id.hide_lat_msg);
         hide_lon_msg = view.findViewById(R.id.hide_lon_msg);
+        listView = view.findViewById(R.id.my_home_list);
+
 
         startLocationService();
-        getdust();
         getdust();
 
         startLocationService();
         getweather();
+        //myHomelist(listView);
 
         loc_btn = view.findViewById(R.id.gps_btn);
 
@@ -363,4 +399,7 @@ public class First_fragment extends Fragment {
 
         }
     }
+
+
+
 }

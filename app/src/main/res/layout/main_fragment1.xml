@@ -99,7 +99,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="20dp"
-                            android:text="23℃"
+                            android:text="00℃"
                             android:textColor="#000000"
                             android:textSize="40sp" />
 
@@ -240,19 +240,15 @@
         </FrameLayout>
     </LinearLayout>
 
-    <ScrollView
+    <ListView
+        android:id="@+id/my_home_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="60">
 
-        <ListView
-            android:id="@+id/my_home_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </ListView>
 
-        </ListView>
 
-    </ScrollView>
 </LinearLayout>
 
 
