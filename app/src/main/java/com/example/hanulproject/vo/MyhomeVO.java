@@ -5,8 +5,7 @@ import java.io.Serializable;
 public class MyhomeVO implements Serializable {
     private String id;
     private String addr;
-    int nx;
-    int ny;
+    int nx,ny;
 
     public MyhomeVO () {}
 
