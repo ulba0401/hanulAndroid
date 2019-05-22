@@ -36,7 +36,7 @@ public class Settings_main extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.settings_main, container, false);
-        memberModify = rootView.findViewById(R.id.memberModify_update);
+        memberModify = rootView.findViewById(R.id.memberModify);
 
         if(LoginRequest.vo.isLogintype()){
             memberModify.setVisibility(View.VISIBLE);

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -39,6 +40,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hanulproject.firebase.DeviceToken;
+import com.example.hanulproject.firebase.TokenLogout;
 import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.login.Login_menu;
 import com.example.hanulproject.main.BackPressCloseHandler;
@@ -50,6 +53,7 @@ import com.example.hanulproject.main.First_fragment;
 import com.example.hanulproject.main.Second_fragment;
 import com.example.hanulproject.menu.notice.Notice_main;
 import com.example.hanulproject.menu.settings.Settings_main;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -62,11 +66,14 @@ import java.security.NoSuchAlgorithmException;
 
 import me.relex.circleindicator.CircleIndicator;
 
-// 커밋테스트
-// 현지의 커밋테스트
-// 영선의 커밋테스트
-// 맏형의 커밋테스트
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    static public SharedPreferences appData;
+    SharedPreferences.Editor editor = appData.edit();
+    //static public boolean saveLoginData;
+
+    //로그아웃버튼 누를시 true 로 활성화 됨
+    static public boolean logout_check = false;
 
     FragmentPagerAdapter adapterViewPager;
     private BackPressCloseHandler backPressCloseHandler;
@@ -127,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     });
         }
 
+        save(true);
+        DeviceToken deviceToken = new DeviceToken(LoginRequest.vo.getDeviceToken(),LoginRequest.vo.getId());
+        deviceToken.execute();
     }
 
 
@@ -136,6 +146,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // DeviceToken 추출
+        FirebaseInstanceId.getInstance().getToken();
+
+        if(FirebaseInstanceId.getInstance().getToken() != null){
+            String token = FirebaseInstanceId.getInstance().getToken();
+            Log.d("pushToken", "pushToken : "+token);
+            LoginRequest.vo.setDeviceToken(token);
+        }
+
+
 
         //백버튼 누르면 종료되는 기능의 함수
         backPressCloseHandler = new BackPressCloseHandler(this);
@@ -170,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Menu nav_menu = navigationView.getMenu();
         MenuItem menuItem = nav_menu.findItem(R.id.adminmenu);
         //Log.d("adminTest", LoginRequest.vo.getAdmin());
-        if(LoginRequest.vo.getAdmin().equals("Y")){
+        if(LoginRequest.vo.getAdmin() != null && LoginRequest.vo.getAdmin().equals("Y")){
             menuItem.setVisible(true);
         }else {
             menuItem.setVisible(false);
@@ -236,8 +257,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent.putExtra("selectKey", 5);
             startActivity(intent);
         } else if(id == R.id.nav_logout){
+            TokenLogout tokenLogout = new TokenLogout(LoginRequest.vo.getId());
+            tokenLogout.execute();
+            logout_check = true;
+            save(false);
             intent = new Intent(MainActivity.this, Login_menu.class);
             startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -403,4 +429,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    //로그인 설정값을 저장하는 함수
+    private void save(boolean check) {
+        // SharedPreferences 객체만으론 저장 불가능 Editor 사용
+
+
+        // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
+        // 저장시킬 이름이 이미 존재하면 덮어씌움
+        if(check){
+            editor.putBoolean("PushSetting", true);
+            editor.putString("ID",LoginRequest.vo.getId());
+            editor.putString("PWD",LoginRequest.vo.getPw());
+            editor.putString("Email", LoginRequest.vo.getEmail());
+        }else{
+            //로그아웃 처리
+            //editor.putBoolean("SAVE_LOGIN_DATA", true);
+            editor.putString("ID","");
+            editor.putString("PWD","");
+            editor.putString("Email","");
+        }
+
+
+        // apply, commit 을 안하면 변경된 내용이 저장되지 않음
+        editor.apply();
+    }
 }

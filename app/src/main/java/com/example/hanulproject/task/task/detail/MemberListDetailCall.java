@@ -1,10 +1,8 @@
-package com.example.hanulproject.join;
+package com.example.hanulproject.task.task.detail;
 
-import android.content.Context;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.widget.Toast;
 
 import com.example.hanulproject.vo.UserVO;
 
@@ -21,32 +19,27 @@ import java.io.InputStreamReader;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 
-public class IdCheck extends AsyncTask<Void,Void,Integer> {
+public class MemberListDetailCall extends AsyncTask<Void,Void, UserVO> {
 
-    Context context;
-    public static UserVO vo=new UserVO();
-    private String id;
-    boolean is_check = true;
+    String id;
+    public static UserVO vo= new UserVO();
 
 
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+    public MemberListDetailCall(String id){
+        this.id=id;
     }
 
-    public IdCheck(String id, Context context){
-        this.id = id;
-        this.context = context;
-    }
+    String postURL=null;
+
     @Override
-    protected Integer doInBackground(Void... voids) {
+    protected UserVO doInBackground(Void... voids) {
         HttpClient httpClient = null;
         HttpPost httpPost = null;
         HttpResponse httpResponse = null;
         HttpEntity httpEntity = null;
 
-        String postURL = ipConfig+"/AA/AloginCheck?id="+id;
+        postURL = ipConfig + "/AA/udetail?id="+id;
+
         try {
             //MultipartEntityBuild  생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -62,60 +55,43 @@ public class IdCheck extends AsyncTask<Void,Void,Integer> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
+            return readJsonStream(inputStream);
 
-            /*String line;
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            line = br.readLine();
-            if(line.equals("fail")){
-                is_check = false;
-                return 0;
-            }else{
-                is_check = true;
-            }*/
-            readJsonStream(inputStream);
         } catch (Exception e){
             e.printStackTrace();
         }finally {
-//            if(httpEntity != null){
-//                httpEntity = null;
-//            }
-//            if(httpResponse != null){
-//                httpResponse = null;
-//            }
-//            if(httpPost != null){
-//                httpPost = null;
-//            }
-            ((AndroidHttpClient) httpClient).close();
-            if(vo.getResult() != null && vo.getResult().equals("fail")){
-                return 0;
+            if(httpEntity != null){
+                httpEntity = null;
             }
-            return 1;
+            if(httpResponse != null){
+                httpResponse = null;
+            }
+            if(httpPost != null){
+                httpPost = null;
+            }
+            ((AndroidHttpClient) httpClient).close();
         }
+        return null;
+    }
+    @Override
+    protected void onPostExecute(UserVO userVO) {
+        super.onPostExecute(userVO);
     }
 
-    private void readJsonStream(InputStream inputStream) throws IOException {
+    private UserVO readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
-
+        UserVO vo = null;
+        reader.beginObject();
         try {
-            reader.beginObject();
-            while (reader.hasNext()){
-                readMessage(reader);
-            }
-            reader.endObject();
+            vo = readMessage(reader);
         }finally {
             reader.close();
         }
-
-    }
-    @Override
-    protected void onPostExecute(Integer check) {
-        super.onPostExecute(check);
-        if(!is_check) {
-            Toast.makeText(context, "아이디가 중복됐습니다.", Toast.LENGTH_SHORT).show();
-        }
+        return vo;
     }
 
-    private void readMessage(JsonReader reader) throws IOException {
+
+    private UserVO readMessage(JsonReader reader) throws IOException {
         String name = "", phone="", addr="", id="", pw="", email="",  result="", profile="";
 
         while (reader.hasNext()){
@@ -149,7 +125,8 @@ public class IdCheck extends AsyncTask<Void,Void,Integer> {
                 reader.skipValue();
             }
         }
+        reader.endObject();
 
-
+        return new UserVO(id,pw,name,email,addr,profile);
     }
 }

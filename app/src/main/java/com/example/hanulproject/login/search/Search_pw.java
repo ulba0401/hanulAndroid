@@ -25,7 +25,6 @@ public class Search_pw extends Fragment {
     EditText id, name, email;
     TextView pw1, pw2, pw3;
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

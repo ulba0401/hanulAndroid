@@ -14,6 +14,7 @@ import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 import com.example.hanulproject.join.Join_main;
 import com.example.hanulproject.login.search.Search_main;
+import com.example.hanulproject.main.BackPressCloseHandler;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -49,11 +50,17 @@ public class Login_menu extends AppCompatActivity  {
     Button fake_kakao, fake_face, loginBtn;
     TextView jointxt, search_id, search_pw;
 
+    private BackPressCloseHandler backPressCloseHandler;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());//facebook sdk 초기화
         setContentView(R.layout.login_menu);
+
+        //백 버튼 누르면 종료 되는 함수
+        backPressCloseHandler = new BackPressCloseHandler(this);
+
         //페이스북 로그인
         callbackManager = CallbackManager.Factory.create();
 
@@ -251,8 +258,15 @@ public class Login_menu extends AppCompatActivity  {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Login_menu.this, Login.class);
-        startActivity(intent);
-        finish();
+
+        if(MainActivity.logout_check){
+            backPressCloseHandler.onBackPressed();
+            finish();
+        }else{
+            Intent intent = new Intent(Login_menu.this, Login.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 }
