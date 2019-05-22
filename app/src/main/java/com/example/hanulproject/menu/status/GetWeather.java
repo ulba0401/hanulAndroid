@@ -49,7 +49,7 @@ public class GetWeather extends AsyncTask<String,Void,String> {
    protected String doInBackground(String... voids) {
         BufferedReader br = null;
         String result = "";
-        String key = "1oLS8rsU8PJgMtE6w%2BObNMM9dRIt6LKViXokg5%2Fe3j9OPopWAst%2FH3fOwBm5UDe50U81YCk1S3%2B5319jyw0mEg%3D%3D";
+        String key = "7yVeHeB4RQMlqi6UOTxYhZ5Px5Est6psR%2F66FQBNsBaaUzE5nV5yU0lEVGqw1s2dQwuI0dIu3T4KMw0cswBaFw%3D%3D";
         try {
             //주소 붙여넣기
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
@@ -76,7 +76,7 @@ public class GetWeather extends AsyncTask<String,Void,String> {
             }
             //*   System.out.println(result);*//
 
-            //result 파싱
+            //result
             result = result.substring(result.indexOf("["),result.indexOf("]")+1).trim();
 
         } catch (Exception e) {
@@ -84,5 +84,7 @@ public class GetWeather extends AsyncTask<String,Void,String> {
         }
         return result;
     }
+
+
 
 }
