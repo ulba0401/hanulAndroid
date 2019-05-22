@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,8 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="@color/titlebarcolor">
+        android:background="@color/titlebarcolor"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/back"
@@ -24,6 +20,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/back"
             android:paddingLeft="10dp" />
+
         <TextView
             android:id="@+id/bartext"
             style="@style/bartext"
@@ -33,139 +30,159 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/cmdtitle"
-            style="@style/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="게시판 제목" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="80dp"
-        android:layout_height="36dp"
-        android:padding="3dp"
-        android:layout_gravity="right"
-        android:gravity="center">
-        <Button
-            android:id="@+id/modify"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:background="@drawable/modify_b"/>
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/cancel_b"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/cmdImageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="100">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="80"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/cmdcontent"
-                style="@style/content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="게시판 글" />
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="작성자 : "
-                android:layout_marginLeft="10dp"
-                style="@style/content"
-                />
-
-            <TextView
-                android:id="@+id/cmdwriter"
-                style="@style/content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="작성자" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-            <EditText
-                android:layout_width="250dp"
-                android:layout_height="wrap_content" />
-                <Button
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:text="등록"
-                    android:textColor="#ffffff"
-                    android:background="@drawable/btn_on"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cmdtitle"
+                    style="@style/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="게시판 제목" />
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="36dp"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:padding="3dp">
+
+                <Button
+                    android:id="@+id/modify"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/modify_b" />
+
+                <Button
+                    android:id="@+id/delete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/cancel_b" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+
+                <ImageView
+                    android:id="@+id/cmdImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
             </LinearLayout>
-        </LinearLayout>
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
-            <!--<TextView-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="80"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/cmdcontent"
+                        style="@style/content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="게시판 글" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="작성자 : " />
+
+                    <TextView
+                        android:id="@+id/cmdwriter"
+                        style="@style/content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="작성자" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/btn_on"
+                            android:text="등록"
+                            android:textColor="#ffffff" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></ListView>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
+                <!--<TextView-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text="첨부파일 : "-->
                 <!--style="@style/content"-->
                 <!--/>-->
 
-            <!--<TextView-->
+                <!--<TextView-->
                 <!--android:id="@+id/cmdfilename"-->
                 <!--style="@style/content"-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text="파일이름" />-->
-            <!--<Button-->
+                <!--<Button-->
                 <!--android:layout_width="wrap_content"-->
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text="첨부파일"/>-->
-        <!--</LinearLayout>-->
-    </LinearLayout>
+                <!--</LinearLayout>-->
+            </LinearLayout>
 
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
-</ScrollView>
