@@ -1,7 +1,9 @@
 package com.example.hanulproject.menu.list;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.detail.MemberListDetailCall;
 import com.example.hanulproject.vo.UserVO;
 
@@ -50,6 +53,27 @@ public class ListDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder= new AlertDialog.Builder(ListDetail.this);
+                builder.setTitle("탈퇴여부");
+                builder.setMessage("정말 탈퇴시키시겠습니까?");
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Delete delete=new Delete(vo.getId(), 5);
+                        delete.execute();
+                        reset();
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) { }});
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
     }

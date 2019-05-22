@@ -20,10 +20,17 @@ public class Delete extends AsyncTask<Void,Void,Void> {
     int no;
     int controller;
 
+    String id;
+
 
     public Delete(int no, int controller){
         this.no = no;
         this.controller = controller;
+    }
+
+    public Delete(String id, int controller){
+        this.id=id;
+        this.controller=controller;
     }
 
     @Override
@@ -40,7 +47,7 @@ public class Delete extends AsyncTask<Void,Void,Void> {
 
             //문자열 및 데이터 추가
             builder.addTextBody("no", String.valueOf(no), ContentType.create("Multipart/related", "UTF-8"));
-
+            builder.addTextBody("id", id, ContentType.create("Multipart/related", "UTF-8"));
             if(controller == 1){
                 postURL = ipConfig + "/AA/ndelete";
 

@@ -136,8 +136,8 @@ public class Join_main extends AppCompatActivity {
                     name.requestFocus();
                     return;
                 }
-                if(id.getText().toString().length()==0  ||!Pattern.matches("^(?=.*\\d)(?=.*[a-z]).{8,20}$", id.getText().toString()) ){
-                    Toast.makeText(Join_main.this, "아이디를 입력하세요.", Toast.LENGTH_SHORT).show();
+                if(id.getText().toString().length()==0 ){
+                    Toast.makeText(Join_main.this, "아이디를 확인하세요.", Toast.LENGTH_SHORT).show();
                     id.requestFocus();
                     return;
                 }
