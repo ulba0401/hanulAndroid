@@ -12,6 +12,10 @@
         android:id="@+id/hide_lon_msg"
         android:layout_width="0dp"
         android:layout_height="0dp" />
+    <TextView
+        android:id="@+id/hide_login_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
 
     <LinearLayout
         android:id="@+id/main_weather"
