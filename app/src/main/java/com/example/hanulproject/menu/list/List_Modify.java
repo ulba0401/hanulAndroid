@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.login.LoginRequest;
+import com.example.hanulproject.task.task.Update;
 import com.example.hanulproject.task.task.detail.MemberListDetailCall;
 import com.example.hanulproject.vo.UserVO;
 
 public class List_Modify extends AppCompatActivity {
     Button seccess, cancle;
-    EditText id, name, pw, addr, email;
+    EditText id, name, pw;
+    TextView addr, email;
     UserVO vo=MemberListDetailCall.vo;
 
     @Override
@@ -49,7 +52,7 @@ public class List_Modify extends AppCompatActivity {
         seccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
     }
