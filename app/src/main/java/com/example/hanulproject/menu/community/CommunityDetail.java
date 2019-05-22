@@ -1,5 +1,6 @@
 package com.example.hanulproject.menu.community;
 
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,13 +10,16 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.menu.complain.ComplainDetail;
 import com.example.hanulproject.menu.notice.NoticeDetail;
+import com.example.hanulproject.task.adapter.CommunityCommentAdpater;
 import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.detail.CommunityCallDetail;
 import com.example.hanulproject.vo.CommunityVO;
@@ -26,13 +30,20 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.util.ArrayList;
+
 public class CommunityDetail extends AppCompatActivity {
 
-    Button modify, back, delete;
+    Button modify, back, delete, cmmd_cmt_insert;
     CommunityVO vo;
     TextView no, title, content, writer, writedate, readcnt, filename ;
     String filePath;
     ImageView cmdImageView;
+    ListView cmdListview;
+    EditText cmd_cmt_content;
+
+    ArrayList<Community_commentVO> cmmcList;
+    CommunityCommentAdpater adpater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +52,17 @@ public class CommunityDetail extends AppCompatActivity {
         title=findViewById(R.id.cmdtitle);
         writer=findViewById(R.id.cmdwriter);
         content=findViewById(R.id.cmdcontent);
-//        filename=findViewById(R.id.cmdfilename);
         modify=findViewById(R.id.modify);
         delete=findViewById(R.id.delete);
         cmdImageView = findViewById(R.id.cmdImageView);
+        cmdListview = findViewById(R.id.cmdlistview);
+        cmmd_cmt_insert = findViewById(R.id.cmmd_cmt_insert);
+        cmd_cmt_content = findViewById(R.id.cmd_cmt_content);
+
+        cmmcList = new ArrayList<>();
+        adpater = new CommunityCommentAdpater(getApplicationContext(), R.layout.community_comment_item, cmmcList);
+        cmdListview.setAdapter(adpater);
+
         cmdImageView.setVisibility(View.GONE);
 
         back = findViewById(R.id.back);
@@ -101,6 +119,25 @@ public class CommunityDetail extends AppCompatActivity {
                 alert.show();
             }
         });
+
+        cmmd_cmt_insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Community_commentVO community_commentVO = new Community_commentVO();
+
+                String content = cmd_cmt_content.getText().toString();
+                int comu_no = vo.getNo();
+                String writer = LoginRequest.vo.getId();
+
+                community_commentVO.setComu_no(comu_no);
+                community_commentVO.setContent(content);
+                community_commentVO.setWriter(writer);
+
+                Community_commentInsert community_commentInsert = new Community_commentInsert(content,comu_no,writer);
+                community_commentInsert.execute();
+
+            }
+        });
     }
 
     @Override
@@ -112,6 +149,8 @@ public class CommunityDetail extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+        Community_commentSelect select = new Community_commentSelect(cmmcList,adpater,vo.getNo());
+        select.execute();
 
         title.setText(vo.getTitle());
         writer.setText(vo.getWriter());
@@ -120,6 +159,9 @@ public class CommunityDetail extends AppCompatActivity {
         //filename.setText(vo.getFilename());
 
         imageLoad();
+
+
+        adpater.notifyDataSetChanged();
     }
 
     // 피니쉬할때 새로고침하게 해줌
@@ -138,7 +180,6 @@ public class CommunityDetail extends AppCompatActivity {
             switch (requestCode){
                 // MainActivity 에서 요청할 때 보낸 요청 코드 (200)
                 case 200:
-
                     break;
             }
         }

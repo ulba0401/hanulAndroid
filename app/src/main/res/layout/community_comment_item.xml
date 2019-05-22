@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="4">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/cmi_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="글쓴이 : "/>
+
+        <TextView
+            android:id="@+id/cmi_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="14dp"
+            android:text="내용"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/cmi_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="수정"
+            android:layout_weight="0.5"/>
+
+        <Button
+            android:id="@+id/cmi_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="삭제"
+            android:layout_weight="0.5"/>
+
+    </LinearLayout>
+
+</LinearLayout>
