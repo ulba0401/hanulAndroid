@@ -107,6 +107,11 @@ public class First_fragment extends Fragment {
         hide_lon_msg = view.findViewById(R.id.hide_lon_msg);
 
         startLocationService();
+        getdust();
+        getdust();
+
+        startLocationService();
+        getweather();
 
         loc_btn = view.findViewById(R.id.gps_btn);
 
@@ -117,10 +122,11 @@ public class First_fragment extends Fragment {
                 lon = hide_lon_msg.getText().toString();
 
                 Log.d("abc", "" + latitude + longitude);
-
-                getdust();
-                getweather();
                 startLocationService();
+                getdust();
+                startLocationService();
+                getweather();
+
             }
         });
 

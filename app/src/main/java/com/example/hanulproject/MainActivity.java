@@ -72,18 +72,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BackPressCloseHandler backPressCloseHandler;
     public TextView email, name;
     ImageView profile;
-    TextView hide_msg;
+    TextView hide_msg, hide_login_id;
 
     Notice_main notice;
     Complain_main complain;
     Community_main community;
     Settings_main settings;
     List_main list;
-
-
-
-
-
 
     Intent intent = null;
 
