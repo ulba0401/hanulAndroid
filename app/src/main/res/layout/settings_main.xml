@@ -8,34 +8,66 @@
 
     <TextView
         android:id="@+id/memberModify"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="회원정보수정"
+        android:text="회원정보 수정"
+        android:textColor="@color/black"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="154dp"
         tools:layout_editor_absoluteY="141dp" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_settings"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="154dp"
-        tools:layout_editor_absoluteY="141dp" />
-
-    <Switch
-        android:id="@+id/commentPush"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/titlebarcolor"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="댓글알림기능"
-        android:textSize="30sp" />
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical">
 
-    <Switch
-        android:id="@+id/allPush"
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/menu_settings"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="154dp"
+            tools:layout_editor_absoluteY="141dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#cccccc"/>
+
+        <Switch
+            android:id="@+id/commentPush"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="댓글 알림 기능"
+            android:textColor="@color/com_facebook_button_background_color_focused_disabled"
+            android:textSize="30sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#cccccc"/>
+        <Switch
+            android:id="@+id/allPush"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="단체 알림 기능"
+            android:textColor="@color/com_facebook_button_background_color_focused_disabled"
+            android:textSize="30sp" />
+    </LinearLayout>
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="단체알림기능"
-        android:textSize="30sp" />
+        android:layout_height="2dp"
+        android:background="@color/titlebarcolor"/>
 
 </LinearLayout>
