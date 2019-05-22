@@ -7,12 +7,14 @@ import android.util.JsonReader;
 
 import com.example.hanulproject.task.adapter.CommunityAdapter;
 import com.example.hanulproject.task.adapter.ComplainAdapter;
+import com.example.hanulproject.task.adapter.MyhomeAdapter;
 import com.example.hanulproject.task.adapter.NoticeAdapter;
 import com.example.hanulproject.task.adapter.SettingAdapter;
 import com.example.hanulproject.task.adapter.StatusAdapter;
 import com.example.hanulproject.task.adapter.UserAdapter;
 import com.example.hanulproject.vo.CommunityVO;
 import com.example.hanulproject.vo.ComplainVO;
+import com.example.hanulproject.vo.MyhomeVO;
 import com.example.hanulproject.vo.NoticeVO;
 import com.example.hanulproject.vo.SettingVO;
 import com.example.hanulproject.vo.StatusVO;
@@ -22,12 +24,14 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
@@ -39,14 +43,20 @@ public class Select extends AsyncTask<Void,Void,Void> {
     ArrayList<SettingVO> slist;
     ArrayList<StatusVO> stlist;
     ArrayList<UserVO> ulist;
+    ArrayList<MyhomeVO> hlist;
+
     NoticeAdapter nadapter;
     ComplainAdapter cpadapter;
     CommunityAdapter cmadapter;
     SettingAdapter sadapter;
     UserAdapter uadapter;
     StatusAdapter stadapter;
+    MyhomeAdapter hadapter;
+
     ProgressDialog progressDialog;
     int controller;
+
+    String id;
 
     @Override
     protected void onPreExecute() {
@@ -57,6 +67,7 @@ public class Select extends AsyncTask<Void,Void,Void> {
         else if (controller == 4){ slist.clear(); }
         else if (controller == 5){ ulist.clear(); }
         else if (controller == 6){ stlist.clear(); }
+        else if (controller == 7){ hlist.clear(); }
     }
     @Override
     protected void onPostExecute(Void aVoid) {
@@ -67,13 +78,13 @@ public class Select extends AsyncTask<Void,Void,Void> {
         else if (controller == 4){ sadapter.notifyDataSetChanged(); }
         else if (controller == 5){ uadapter.notifyDataSetChanged(); }
         else if (controller == 6){ stadapter.notifyDataSetChanged(); }
+        else if (controller == 7){ hadapter.notifyDataSetChanged(); }
     }
 
-    public Select(ArrayList<NoticeVO> nlist, NoticeAdapter adapter, ProgressDialog progressDialog){
+    public Select(ArrayList<NoticeVO> nlist, NoticeAdapter adapter){
         this.nlist = nlist;
         this.nadapter = adapter;
         this.controller = 1;
-        this.progressDialog = progressDialog;
     }
     public Select(ArrayList<ComplainVO> cplist, ComplainAdapter adapter){
         this.cplist = cplist;
@@ -99,6 +110,12 @@ public class Select extends AsyncTask<Void,Void,Void> {
         this.ulist = ulist;
         this.uadapter = adapter;
         this.controller = 5;
+    }
+    public Select(ArrayList<MyhomeVO> hlist, MyhomeAdapter adapter, String id){
+        this.hlist = hlist;
+        this.hadapter = adapter;
+        this.controller = 7;
+        this.id = id;
     }
 
 
@@ -126,6 +143,8 @@ public class Select extends AsyncTask<Void,Void,Void> {
             postURL = ipConfig + "/AA/uselect";
         } else if(controller == 6){
             postURL = ipConfig + "/AA/stselect";
+        } else if(controller == 7){
+            postURL = ipConfig + "/AA/hselect?id=" + id;
         }
 
 
@@ -133,6 +152,11 @@ public class Select extends AsyncTask<Void,Void,Void> {
             //MultipartEntityBuild  생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setCharset(Charset.forName("UTF-8"));
+
+            if (controller == 7) {
+                builder.addTextBody("id", id, ContentType.create("Multipart/related", "uUTF-8"));
+            }
 
             //전송
             InputStream inputStream = null;
@@ -160,6 +184,7 @@ public class Select extends AsyncTask<Void,Void,Void> {
             }
             ((AndroidHttpClient) httpClient).close();
         }
+
         return null;
     }
 
@@ -196,6 +221,11 @@ public class Select extends AsyncTask<Void,Void,Void> {
                 else if(controller == 6) {
                     while (reader.hasNext()) {
                         stlist.add(new ReadMessage().statusReadMessage(reader));
+                    }
+                }
+                else if(controller == 7) {
+                    while (reader.hasNext()) {
+                        hlist.add(new ReadMessage().homeReadMessage(reader));
                     }
                 }
         }finally {

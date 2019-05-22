@@ -9,7 +9,7 @@
         android:padding="10dp"
         android:src="@drawable/ex_home"/>
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/my_home_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="광주광역시 서구 경열로 3 한울직업전문학교 302호"

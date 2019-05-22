@@ -45,8 +45,8 @@ public class GetDust extends AsyncTask<ArrayList<DustInfoVO>, Void, ArrayList<Du
     ArrayList<DustStationVO> stationList = new ArrayList<>();
     ArrayList<DustInfoVO> last3hdustList = new ArrayList<>();
     DustInfoVO vo = null;
-    String key = "TO7Z7EJ%2BBYnptfQY%2BRqCRyoA5nOPoTGXZT2%2FE9Ze%2BSP7bLGVovIRBNvYng9hyK0MOaOq%2BIZ7JlKqw38N6xP6yw%3D%3D";
-
+    String key = "EJmGtsKFK8swoD%2FB3ayPRQswYDu25icg76t6HqcxEF1fX%2B5A4nek3ruj2fJTqImB9Ok6z3TVUcK5AVFVZjdT0Q%3D%3D";
+    String key2 = "KuLofqZV%2FXoxpdyLPmuOBb7AiZSXLsQAidCeoUjMD%2FtVne8jO268jYBPdtHHW%2FJ%2Fp%2BSGQvvbORFf6EfG8S6eaw%3D%3D";
     HttpClient httpClient;
     HttpPost httpPost;
     HttpResponse httpResponse;
@@ -185,7 +185,7 @@ public class GetDust extends AsyncTask<ArrayList<DustInfoVO>, Void, ArrayList<Du
                     "?tmX=" + tmX +
                     "&tmY=" + tmY +
                     "&pageNo=1&numOfRows=10" +
-                    "&ServiceKey=" + key +
+                    "&ServiceKey=" + key2 +
                     "&_returnType=json";
             URL url = new URL(url_searchObserv);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

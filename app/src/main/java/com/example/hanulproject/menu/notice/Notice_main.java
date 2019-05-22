@@ -31,9 +31,6 @@ public class Notice_main extends Fragment implements Serializable {
     ArrayList<NoticeVO> nlist;
     NoticeAdapter adapter;
 
-    ProgressDialog progressDialog;
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -56,7 +53,7 @@ public class Notice_main extends Fragment implements Serializable {
         adapter = new NoticeAdapter(getActivity(), R.layout.notice_list_view, nlist);
         listView.setAdapter(adapter);
 
-        select = new Select(nlist, adapter, progressDialog);
+        select = new Select(nlist, adapter);
         select.execute();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
