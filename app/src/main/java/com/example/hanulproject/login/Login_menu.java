@@ -256,17 +256,5 @@ public class Login_menu extends AppCompatActivity  {
         }
     }
 
-    @Override
-    public void onBackPressed() {
 
-        if(MainActivity.logout_check){
-            backPressCloseHandler.onBackPressed();
-            finish();
-        }else{
-            Intent intent = new Intent(Login_menu.this, Login.class);
-            startActivity(intent);
-            finish();
-        }
-
-    }
 }
