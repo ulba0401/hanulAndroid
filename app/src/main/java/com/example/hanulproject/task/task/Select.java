@@ -185,9 +185,11 @@ public class Select extends AsyncTask<Void,Void,Void> {
     }
 
     private void readJsonStream(InputStream inputStream) throws IOException {
-         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
+        JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
             reader.beginArray();
+
+
                 if(controller == 1) {
                     while (reader.hasNext()){
                         nlist.add(new ReadMessage().noticeReadMessage(reader));
