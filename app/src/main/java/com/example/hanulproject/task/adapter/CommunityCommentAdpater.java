@@ -6,25 +6,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.menu.community.CommunityDetail;
+import com.example.hanulproject.menu.community.Community_commentDelete;
+import com.example.hanulproject.menu.community.Community_commentSelect;
+import com.example.hanulproject.menu.community.Community_commentUpdate;
 import com.example.hanulproject.menu.community.Community_commentVO;
 
 import java.util.ArrayList;
 
 public class CommunityCommentAdpater extends BaseAdapter {
 
+    CommunityCommentAdpater adpater = this;
+    Community_commentSelect select;
     Context context;
     int layout;
     ArrayList<Community_commentVO> arrayList;
     LayoutInflater inflater;
+
+    CommunityDetail communityDetail;
 
     public CommunityCommentAdpater(Context context, int layout, ArrayList<Community_commentVO> arrayList){
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arrayList = arrayList;
         this.layout = layout;
+    }
+
+    public void setCommunity_commentSelect(Community_commentSelect community_commentSelect){
+        this.select = community_commentSelect;
+    }
+
+    public void setCommunityDetail(CommunityDetail communityDetail){
+        this.communityDetail = communityDetail;
     }
 
     @Override
@@ -43,7 +60,7 @@ public class CommunityCommentAdpater extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
 
         if (convertView == null){
@@ -54,22 +71,50 @@ public class CommunityCommentAdpater extends BaseAdapter {
             viewHolder.writer = convertView.findViewById(R.id.cmi_writer);
             viewHolder.modify = convertView.findViewById(R.id.cmi_modify);
             viewHolder.delete = convertView.findViewById(R.id.cmi_delete);
+            viewHolder.modifyContent = convertView.findViewById(R.id.cmi_modify_content);
+            viewHolder.modify_insert = convertView.findViewById(R.id.cmi_modify_insert);
 
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.content.setText(arrayList.get(position).getContent());
         viewHolder.writer.setText(arrayList.get(position).getWriter());
+        viewHolder.content.setText(arrayList.get(position).getContent());
+        viewHolder.modifyContent.setText(arrayList.get(position).getContent());
 
+        viewHolder.modifyContent.setVisibility(View.GONE);
+        viewHolder.modify_insert.setVisibility(View.GONE);
 
+        viewHolder.modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.content.setVisibility(View.GONE);
+                viewHolder.modify.setVisibility(View.GONE);
+                viewHolder.modifyContent.setVisibility(View.VISIBLE);
+                viewHolder.modify_insert.setVisibility(View.VISIBLE);
 
+            }
+        });
 
+        viewHolder.modify_insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.modifyContent.setVisibility(View.GONE);
+                viewHolder.modify_insert.setVisibility(View.GONE);
+                Community_commentUpdate community_commentUpdate = new Community_commentUpdate(arrayList.get(position).getNo(),viewHolder.modifyContent.getText().toString(), adpater);
+                community_commentUpdate.execute();
+                viewHolder.content.setVisibility(View.VISIBLE);
+                viewHolder.modify.setVisibility(View.VISIBLE);
+            }
+        });
 
-
-
-
-
+        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Community_commentDelete community_commentDelete = new Community_commentDelete(arrayList.get(position).getNo(),adpater);
+                community_commentDelete.execute();
+            }
+        });
 
         return convertView;
     }
@@ -83,7 +128,9 @@ public class CommunityCommentAdpater extends BaseAdapter {
     private static class ViewHolder{
         TextView writer;
         TextView content;
+        EditText modifyContent;
         Button modify;
         Button delete;
+        Button modify_insert;
     }
 }

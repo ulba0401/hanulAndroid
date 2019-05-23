@@ -1,6 +1,7 @@
 package com.example.hanulproject.menu.community;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,8 +40,9 @@ public class CommunityDetail extends AppCompatActivity {
     TextView no, title, content, writer, writedate, readcnt, filename ;
     String filePath;
     ImageView cmdImageView;
-    ListView cmdListview;
+    static ListView cmdListview;
     EditText cmd_cmt_content;
+    Context contextDetail;
 
     ArrayList<Community_commentVO> cmmcList;
     CommunityCommentAdpater adpater;
@@ -49,6 +51,7 @@ public class CommunityDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.community_detail);
+        contextDetail = this;
         title=findViewById(R.id.cmdtitle);
         writer=findViewById(R.id.cmdwriter);
         content=findViewById(R.id.cmdcontent);
@@ -58,6 +61,9 @@ public class CommunityDetail extends AppCompatActivity {
         cmdListview = findViewById(R.id.cmdlistview);
         cmmd_cmt_insert = findViewById(R.id.cmmd_cmt_insert);
         cmd_cmt_content = findViewById(R.id.cmd_cmt_content);
+
+        vo = (CommunityVO) getIntent().getSerializableExtra("vo");
+
 
         cmmcList = new ArrayList<>();
         adpater = new CommunityCommentAdpater(getApplicationContext(), R.layout.community_comment_item, cmmcList);
@@ -73,7 +79,7 @@ public class CommunityDetail extends AppCompatActivity {
             }
         });
 
-        vo = (CommunityVO) getIntent().getSerializableExtra("vo");
+
 
         if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y")){
             modify.setVisibility(View.VISIBLE);
@@ -141,7 +147,7 @@ public class CommunityDetail extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         CommunityCallDetail detail = new CommunityCallDetail(vo.getNo());
         try {
@@ -149,6 +155,7 @@ public class CommunityDetail extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+
         Community_commentSelect select = new Community_commentSelect(cmmcList,adpater,vo.getNo());
         select.execute();
 
@@ -159,9 +166,6 @@ public class CommunityDetail extends AppCompatActivity {
         //filename.setText(vo.getFilename());
 
         imageLoad();
-
-
-        adpater.notifyDataSetChanged();
     }
 
     // 피니쉬할때 새로고침하게 해줌
@@ -185,7 +189,6 @@ public class CommunityDetail extends AppCompatActivity {
         }
 
     }
-
 
     //이미지를 띄우는 메소드
     private void imageLoad(){
@@ -225,4 +228,11 @@ public class CommunityDetail extends AppCompatActivity {
                     });
         }
     }
+
+    public void cmm_detail_list_refresh(){
+
+
+    }
+
+
 }
