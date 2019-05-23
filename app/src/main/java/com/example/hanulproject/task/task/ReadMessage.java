@@ -127,10 +127,8 @@ public class ReadMessage {
             }
         }
         reader.endObject();
-        int tmpX = (int)nx;
-        int tmpy = (int)ny;
 
-        return new MyhomeVO(id, addr, tmpX, tmpy);
+        return new MyhomeVO(id, addr, ny, nx);
     }
 
     public UserVO userReadMessage(JsonReader reader) throws IOException{
