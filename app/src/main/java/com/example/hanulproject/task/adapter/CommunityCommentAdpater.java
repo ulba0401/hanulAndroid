@@ -2,7 +2,9 @@ package com.example.hanulproject.task.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.example.hanulproject.menu.community.Community_commentSelect;
 import com.example.hanulproject.menu.community.Community_commentUpdate;
 import com.example.hanulproject.menu.community.Community_commentVO;
 import com.example.hanulproject.menu.community.Last;
+import com.example.hanulproject.task.task.Delete;
 
 import java.util.ArrayList;
 
@@ -125,10 +128,31 @@ public class CommunityCommentAdpater extends BaseAdapter {
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Community_commentDelete community_commentDelete = new Community_commentDelete(arrayList.get(position).getNo(),adpater);
-                community_commentDelete.execute();
-                removeAllItem();
-                communityDetail.refresh();
+                AlertDialog.Builder builder = new AlertDialog.Builder(communityDetail);
+                builder.setTitle("삭제여부");
+                builder.setMessage("정말 삭제하시겠습니까?");
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Community_commentDelete community_commentDelete = new Community_commentDelete(arrayList.get(position).getNo(),adpater);
+                        community_commentDelete.execute();
+                        removeAllItem();
+                        communityDetail.refresh();
+
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+
+
 //                Intent intent = new Intent(CommunityDetail.contextDetail, Last.class);
 //                CommunityDetail.contextDetail.startActivity(intent);
             }

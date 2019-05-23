@@ -61,7 +61,7 @@ public class Member_modify extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_modify);
-
+        uploadType="";
         now = System.currentTimeMillis();
         date = new Date(now);
         tmpDateFormat = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -111,24 +111,27 @@ public class Member_modify extends AppCompatActivity {
         memberModify_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vo.setName(modify_name.getText().toString());
-                vo.setPw(modify_pw.getText().toString());
+                if( !( modify_name.getText().toString().trim().equals("") || modify_pw.getText().toString().trim().equals("") ) ) {
+                    vo.setName(modify_name.getText().toString());
+                    vo.setPw(modify_pw.getText().toString());
 
-                if(vo.getPw().equals(modify_pw.getText().toString())){
-                    if(modify_change_pw.getText().toString().equals(modify_check_pw.getText().toString())){
-                        Update update = new Update(vo);
-                        update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
-                        update.execute();
-                        is_check = true;
-                        LoginRequest.vo.setName(modify_name.getText().toString());
-                        finish();
-                    }else{
-                        Toast.makeText(Member_modify.this, "새로입력하신 비밀번호와 확인한 비밀번호가 서로 다릅니다.", Toast.LENGTH_SHORT).show();
+                    if (vo.getPw().equals(modify_pw.getText().toString())) {
+                        if (modify_change_pw.getText().toString().equals(modify_check_pw.getText().toString())) {
+                            Update update = new Update(vo);
+                            update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
+                            update.execute();
+                            is_check = true;
+                            LoginRequest.vo.setName(modify_name.getText().toString());
+                            finish();
+                        } else {
+                            Toast.makeText(Member_modify.this, "새로입력하신 비밀번호와 확인한 비밀번호가 서로 다릅니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(Member_modify.this, "현재 비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(Member_modify.this, "현재 비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(Member_modify.this, "이름과 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
