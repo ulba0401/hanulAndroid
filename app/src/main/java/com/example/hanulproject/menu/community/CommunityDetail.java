@@ -56,8 +56,8 @@ public class CommunityDetail extends AppCompatActivity {
         delete=findViewById(R.id.delete);
         cmdImageView = findViewById(R.id.cmdImageView);
         cmdListview = findViewById(R.id.cmdlistview);
-        //mmd_cmt_insert = findViewById(R.id.cmmd_cmt_insert);
-        //cmd_cmt_content = findViewById(R.id.cmd_cmt_content);
+        cmmd_cmt_insert = findViewById(R.id.cmmd_cmt_insert);
+        cmd_cmt_content = findViewById(R.id.cmd_cmt_content);
 
         cmmcList = new ArrayList<>();
         adpater = new CommunityCommentAdpater(getApplicationContext(), R.layout.community_comment_item, cmmcList);

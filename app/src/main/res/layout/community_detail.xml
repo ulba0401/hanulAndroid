@@ -138,10 +138,12 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            android:id="@+id/cmd_cmt_content"
                             android:layout_width="250dp"
                             android:layout_height="wrap_content" />
 
                         <Button
+                            android:id="@+id/cmmd_cmt_insert"
                             android:layout_width="70dp"
                             android:layout_height="40dp"
                             android:layout_marginLeft="10dp"

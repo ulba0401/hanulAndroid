@@ -62,6 +62,15 @@ public class CommunityCommentAdpater extends BaseAdapter {
         viewHolder.content.setText(arrayList.get(position).getContent());
         viewHolder.writer.setText(arrayList.get(position).getWriter());
 
+
+
+
+
+
+
+
+
+
         return convertView;
     }
 
