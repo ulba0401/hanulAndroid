@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class MyhomeVO implements Serializable {
     private String id;
     private String addr;
-    int nx,ny;
+    double nx,ny;
 
     public MyhomeVO () {}
 
@@ -14,7 +14,7 @@ public class MyhomeVO implements Serializable {
         this.addr = addr;
     }
 
-    public MyhomeVO(String id, String addr, int nx, int ny) {
+    public MyhomeVO(String id, String addr, double nx, double ny) {
         this.id = id;
         this.addr = addr;
         this.nx = nx;
@@ -37,19 +37,19 @@ public class MyhomeVO implements Serializable {
         this.addr = addr;
     }
 
-    public int getNx() {
+    public double getNx() {
         return nx;
     }
 
-    public void setNx(int nx) {
+    public void setNx(double nx) {
         this.nx = nx;
     }
 
-    public int getNy() {
+    public double getNy() {
         return ny;
     }
 
-    public void setNy(int ny) {
+    public void setNy(double ny) {
         this.ny = ny;
     }
 }

@@ -26,6 +26,14 @@
             android:textSize="14dp"
             android:text="내용"/>
 
+        <EditText
+            android:id="@+id/cmi_modify_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="EditText"
+            />
+
     </LinearLayout>
 
 
@@ -34,22 +42,25 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:orientation="horizontal"
-        android:layout_weight="1"
-        android:weightSum="1">
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/cmi_modify_insert"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="등록" />
 
         <Button
             android:id="@+id/cmi_modify"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:text="수정"
-            android:layout_weight="0.5"/>
+            android:text="수정" />
 
         <Button
             android:id="@+id/cmi_delete"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:text="삭제"
-            android:layout_weight="0.5"/>
+            android:text="삭제" />
 
     </LinearLayout>
 
