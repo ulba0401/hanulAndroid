@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".menu.list.List_Modify"></activity>
+        <activity android:name=".menu.community.Last"></activity>
+        <activity android:name=".menu.list.List_Modify" />
         <activity android:name=".login.Member_modify" />
         <activity android:name=".menu.community.CommunityModify" />
         <activity android:name=".intro.Intro">

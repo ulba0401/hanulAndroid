@@ -1,6 +1,8 @@
 package com.example.hanulproject.task.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.example.hanulproject.menu.community.Community_commentDelete;
 import com.example.hanulproject.menu.community.Community_commentSelect;
 import com.example.hanulproject.menu.community.Community_commentUpdate;
 import com.example.hanulproject.menu.community.Community_commentVO;
+import com.example.hanulproject.menu.community.Last;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,11 @@ public class CommunityCommentAdpater extends BaseAdapter {
     LayoutInflater inflater;
 
     CommunityDetail communityDetail;
+
+    public void upDateItemList(ArrayList<Community_commentVO> arrayList){
+        this.arrayList = arrayList;
+        notifyDataSetChanged();
+    }
 
     public CommunityCommentAdpater(Context context, int layout, ArrayList<Community_commentVO> arrayList){
         this.context = context;
@@ -105,6 +113,12 @@ public class CommunityCommentAdpater extends BaseAdapter {
                 community_commentUpdate.execute();
                 viewHolder.content.setVisibility(View.VISIBLE);
                 viewHolder.modify.setVisibility(View.VISIBLE);
+                removeAllItem();
+                communityDetail.refresh();
+
+//                Intent intent = new Intent(CommunityDetail.contextDetail, Last.class);
+//                CommunityDetail.contextDetail.startActivity(intent);
+
             }
         });
 
@@ -113,6 +127,10 @@ public class CommunityCommentAdpater extends BaseAdapter {
             public void onClick(View v) {
                 Community_commentDelete community_commentDelete = new Community_commentDelete(arrayList.get(position).getNo(),adpater);
                 community_commentDelete.execute();
+                removeAllItem();
+                communityDetail.refresh();
+//                Intent intent = new Intent(CommunityDetail.contextDetail, Last.class);
+//                CommunityDetail.contextDetail.startActivity(intent);
             }
         });
 

@@ -1,6 +1,5 @@
 package com.example.hanulproject.menu.community;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +17,6 @@ import android.widget.TextView;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.login.LoginRequest;
-import com.example.hanulproject.menu.complain.ComplainDetail;
-import com.example.hanulproject.menu.notice.NoticeDetail;
 import com.example.hanulproject.task.adapter.CommunityCommentAdpater;
 import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.detail.CommunityCallDetail;
@@ -35,17 +32,19 @@ import java.util.ArrayList;
 
 public class CommunityDetail extends AppCompatActivity {
 
-    Button modify, back, delete, cmmd_cmt_insert;
+    Button modify, back, delete, cmmd_cmt_insert, cmdRefresh;
     CommunityVO vo;
     TextView no, title, content, writer, writedate, readcnt, filename ;
     String filePath;
     ImageView cmdImageView;
-    static ListView cmdListview;
+    ListView cmdListview;
     EditText cmd_cmt_content;
-    Context contextDetail;
+    public static Context contextDetail;
 
     ArrayList<Community_commentVO> cmmcList;
     CommunityCommentAdpater adpater;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +60,9 @@ public class CommunityDetail extends AppCompatActivity {
         cmdListview = findViewById(R.id.cmdlistview);
         cmmd_cmt_insert = findViewById(R.id.cmmd_cmt_insert);
         cmd_cmt_content = findViewById(R.id.cmd_cmt_content);
+        cmdRefresh = findViewById(R.id.cmdRefresh);
 
         vo = (CommunityVO) getIntent().getSerializableExtra("vo");
-
-
-        cmmcList = new ArrayList<>();
-        adpater = new CommunityCommentAdpater(getApplicationContext(), R.layout.community_comment_item, cmmcList);
-        cmdListview.setAdapter(adpater);
 
         cmdImageView.setVisibility(View.GONE);
 
@@ -78,8 +73,6 @@ public class CommunityDetail extends AppCompatActivity {
                 reset();
             }
         });
-
-
 
         if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y")){
             modify.setVisibility(View.VISIBLE);
@@ -142,6 +135,17 @@ public class CommunityDetail extends AppCompatActivity {
                 Community_commentInsert community_commentInsert = new Community_commentInsert(content,comu_no,writer);
                 community_commentInsert.execute();
 
+                refresh();
+
+//                Intent intent = new Intent(CommunityDetail.this, Last.class);
+//                startActivityForResult(intent,200);
+            }
+        });
+
+        cmdRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adpater.notifyDataSetChanged();
             }
         });
     }
@@ -156,8 +160,15 @@ public class CommunityDetail extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        cmmcList = new ArrayList<>();
+        adpater = new CommunityCommentAdpater(getApplicationContext(), R.layout.community_comment_item, cmmcList);
+        cmdListview.setAdapter(adpater);
         Community_commentSelect select = new Community_commentSelect(cmmcList,adpater,vo.getNo());
         select.execute();
+        adpater.setCommunityDetail(this);
+
+
 
         title.setText(vo.getTitle());
         writer.setText(vo.getWriter());
@@ -166,6 +177,9 @@ public class CommunityDetail extends AppCompatActivity {
         //filename.setText(vo.getFilename());
 
         imageLoad();
+
+
+
     }
 
     // 피니쉬할때 새로고침하게 해줌
@@ -229,10 +243,9 @@ public class CommunityDetail extends AppCompatActivity {
         }
     }
 
-    public void cmm_detail_list_refresh(){
-
-
+    public void refresh(){
+        finish();
+        startActivity(getIntent());
     }
-
 
 }
