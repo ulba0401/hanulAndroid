@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".login.Member_modify"></activity>
+        <activity android:name=".menu.list.List_Modify"></activity>
+        <activity android:name=".login.Member_modify" />
         <activity android:name=".menu.community.CommunityModify" />
         <activity android:name=".intro.Intro">
             <intent-filter>
@@ -51,10 +52,10 @@
         <activity android:name=".join.Join_main" />
         <activity android:name=".login.Login_menu" />
         <activity android:name=".login.Login" />
-        <activity android:name=".menu.list.ListDetail"/>
+        <activity android:name=".menu.list.ListDetail" />
         <activity android:name=".menu.notice.NoticeDetail" />
         <activity android:name=".menu.complain.ComplainDetail" />
-        <activity android:name=".menu.community.CommunityDetail"/>
+        <activity android:name=".menu.community.CommunityDetail" />
         <activity android:name=".menu.community.CommunityInsertPage" />
         <activity android:name=".menu.complain.ComplainInsertPage" />
         <activity android:name=".menu.complain.ComplainModify" />
@@ -66,7 +67,6 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
@@ -76,7 +76,7 @@
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
     </application>

@@ -52,7 +52,10 @@ public class ListDetail extends AppCompatActivity {
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ListDetail.this, List_Modify.class);
+                intent.putExtra("vo", "vo");
+                startActivity(intent);
+                finish();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
