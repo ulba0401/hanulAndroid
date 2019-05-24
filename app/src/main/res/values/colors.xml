@@ -5,7 +5,8 @@
     <color name="colorAccent">#82baff</color>
 
     <color name="titlecolor">#ffffff</color>
-    <color name="titlebarcolor">#104aa8</color>
+    <color name="basictxtcolor">#224040</color>
+    <color name="titlebarcolor">#82b1d8</color>
 
     <color name="allbackg">#F0F0F0</color>
     <color name="onBtnColor">#82baff</color>

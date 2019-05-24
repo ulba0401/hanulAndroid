@@ -3,40 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/allbackg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#d6e3ef"
     android:orientation="vertical"
     >
 
 
-
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/main_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/login_menu"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginBottom="40dp"
-        />
+        android:layout_height="270dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/iotmain" />
 
     <Button
         android:id="@+id/loginMenuBtn"
-        android:background="@drawable/btn_on"
-        android:textColor="@color/titlecolor"
-        android:textSize="@dimen/btnSize"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="50dp"
-        android:text="@string/login"/>
+        android:background="@drawable/btn_on"
+        android:text="@string/login"
+        android:textColor="@color/basictxtcolor"
+        android:textSize="@dimen/btnSize" />
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:padding="5dp">
@@ -62,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="50dp"
         android:padding="5dp">
 
@@ -81,6 +80,7 @@
 
     </FrameLayout>
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,6 +89,8 @@
         <TextView
             android:id="@+id/search_id"
             android:layout_width="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:textSize="12sp"
@@ -97,6 +99,8 @@
             android:id="@+id/search_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:layout_marginRight="20dp"
             android:textSize="12sp"
             android:text="비밀번호 찾기"/>
@@ -104,6 +108,8 @@
             android:id="@+id/joinTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
             android:textSize="12sp"
             android:text="회원가입"/>
 
