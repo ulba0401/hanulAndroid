@@ -1,6 +1,5 @@
 package com.example.hanulproject.menu.community;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,11 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.firebase.PushComment;
 import com.example.hanulproject.login.LoginRequest;
-import com.example.hanulproject.menu.complain.ComplainDetail;
-import com.example.hanulproject.menu.notice.NoticeDetail;
 import com.example.hanulproject.task.adapter.CommunityCommentAdpater;
 import com.example.hanulproject.task.task.Delete;
 import com.example.hanulproject.task.task.detail.CommunityCallDetail;
@@ -35,17 +34,19 @@ import java.util.ArrayList;
 
 public class CommunityDetail extends AppCompatActivity {
 
-    Button modify, back, delete, cmmd_cmt_insert;
+    Button modify, back, delete, cmmd_cmt_insert, cmdRefresh;
     CommunityVO vo;
     TextView no, title, content, writer, writedate, readcnt, filename ;
     String filePath;
     ImageView cmdImageView;
-    static ListView cmdListview;
+    ListView cmdListview;
     EditText cmd_cmt_content;
-    Context contextDetail;
+    public static Context contextDetail;
 
     ArrayList<Community_commentVO> cmmcList;
     CommunityCommentAdpater adpater;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +62,9 @@ public class CommunityDetail extends AppCompatActivity {
         cmdListview = findViewById(R.id.cmdlistview);
         cmmd_cmt_insert = findViewById(R.id.cmmd_cmt_insert);
         cmd_cmt_content = findViewById(R.id.cmd_cmt_content);
+        cmdRefresh = findViewById(R.id.cmdRefresh);
 
         vo = (CommunityVO) getIntent().getSerializableExtra("vo");
-
-
-        cmmcList = new ArrayList<>();
-        adpater = new CommunityCommentAdpater(getApplicationContext(), R.layout.community_comment_item, cmmcList);
-        cmdListview.setAdapter(adpater);
 
         cmdImageView.setVisibility(View.GONE);
 
@@ -79,9 +76,7 @@ public class CommunityDetail extends AppCompatActivity {
             }
         });
 
-
-
-        if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y")){
+        if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y") || LoginRequest.vo.getId().equals(vo.getWriter())){
             modify.setVisibility(View.VISIBLE);
             delete.setVisibility(View.VISIBLE);
         }else{
@@ -89,6 +84,7 @@ public class CommunityDetail extends AppCompatActivity {
             delete.setVisibility(View.GONE);
         }
 
+        //글 수정
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +97,7 @@ public class CommunityDetail extends AppCompatActivity {
             }
         });
 
+        //글 삭제
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,22 +123,40 @@ public class CommunityDetail extends AppCompatActivity {
             }
         });
 
+
+        //댓글 등록
         cmmd_cmt_insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Community_commentVO community_commentVO = new Community_commentVO();
+                if(!cmd_cmt_content.getText().toString().trim().equals("")) {
+                    Community_commentVO community_commentVO = new Community_commentVO();
 
-                String content = cmd_cmt_content.getText().toString();
-                int comu_no = vo.getNo();
-                String writer = LoginRequest.vo.getId();
+                    String content = cmd_cmt_content.getText().toString();
+                    int comu_no = vo.getNo();
+                    String writer = LoginRequest.vo.getId();
 
-                community_commentVO.setComu_no(comu_no);
-                community_commentVO.setContent(content);
-                community_commentVO.setWriter(writer);
+                    community_commentVO.setComu_no(comu_no);
+                    community_commentVO.setContent(content);
+                    community_commentVO.setWriter(writer);
 
-                Community_commentInsert community_commentInsert = new Community_commentInsert(content,comu_no,writer);
-                community_commentInsert.execute();
+                    Community_commentInsert community_commentInsert = new Community_commentInsert(content, comu_no, writer);
+                    community_commentInsert.execute();
 
+
+                    PushComment pushComment = new PushComment(vo.getWriter());
+                    pushComment.execute();
+                    refresh();
+                }else{
+                    Toast.makeText(CommunityDetail.this, "댓글을 입력해주세요", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        cmdRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adpater.notifyDataSetChanged();
             }
         });
     }
@@ -156,19 +171,28 @@ public class CommunityDetail extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        cmmcList = new ArrayList<>();
+        adpater = new CommunityCommentAdpater(getApplicationContext(), R.layout.community_comment_item, cmmcList);
+        cmdListview.setAdapter(adpater);
         Community_commentSelect select = new Community_commentSelect(cmmcList,adpater,vo.getNo());
         select.execute();
+        adpater.setCommunityDetail(this);
+
+
 
         title.setText(vo.getTitle());
         writer.setText(vo.getWriter());
         content.setText(vo.getContent());
         filePath = vo.getFilepath();
-        //filename.setText(vo.getFilename());
 
         imageLoad();
+
+
+
     }
 
-    // 피니쉬할때 새로고침하게 해줌
+    // 피니쉬할때 나오는 화면 새로고침하게 해줌
     void reset(){
         Intent resultIntent = new Intent();
         resultIntent.putExtra("result","result");
@@ -229,10 +253,10 @@ public class CommunityDetail extends AppCompatActivity {
         }
     }
 
-    public void cmm_detail_list_refresh(){
-
-
+    //화면 새로고침 기능
+    public void refresh(){
+        finish();
+        startActivity(getIntent());
     }
-
 
 }

@@ -46,7 +46,7 @@ public class Insert extends AsyncTask<Void, Void, Void> {
     String writer;
 
     public void setWriter() {
-        this.writer = LoginRequest.vo.getEmail();
+        this.writer = LoginRequest.vo.getId();
     }
 
     public Insert(String title, String content, int controller) {

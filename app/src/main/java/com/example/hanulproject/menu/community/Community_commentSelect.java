@@ -64,7 +64,6 @@ public class Community_commentSelect extends AsyncTask<Void,Void,Void> {
         }finally {
             ((AndroidHttpClient) httpClient).close();
         }
-
         return null;
     }
 

@@ -77,7 +77,7 @@ public class ComplainDetail extends AppCompatActivity {
 
         vo = (ComplainVO) getIntent().getSerializableExtra("vo");
 
-        if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y")){
+        if(LoginRequest.vo.getEmail().equals(vo.getWriter()) || LoginRequest.vo.getAdmin().equals("Y") || LoginRequest.vo.getId().equals(vo.getWriter())){
             modify.setVisibility(View.VISIBLE);
             delete.setVisibility(View.VISIBLE);
         }else{
@@ -165,11 +165,6 @@ public class ComplainDetail extends AppCompatActivity {
                     break;
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-
     }
 
     // finish 실행시 새로고침 시켜주는 함수

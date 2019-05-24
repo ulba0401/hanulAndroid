@@ -124,6 +124,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="작성자" />
+
+                    <Button
+                        android:id="@+id/cmdRefresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="새로고침"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -159,9 +166,9 @@
                         <ListView
                             android:id="@+id/cmdlistview"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></ListView>
+                            android:layout_height="1000dp"></ListView>
 
-                        
+
 
                     </LinearLayout>
 

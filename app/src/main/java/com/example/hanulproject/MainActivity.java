@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //네비게이션바 프로필 설정
         email.setText(LoginRequest.vo.getEmail());
         name.setText(LoginRequest.vo.getName());
-        //profile.setImageResource(R.mipmap.ic_launcher_round);
+        profile.setImageResource(R.mipmap.ic_launcher_round);
 
         //로그인 프로필 받아오기
         if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         View nav_header_view = navigationView.getHeaderView(0);
 
-            //profile = nav_header_view.findViewById(R.id.profileImage);
+            profile = nav_header_view.findViewById(R.id.profileImage);
             email = nav_header_view.findViewById(R.id.navi_id);
             name = nav_header_view.findViewById(R.id.navi_name);
 
