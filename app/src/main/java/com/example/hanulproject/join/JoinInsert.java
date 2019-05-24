@@ -38,11 +38,6 @@ public class JoinInsert extends AsyncTask<Void, Void, Void> {
             builder.addTextBody("pw", jpw, ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("email", jemail, ContentType.create("Multipart/related", "UTF-8"));
 
-            Log.d("kakaoJoinCheck",jname);
-            Log.d("kakaoJoinCheck",jid);
-            Log.d("kakaoJoinCheck",jpw);
-            Log.d("kakaoJoinCheck",jemail);
-
             String postURL = ipConfig + "/AA/uinsert";
 
             InputStream inputStream = null;

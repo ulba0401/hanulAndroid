@@ -88,24 +88,63 @@ public class Login_menu extends AppCompatActivity  {
                         , new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("result",object.toString());
 
-                                try {
-                                    LoginRequest.vo.setEmail(object.getString("email"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                try {
-                                    LoginRequest.vo.setName(object.getString("name"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+
+                                if(isNetworkConnected(Login_menu.this)==true)
+                                    try {
+                                        String email=object.getString("email");
+                                        String id=object.getString("email");
+                                        String pw=getRandomPassword(4);
+                                        String name=object.getString("name");
+
+                                        IdCheck idCheck=new IdCheck(object.getString("email"),getApplicationContext());
+                                        try {
+                                            int check = idCheck.execute().get();
+                                            if (check == 0) {
+                                                Intent intent=new Intent(Login_menu.this, MainActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                JoinInsert insert= new JoinInsert(name, id, pw, email);
+                                                insert.execute();
+                                                Log.d("FaceBook", object.getString("email"));
+                                                Toast.makeText(Login_menu.this, "회원가입을 완료하였습니다.", Toast.LENGTH_LONG).show();
+                                                try { LoginRequest.vo.setEmail(object.getString("email")); }
+                                                catch (JSONException e) { e.printStackTrace(); }
+                                                try { LoginRequest.vo.setName(object.getString("name")); }
+                                                catch (JSONException e) { e.printStackTrace(); }
+                                                LoginRequest.vo.setAdmin("N");
+                                                LoginRequest.vo.setLogintype(false);
+                                                startActivity(intent);
+                                                finish();
+                                            } else if (check == 1) {
+                                                Log.v("result", object.toString());
+                                                try { LoginRequest.vo.setEmail(object.getString("email")); }
+                                                catch (JSONException e) { e.printStackTrace(); }
+                                                try { LoginRequest.vo.setName(object.getString("name")); }
+                                                catch (JSONException e) { e.printStackTrace(); }
+                                                LoginRequest.vo.setAdmin("N");
+                                                LoginRequest.vo.setLogintype(false);
+                                                Intent intent = new Intent(Login_menu.this, MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                               /* Log.v("result",object.toString());
+
+                                try { LoginRequest.vo.setEmail(object.getString("email")); }
+                                catch (JSONException e) { e.printStackTrace(); }
+                                try { LoginRequest.vo.setName(object.getString("name")); }
+                                catch (JSONException e) { e.printStackTrace(); }
                                 LoginRequest.vo.setAdmin("N");
                                 LoginRequest.vo.setLogintype(false);
                                 Intent intent = new Intent(Login_menu.this, MainActivity.class);
                                 startActivity(intent);
-                                finish();
-
+                                finish();*/
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
                             }
                         });
 
@@ -247,11 +286,17 @@ public class Login_menu extends AppCompatActivity  {
                         try {
                             int check = idCheck.execute().get();
                             if (check == 0) {
-                                Intent intent=new Intent(Login_menu.this, Login_menu.class);
+                                Intent intent=new Intent(Login_menu.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 JoinInsert insert =new JoinInsert(name, id, pw, email);
                                 insert.execute();
-                                Toast.makeText(Login_menu.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login_menu.this, "회원가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
+                                LoginRequest.vo.setId(userProfile.getEmail());
+                                LoginRequest.vo.setAdmin("N");
+                                LoginRequest.vo.setEmail(userProfile.getEmail());
+                                LoginRequest.vo.setName(userProfile.getNickname());
+                                LoginRequest.vo.setProfile(userProfile.getProfileImagePath());
+                                LoginRequest.vo.setLogintype(false);
                                 startActivity(intent);
                                 finish();
                             } else if (check == 1) {
