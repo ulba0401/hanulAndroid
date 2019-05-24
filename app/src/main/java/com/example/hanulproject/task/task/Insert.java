@@ -136,7 +136,7 @@ public class Insert extends AsyncTask<Void, Void, Void> {
             if(httpPost != null){
                 httpPost = null;
             }
-            ((AndroidHttpClient) httpClient).close();
+//            ((AndroidHttpClient) httpClient).close();
         }
         return null;
     }
