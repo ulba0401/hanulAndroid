@@ -25,8 +25,8 @@
 
 
     <string name="joinContent">본인이 만 14세 이상인 것과 서비스 이용약관, 개인정보 수집 및 이용 동의, 개인정보 처리방침에 동의 하십니까?</string>
-    <string name="search_id">본인확인을 위하여 이름과 이메일을 정확히 입력해주세요</string>
-    <string name="search_pw">본인확인을 위하여 아이디와 이름, 이메일을 정확히 입력해주세요</string>
+    <string name="search_id">본인확인을 위하여 이름과 \n 이메일을 정확히 입력해주세요</string>
+    <string name="search_pw">본인확인을 위하여 아이디와 이름, \n 이메일을 정확히 입력해주세요</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
