@@ -3,7 +3,7 @@ package com.example.hanulproject.vo;
 import java.io.Serializable;
 
 public class UserVO implements Serializable {
-    String id, pw, name, addr, phone, email, profile, admin, isdel, profileName, deviceToken;
+    String id, pw, name, addr, phone, email, profile, admin, isdel, profileName, deviceToken, issns;
     private String result;
     boolean logintype;
 

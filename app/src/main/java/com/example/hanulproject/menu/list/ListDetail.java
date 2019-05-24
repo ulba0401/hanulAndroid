@@ -17,7 +17,7 @@ import com.example.hanulproject.vo.UserVO;
 
 public class ListDetail extends AppCompatActivity {
 
-    Button back, modify, delete;
+    Button back, delete;
     UserVO vo;
     TextView id, pw, name, addr, email;
     ImageView profile;
@@ -36,7 +36,6 @@ public class ListDetail extends AppCompatActivity {
         addr=findViewById(R.id.uaddr);
         email=findViewById(R.id.uemail);
 
-        modify=findViewById(R.id.umodify);
         delete=findViewById(R.id.udelete);
         back=findViewById(R.id.back);
         // 뒤로가기
@@ -49,15 +48,7 @@ public class ListDetail extends AppCompatActivity {
 
         vo= (UserVO) getIntent().getSerializableExtra("vo");
         //수정화면 넘어가는 곳
-        modify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ListDetail.this, List_Modify.class);
-                intent.putExtra("vo", "vo");
-                startActivity(intent);
-                finish();
-            }
-        });
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
