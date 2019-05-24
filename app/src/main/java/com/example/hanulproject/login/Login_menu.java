@@ -258,6 +258,7 @@ public class Login_menu extends AppCompatActivity  {
                                 Log.e("UserProfile", userProfile.toString());
                                 Log.d("kakao", userProfile.getEmail());
                                 Log.d("kakao", userProfile.getNickname());
+                                LoginRequest.vo.setId(userProfile.getEmail());
                                 LoginRequest.vo.setAdmin("N");
                                 LoginRequest.vo.setEmail(userProfile.getEmail());
                                 LoginRequest.vo.setName(userProfile.getNickname());
