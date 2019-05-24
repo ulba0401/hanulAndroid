@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
+import com.example.hanulproject.join.IdCheck;
+import com.example.hanulproject.join.JoinInsert;
 import com.example.hanulproject.join.Join_main;
 import com.example.hanulproject.login.search.Search_main;
 import com.example.hanulproject.main.BackPressCloseHandler;
@@ -38,6 +41,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Random;
+
+import static com.example.hanulproject.task.common.CommonMethod.isNetworkConnected;
 
 public class Login_menu extends AppCompatActivity  {
     SessionCallback callback;
@@ -232,7 +238,42 @@ public class Login_menu extends AppCompatActivity  {
                 }
                 @Override
                 public void onSuccess(UserProfile userProfile) {
-                    Log.e("UserProfile", userProfile.toString());
+                    if (isNetworkConnected(Login_menu.this)==true){
+                        String name=userProfile.getNickname();
+                        String id=userProfile.getEmail();
+                        String pw=getRandomPassword(4);
+                        String email=userProfile.getEmail();
+                        IdCheck idCheck=new IdCheck(userProfile.getEmail(),getApplicationContext());
+                        try {
+                            int check = idCheck.execute().get();
+                            if (check == 0) {
+                                Intent intent=new Intent(Login_menu.this, Login_menu.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                JoinInsert insert =new JoinInsert(name, id, pw, email);
+                                insert.execute();
+                                Toast.makeText(Login_menu.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                                finish();
+                            } else if (check == 1) {
+                                Log.e("UserProfile", userProfile.toString());
+                                Log.d("kakao", userProfile.getEmail());
+                                Log.d("kakao", userProfile.getNickname());
+                                LoginRequest.vo.setAdmin("N");
+                                LoginRequest.vo.setEmail(userProfile.getEmail());
+                                LoginRequest.vo.setName(userProfile.getNickname());
+                                LoginRequest.vo.setProfile(userProfile.getProfileImagePath());
+                                LoginRequest.vo.setLogintype(false);
+                                Intent intent = new Intent(Login_menu.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Toast.makeText(Login_menu.this, "내용확인 부탁드리겠습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    /*Log.e("UserProfile", userProfile.toString());
                     Log.d("kakao", userProfile.getEmail());
                     Log.d("kakao", userProfile.getNickname());
                     LoginRequest.vo.setAdmin("N");
@@ -242,8 +283,7 @@ public class Login_menu extends AppCompatActivity  {
                     LoginRequest.vo.setLogintype(false);
                     Intent intent = new Intent(Login_menu.this, MainActivity.class);
                     startActivity(intent);
-                    finish();
-
+                    finish();*/
                 }
             });
         }
@@ -255,6 +295,17 @@ public class Login_menu extends AppCompatActivity  {
             }
         }
     }
+    public static String getRandomPassword(int length) {
+        String[] passwords={"0","1","2","3","4","5","6","7","8","9", "a", "b", "c", "d", "e", "f", "g" ,"A", "B"};
+        StringBuilder builder = new StringBuilder("");
+
+        Random random = new Random();
+        for (int i = 0; i<length; i++){
+            builder.append(passwords[random.nextInt(passwords.length)]);
+        }
+        return builder.toString();
+    }
+
 
 
 }

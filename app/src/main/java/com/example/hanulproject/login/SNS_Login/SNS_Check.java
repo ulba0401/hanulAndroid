@@ -1,10 +1,9 @@
-package com.example.hanulproject.join;
+package com.example.hanulproject.login.SNS_Login;
 
 import android.content.Context;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.widget.Toast;
 
 import com.example.hanulproject.vo.UserVO;
 
@@ -21,24 +20,23 @@ import java.io.InputStreamReader;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 
-public class IdCheck extends AsyncTask<Void,Void,Integer> {
+public class SNS_Check extends AsyncTask<Void, Void, Integer> {
 
     Context context;
     public static UserVO vo=new UserVO();
-    private String id;
-    boolean is_check = true;
-
-
+    private String issns, id;
+    boolean is_check=true;
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
     }
-
-    public IdCheck(String id, Context context){
-        this.id = id;
+    public SNS_Check(String issns, Context context){
+        this.issns = issns;
+        this.id=id;
         this.context = context;
     }
+
     @Override
     protected Integer doInBackground(Void... voids) {
         HttpClient httpClient = null;
@@ -46,7 +44,7 @@ public class IdCheck extends AsyncTask<Void,Void,Integer> {
         HttpResponse httpResponse = null;
         HttpEntity httpEntity = null;
 
-        String postURL = ipConfig+"/AA/AloginCheck?id="+id;
+        String postURL = ipConfig + "/AA/Asns_Check?id" + id;
         try {
             //MultipartEntityBuild  생성
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -62,36 +60,17 @@ public class IdCheck extends AsyncTask<Void,Void,Integer> {
             httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
 
-            /*String line;
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            line = br.readLine();
-            if(line.equals("fail")){
-                is_check = false;
-                return 0;
-            }else{
-                is_check = true;
-            }*/
             readJsonStream(inputStream);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-//            if(httpEntity != null){
-//                httpEntity = null;
-//            }
-//            if(httpResponse != null){
-//                httpResponse = null;
-//            }
-//            if(httpPost != null){
-//                httpPost = null;
-//            }
+        } finally {
             ((AndroidHttpClient) httpClient).close();
-            if(vo.getResult() != null && vo.getResult().equals("fail")){
+            if (vo.getResult() != null && vo.getResult().equals("fail")) {
                 return 0;
             }
             return 1;
         }
     }
-
     private void readJsonStream(InputStream inputStream) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
 
@@ -104,18 +83,9 @@ public class IdCheck extends AsyncTask<Void,Void,Integer> {
         }finally {
             reader.close();
         }
-
     }
-    @Override
-    protected void onPostExecute(Integer check) {
-        super.onPostExecute(check);
-        if(!is_check) {
-            Toast.makeText(context, "아이디가 중복됐습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void readMessage(JsonReader reader) throws IOException {
-        String name = "", phone="", addr="", id="", pw="", email="",  result="", profile="", issns="";
+        String name = "", phone="", addr="", id="", pw="", email="",  result="", issns="";
 
         while (reader.hasNext()){
             String readStr = reader.nextName();
@@ -141,14 +111,12 @@ public class IdCheck extends AsyncTask<Void,Void,Integer> {
             }else if (readStr.equals("email")){
                 email = reader.nextString();
                 vo.setEmail(email);
-            }else if(readStr.equals("profile")){
-                profile = reader.nextString();
-                vo.setProfile(profile);
-            } else{
+            }else if(readStr.equals("issns")){
+                issns = reader.nextString();
+                vo.setProfile(issns);
+            }else{
                 reader.skipValue();
             }
         }
-
-
     }
 }

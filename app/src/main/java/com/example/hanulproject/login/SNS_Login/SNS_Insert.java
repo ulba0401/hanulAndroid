@@ -1,8 +1,9 @@
-package com.example.hanulproject.join;
+package com.example.hanulproject.login.SNS_Login;
 
+import android.content.Context;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.renderscript.RenderScript;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -16,33 +17,26 @@ import java.io.InputStream;
 
 import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 
-public class JoinInsert extends AsyncTask<Void, Void, Void> {
+public class SNS_Insert extends AsyncTask<Void, Void, Void> {
 
-    String jname, jid, jpw, jemail;
+    String name, email, pw, id, addr, issns;
 
-    public JoinInsert(String name, String id, String pw, String email) {
-        this.jname = name;
-        this.jid = id;
-        this.jpw= pw;
-        this.jemail=email;
+    public SNS_Insert(String name, String email){
+        this.name = name;
+        this.email = email;
+        this.pw=pw;
+        this.id=id;
     }
-
     @Override
     protected Void doInBackground(Void... voids) {
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-            builder.addTextBody("name", jname, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("id", jid, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("pw", jpw, ContentType.create("Multipart/related", "UTF-8"));
-            builder.addTextBody("email", jemail, ContentType.create("Multipart/related", "UTF-8"));
-
-            Log.d("kakaoJoinCheck",jname);
-            Log.d("kakaoJoinCheck",jid);
-            Log.d("kakaoJoinCheck",jpw);
-            Log.d("kakaoJoinCheck",jemail);
-
+            builder.addTextBody("name", name, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("id", email, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("email", email, ContentType.create("Multipart/related", "UTF-8"));
+            builder.addTextBody("pw", pw,  ContentType.create("Multipart/related", "UTF-8"));
             String postURL = ipConfig + "/AA/uinsert";
 
             InputStream inputStream = null;
@@ -65,4 +59,3 @@ public class JoinInsert extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(aVoid);
     }
 }
-
