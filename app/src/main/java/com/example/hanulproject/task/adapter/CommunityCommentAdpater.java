@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.menu.community.CommunityDetail;
 import com.example.hanulproject.menu.community.Community_commentDelete;
 import com.example.hanulproject.menu.community.Community_commentSelect;
@@ -93,6 +94,10 @@ public class CommunityCommentAdpater extends BaseAdapter {
         viewHolder.content.setText(arrayList.get(position).getContent());
         viewHolder.modifyContent.setText(arrayList.get(position).getContent());
 
+        if( !(LoginRequest.vo.getId().equals(arrayList.get(position).getWriter()) || LoginRequest.vo.getEmail().equals(arrayList.get(position).getWriter()) || LoginRequest.vo.getAdmin().equals("Y"))  ){
+            viewHolder.modify.setVisibility(View.GONE);
+            viewHolder.delete.setVisibility(View.GONE);
+        }
         viewHolder.modifyContent.setVisibility(View.GONE);
         viewHolder.modify_insert.setVisibility(View.GONE);
 

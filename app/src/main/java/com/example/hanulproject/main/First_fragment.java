@@ -387,7 +387,7 @@ public class First_fragment extends Fragment implements Serializable {
             String msg = "Latitude : " + latitude + "\nLongitute" + longitude;
 
             // hide_msg.setText(msg);
-            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
         }
 
