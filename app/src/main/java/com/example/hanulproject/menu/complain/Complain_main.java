@@ -60,9 +60,11 @@ public class Complain_main extends Fragment {
         cplist = new ArrayList<>();
         adapter = new ComplainAdapter(getActivity(), R.layout.complain_list_view, cplist);
         listView.setAdapter(adapter);
+        adapter.removeAllItem();
 
         select = new Select(cplist, adapter);
         select.execute();
+        adapter.notifyDataSetChanged();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

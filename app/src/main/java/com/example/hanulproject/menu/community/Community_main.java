@@ -56,12 +56,16 @@ public class Community_main extends Fragment implements Serializable {
         communityPlus = rootView.findViewById(R.id.communityPlus);
         gridView = rootView.findViewById(R.id.grid_view);
 
+
         cmlist = new ArrayList<>();
         adapter = new CommunityAdapter(getActivity(), R.layout.community_list_view, cmlist);
         gridView.setAdapter(adapter);
+        adapter.removeAllItem();
 
         select = new Select(cmlist, adapter);
         select.execute();
+
+        adapter.notifyDataSetChanged();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
