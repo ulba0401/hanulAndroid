@@ -27,8 +27,7 @@
         android:layout_marginRight="50dp"
         android:background="@drawable/btn_on"
         android:text="@string/login"
-        android:textColor="@color/basictxtcolor"
-        android:textSize="@dimen/btnSize" />
+        android:textColor="@color/basictxtcolor" />
 
 
     <FrameLayout
@@ -37,7 +36,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:background="@drawable/kakao_btn">
 
         <com.kakao.usermgmt.LoginButton
             android:id="@+id/com_kakao_login"
@@ -52,7 +52,6 @@
             android:id="@+id/fake_kakao"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/kakao_login"
             android:scaleType="fitXY"/>
     </FrameLayout>
 
