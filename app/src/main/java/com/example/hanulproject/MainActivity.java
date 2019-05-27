@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //네비게이션바 프로필 설정
         email.setText(LoginRequest.vo.getEmail());
         name.setText(LoginRequest.vo.getName());
-        profile.setImageResource(R.mipmap.ic_launcher_round);
+        profile.setImageResource(R.drawable.emptyprofile);
 
         //로그인 프로필 받아오기
         if(LoginRequest.vo.getProfile() != null && !(LoginRequest.vo.getProfile().equals(""))){

@@ -88,7 +88,7 @@ public class CommunityDetail extends AppCompatActivity {
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cmdImageView.setImageResource(R.drawable.blank);
+                cmdImageView.setImageResource(R.drawable.emptyimage);
                 cmdImageView.setVisibility(View.GONE);
 
                 Intent intent = new Intent(CommunityDetail.this,CommunityModify.class);

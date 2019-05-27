@@ -1,16 +1,20 @@
 package com.example.hanulproject.login;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 import com.example.hanulproject.join.IdCheck;
@@ -55,6 +59,7 @@ public class Login_menu extends AppCompatActivity  {
 
     Button fake_kakao, fake_face, loginBtn;
     TextView jointxt, search_id, search_pw;
+    ImageView main_img;
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -63,6 +68,9 @@ public class Login_menu extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());//facebook sdk 초기화
         setContentView(R.layout.login_menu);
+        main_img = findViewById(R.id.main_img);
+        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(main_img);
+        Glide.with(this).load(R.drawable.iotmain).into(gifImage);
 
         //백 버튼 누르면 종료 되는 함수
         backPressCloseHandler = new BackPressCloseHandler(this);

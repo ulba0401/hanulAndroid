@@ -38,13 +38,14 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
 
+        main_img = findViewById(R.id.imageView3);
 
         loginBtn = findViewById(R.id.loginBtn);
         joinBtn = findViewById(R.id.joinBtn);
         main_img = findViewById(R.id.main_img);
 
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(main_img);
-        Glide.with(this).load(R.drawable.home_img).into(gifImage);
+        Glide.with(this).load(R.drawable.iotmain).into(gifImage);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

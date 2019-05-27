@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,48 +21,62 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/back"
             android:paddingLeft="10dp" />
+
         <TextView
             android:id="@+id/bartext"
             style="@style/bartext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="고객센터" />
+            android:text="고객센터"
+            android:textColor="@color/basictxtcolor"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
 
         <TextView
             android:id="@+id/cpdtitle"
             style="@style/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="문의사항 제목" />
+            android:text="문의사항 제목"
+            android:textSize="15dp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:padding="3dp"
         android:layout_gravity="right"
         android:gravity="center">
+
         <Button
             android:id="@+id/modify"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:background="@drawable/modify_b"/>
-        <Button
-            android:id="@+id/delete"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/cancel_b"/>
-    </LinearLayout>
+            android:background="@drawable/modify_b" />
 
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/cancel_b"
+            android:padding="5dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,66 +94,65 @@
                 style="@style/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:paddingLeft="10dp"
                 android:text="문의사항 내용" />
-
-
         </LinearLayout>
 
-
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="작성자 : "
-                android:layout_marginLeft="20dp"
                 style="@style/content"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:background="#ffffff"
+                android:text="작성자 : " />
 
             <TextView
                 android:id="@+id/cpdwriter"
                 style="@style/content"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
+                android:background="#ffffff"
                 android:text="작성자" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="첨부파일 : "
-                android:layout_marginLeft="20dp"
                 style="@style/content"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:background="#ffffff"
+                android:text="첨부파일 : " />
 
             <TextView
                 android:id="@+id/cpdfilename"
                 style="@style/content"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
+                android:background="#ffffff"
                 android:text="파일이름" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <Button
                 android:id="@+id/btnPhotoLoad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginLeft="20dp"
-                android:text="다운로드" />
-
+                android:background="@drawable/download" />
         </LinearLayout>
-
-
     </LinearLayout>
-
-
-
 </LinearLayout>

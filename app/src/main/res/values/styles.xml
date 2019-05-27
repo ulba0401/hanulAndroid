@@ -64,6 +64,5 @@
     <style name="homeListStyle">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/homeListSize</item>
-
     </style>
 </resources>

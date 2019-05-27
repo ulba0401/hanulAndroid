@@ -233,8 +233,8 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="10dp"
                 android:background="#9082baff"
-                android:fontFamily="@font/humyfriends"
                 android:padding="5dp"
+                android:layout_marginRight="10dp"
                 android:text="우리집 등록 하기"
                 android:textColor="@color/allbackg" />
         </FrameLayout>

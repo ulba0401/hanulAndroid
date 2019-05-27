@@ -3,65 +3,79 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="4">
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="3">
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/cmi_writer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="20dp"
-            android:text="글쓴이 : "/>
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="글쓴이 : "
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/cmi_content"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="14dp"
-            android:text="내용"/>
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="내용"
+            android:textSize="12dp" />
 
         <EditText
             android:id="@+id/cmi_modify_content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:text="EditText"
-            />
-
-    </LinearLayout>
+            android:layout_marginRight="10dp"
+            android:text="수정내용"
+            android:textSize="12dp" />
 
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
 
-        <Button
-            android:id="@+id/cmi_modify_insert"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="등록" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/cmi_modify"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:text="수정" />
+            <Button
+                android:id="@+id/cmi_modify_insert"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="3dp"
+                android:background="@drawable/btn_on"
+                android:text="등록"
+                android:textColor="@color/basictxtcolor"
+                android:textSize="11dp" />
 
-        <Button
-            android:id="@+id/cmi_delete"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:text="삭제" />
+            <Button
+                android:id="@+id/cmi_modify"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="3dp"
+                android:background="@drawable/btn_on"
+                android:text="수정"
+                android:textColor="@color/basictxtcolor"
+                android:textSize="11dp" />
 
+            <Button
+                android:id="@+id/cmi_delete"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_on"
+                android:text="삭제"
+                android:textColor="@color/basictxtcolor"
+                android:textSize="11dp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
