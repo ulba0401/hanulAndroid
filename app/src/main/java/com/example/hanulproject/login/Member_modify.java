@@ -8,14 +8,18 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.join.Join_main;
 import com.example.hanulproject.task.common.CommonMethod;
 import com.example.hanulproject.task.task.Update;
 import com.example.hanulproject.vo.UserVO;
@@ -36,6 +40,7 @@ public class Member_modify extends AppCompatActivity {
     Button modify_photoLoad, memberModify_update, back, modify_photoDelete;
     EditText modify_name, modify_pw, modify_change_pw, modify_check_pw;
     UserVO vo = LoginRequest.vo;
+    TextView rpwcheck, mpwc, mpwf;
 
     final int LOAD_IMAGE = 1001;
 
@@ -60,12 +65,14 @@ public class Member_modify extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_member_modify);
+        setContentView(R.layout.member_modify_activity);
         uploadType="";
+        rpwcheck=findViewById(R.id.rpwcheck);
         now = System.currentTimeMillis();
         date = new Date(now);
         tmpDateFormat = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss");
-
+        mpwc=findViewById(R.id.mpwcomplete);
+        mpwf=findViewById(R.id.mpwfail);
         modify_profile = findViewById(R.id.modify_profile);
         modify_photoLoad = findViewById(R.id.modify_photoLoad);
         modify_photoDelete = findViewById(R.id.modify_photoDelete);
@@ -107,34 +114,102 @@ public class Member_modify extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE);
             }
         });
+        //비밀번호 확인
+        modify_check_pw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String password=modify_change_pw.getText().toString();
+                String confirm=modify_check_pw.getText().toString();
+                if(password.equals(confirm)){
+                    mpwc.setVisibility(View.VISIBLE);
+                    mpwf.setVisibility(View.GONE);
+                }else{
+                    mpwc.setVisibility(View.GONE);
+                    mpwf.setVisibility(View.VISIBLE);
+                }
+                if(confirm.equals(password)){
+                    mpwc.setVisibility(View.VISIBLE);
+                    mpwf.setVisibility(View.GONE);
+                }else{
+                    mpwc.setVisibility(View.GONE);
+                    mpwf.setVisibility(View.VISIBLE);
+                }
+                if(modify_change_pw.getText().toString().length()==0 || modify_check_pw.getText().toString().length()==0){
+                    mpwc.setVisibility(View.GONE);
+                    mpwf.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        //비밀번호
+        modify_change_pw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String password=modify_change_pw.getText().toString();
+                String confirm=modify_check_pw.getText().toString();
+                if(password.equals(confirm)){
+                    mpwc.setVisibility(View.VISIBLE);
+                    mpwf.setVisibility(View.GONE);
+                }else{
+                    mpwc.setVisibility(View.GONE);
+                    mpwf.setVisibility(View.VISIBLE);
+                }
+                if(confirm.equals(password)){
+                    mpwc.setVisibility(View.VISIBLE);
+                    mpwf.setVisibility(View.GONE);
+                }else{
+                    mpwc.setVisibility(View.GONE);
+                    mpwf.setVisibility(View.VISIBLE);
+                }
+                if(modify_change_pw.getText().toString().length()==0 || modify_check_pw.getText().toString().length()==0){
+                    mpwc.setVisibility(View.GONE);
+                    mpwf.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
         memberModify_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( !( modify_name.getText().toString().trim().equals("") || modify_pw.getText().toString().trim().equals("") ) ) {
-                    vo.setName(modify_name.getText().toString());
-                    vo.setPw(modify_pw.getText().toString());
-
-                    if (vo.getPw().equals(modify_pw.getText().toString())) {
-                        if (modify_change_pw.getText().toString().equals(modify_check_pw.getText().toString())) {
-                            Update update = new Update(vo);
-                            update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
-                            update.execute();
-                            is_check = true;
-                            LoginRequest.vo.setName(modify_name.getText().toString());
-                            finish();
-                        } else {
-                            Toast.makeText(Member_modify.this, "새로입력하신 비밀번호와 확인한 비밀번호가 서로 다릅니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(Member_modify.this, "현재 비밀번호가 틀렸습니다", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    Toast.makeText(Member_modify.this, "이름과 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+                if(modify_name.getText().toString().length()==0){
+                    Toast.makeText(Member_modify.this, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    modify_name.requestFocus();
+                    return;
+                }
+                if(modify_change_pw.getText().toString().length()==0){
+                    Toast.makeText(Member_modify.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                    modify_change_pw.requestFocus();
+                    return;
+                }
+                if(modify_check_pw.getText().toString().length()==0){
+                    Toast.makeText(Member_modify.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+                    modify_check_pw.requestFocus();
+                    return;
+                }
+                vo.setName(modify_name.getText().toString());
+                vo.setPw(modify_pw.getText().toString());
+                if (vo.getPw().equals(modify_pw.getText().toString())) {
+                        Log.d("PWCHECK", vo.getPw());
+                        Update update = new Update(vo);
+                        update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
+                        update.execute();
+                        is_check = true;
+                        LoginRequest.vo.setName(modify_name.getText().toString());
+                        finish();
+                } else {
+                    rpwcheck.setVisibility(View.VISIBLE);
                 }
             }
         });
-
     }
 
 

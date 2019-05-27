@@ -27,7 +27,9 @@
             style="@style/bartext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="게시판" />
+            android:text="게시판"
+            android:textColor="@color/basictxtcolor"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

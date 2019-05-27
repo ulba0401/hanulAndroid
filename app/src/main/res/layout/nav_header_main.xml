@@ -16,9 +16,8 @@
         android:id="@+id/profileImage"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/blank" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/emptyprofile"/>
 
     <TextView
         android:id="@+id/navi_name"
@@ -26,14 +25,15 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/titlecolor" />
+        android:textColor="@color/basictxtcolor" />
 
     <TextView
         android:id="@+id/navi_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/titlecolor"
+        android:textColor="@color/basictxtcolor"
         android:text="@string/nav_header_subtitle" />
 
 </LinearLayout>

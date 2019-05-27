@@ -11,10 +11,9 @@
         android:layout_marginLeft="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="14dp"
         android:text="예시입니다"
-        android:textColor="@color/basictxtcolor"
-        android:textStyle="bold"/>
+        android:textColor="@color/basictxtcolor" />
     <TextView
         android:id="@+id/cpwriter"
         android:layout_marginRight="3dp"
@@ -23,6 +22,5 @@
         android:textSize="12dp"
         android:layout_height="wrap_content"
         android:text="예시입니다"
-        android:textStyle="bold"
         android:layout_marginBottom="10dp"/>
 </LinearLayout>

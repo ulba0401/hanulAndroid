@@ -32,17 +32,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="50dp"
-        android:padding="5dp"
         android:background="@drawable/kakao_btn">
 
         <com.kakao.usermgmt.LoginButton
             android:id="@+id/com_kakao_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
@@ -51,17 +50,21 @@
         <Button
             android:id="@+id/fake_kakao"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"/>
+            android:layout_height="40dp"
+            android:background="@drawable/kakao_btn"
+            android:scaleType="fitXY"
+            android:text="카카오톡으로 시작하기"
+            android:textColor="@color/com_kakao_brown"
+            android:textSize="14dp" />
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="50dp"
+        android:background="@drawable/facebook_btn"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="50dp"
-        android:padding="5dp">
+        android:layout_marginRight="50dp">
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook_login"
@@ -69,13 +72,17 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="gone"/>
+
         <Button
             android:id="@+id/fake_face"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/facebook_login"
-            android:scaleType="fitXY"/>
+            android:layout_height="40dp"
+            android:background="@drawable/facebook_btn"
+            android:scaleType="fitXY"
+            android:text="페이스북으로 시작하기"
+            android:textColor="@color/com_facebook_button_background_color_focused" />
 
     </FrameLayout>
 

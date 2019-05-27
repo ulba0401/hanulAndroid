@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/memberModify"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="회원정보 수정"
         android:textColor="@color/basictxtcolor"
-        android:textSize="24dp"
+        android:textSize="15dp"
         tools:layout_editor_absoluteX="154dp"
         tools:layout_editor_absoluteY="141dp" />
     <View
@@ -36,7 +36,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/menu_settings"
             android:textColor="@color/basictxtcolor"
-            android:textSize="24dp"
+            android:textSize="15dp"
             tools:layout_editor_absoluteX="154dp"
             tools:layout_editor_absoluteY="141dp" />
         <View
@@ -48,24 +48,25 @@
             android:id="@+id/commentPush"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             android:text="댓글 알림 기능"
             android:textColor="@color/com_facebook_button_background_color_focused_disabled"
-            android:textSize="20dp" />
+            android:textSize="12dp" />
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#cccccc"/>
+
         <Switch
             android:id="@+id/allPush"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             android:text="단체 알림 기능"
             android:textColor="@color/com_facebook_button_background_color_focused_disabled"
-            android:textSize="20dp" />
+            android:textSize="12dp" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

@@ -22,12 +22,15 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/back"
             android:paddingLeft="10dp" />
+
         <TextView
             android:id="@+id/bartext"
             style="@style/bartext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원정보수정" />
+            android:text="회원정보수정"
+            android:textColor="@color/basictxtcolor"
+            android:textStyle="bold" />
 
     </LinearLayout>
     <LinearLayout
@@ -45,23 +48,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/modify_photoLoad"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:background="@drawable/btn_on"
             android:text="사진변경"
             android:textColor="@color/basictxtcolor" />
 
         <Button
             android:id="@+id/modify_photoDelete"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_gray"
             android:text="사진삭제"
@@ -111,6 +114,20 @@
                 android:inputType="textPassword"/>
 
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/rpwcheck"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="현재 비밀번호가 일치하지 않습니다."
+            android:textColor="@color/error"
+            android:textSize="12dp"
+            android:visibility="gone"/>
+        
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -155,17 +172,44 @@
                 android:inputType="textPassword"/>
 
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/mpwcomplete"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비밀번호가 일치합니다."
+            android:textColor="@color/complete"
+            android:textSize="12dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/mpwfail"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비밀번호가 일치하지 않습니다."
+            android:textColor="@color/error"
+            android:textSize="12dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:gravity="center">
 
             <Button
                 android:id="@+id/memberModify_update"
                 android:layout_width="70dp"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:background="@drawable/btn_on"
                 android:text="등록"
                 android:textColor="@color/basictxtcolor"

@@ -12,17 +12,19 @@
 
         <TextView
             android:id="@+id/cmi_writer"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="13dp"
-            android:text="글쓴이 : "/>
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="글쓴이 : "
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/cmi_content"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="11dp"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:text="내용"/>
 
@@ -68,7 +70,7 @@
             android:id="@+id/cmi_delete"
             android:layout_width="40dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="5dp"
             android:textSize="11dp"
             android:background="@drawable/btn_on"
             android:textColor="@color/basictxtcolor"
