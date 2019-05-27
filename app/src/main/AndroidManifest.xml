@@ -18,8 +18,8 @@
     <application
         android:name=".login.kakao.GlobalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Hanulproject"
+        android:icon="@drawable/icon"
+        android:label="니집내집"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"

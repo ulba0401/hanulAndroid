@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|left"
-            android:text="회원가입"
+            android:text=" 회원가입"
             android:textColor="@color/basictxtcolor"
             android:textStyle="bold" />
     </LinearLayout>
@@ -44,12 +44,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/titlebarcolor"
                 android:text="이름"
-                android:textSize="@dimen/contentSize"/>
+                android:textColor="@color/basictxtcolor"
+                android:textSize="@dimen/contentSize" />
             <EditText
                 android:id="@+id/joinName"
                 android:layout_width="250dp"
@@ -61,12 +62,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/titlebarcolor"
                 android:text="아이디"
-                android:textSize="@dimen/contentSize"/>
+                android:textColor="@color/basictxtcolor"
+                android:textSize="@dimen/contentSize" />
 
             <EditText
                 android:id="@+id/joinId"
@@ -121,12 +123,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/titlebarcolor"
                 android:text="이메일"
-                android:textSize="@dimen/contentSize"/>
+                android:textColor="@color/basictxtcolor"
+                android:textSize="@dimen/contentSize" />
             <EditText
                 android:id="@+id/joinEmail"
                 android:layout_width="250dp"
@@ -138,12 +141,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/titlebarcolor"
                 android:text="비밀번호"
-                android:textSize="@dimen/contentSize"/>
+                android:textColor="@color/basictxtcolor"
+                android:textSize="@dimen/contentSize" />
 
             <EditText
                 android:id="@+id/joinPw"
@@ -158,12 +162,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/titlebarcolor"
                 android:text="비밀번호 확인"
-                android:textSize="@dimen/contentSize"/>
+                android:textColor="@color/basictxtcolor"
+                android:textSize="@dimen/contentSize" />
             <EditText
                 android:id="@+id/joinPwr"
                 android:layout_width="250dp"

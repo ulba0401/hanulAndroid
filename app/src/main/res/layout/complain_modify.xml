@@ -48,6 +48,8 @@
             style="@style/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:background="#ffffff"
             android:text="제목: "
             android:textColor="@color/basictxtcolor" />
@@ -71,6 +73,7 @@
             style="@style/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:background="#ffffff"
             android:text="내용 "
             android:textColor="@color/basictxtcolor" />
@@ -89,7 +92,8 @@
             android:background="#ffffff"
             android:gravity="top"
             android:hint="내용을 입력하세요"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:paddingLeft="10dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,15 +103,21 @@
             android:id="@+id/cpmfilename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="10dp"
             android:text="파일이름" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">
         <Button
             android:id="@+id/btnPhotoLoad"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/imageadd"
+            android:gravity="center"
             android:textColor="@color/basictxtcolor" />
 
         <Button
@@ -117,13 +127,12 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/imagedelete"
             android:textColor="@color/basictxtcolor" />
-
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center">
 
 
@@ -139,7 +148,7 @@
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_gray"

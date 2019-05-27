@@ -74,7 +74,7 @@ public class CommunityAdapter extends BaseAdapter {
             viewHolder = (CommunityViewHolder) convertView.getTag();
         }
         //viewHolder.no.setText(arrayList.get(position).getNo());
-        viewHolder.iv_img.setImageResource(R.drawable.blank);
+        viewHolder.iv_img.setImageResource(R.drawable.emptyimage);
         viewHolder.writer.setText(arrayList.get(position).getWriter());
         //viewHolder.content.setText(arrayList.get(position).getContent());
         //viewHolder.readcnt.setText(arrayList.get(position).getReadcnt());
@@ -94,7 +94,7 @@ public class CommunityAdapter extends BaseAdapter {
         //https://iw90.tistory.com/113
 
         if(arrayList.get(position).getFilename() != null && !(arrayList.get(position).getFilename().equals(""))){
-            viewHolder.iv_img.setImageResource(R.drawable.blank);
+            viewHolder.iv_img.setImageResource(R.drawable.emptyimage);
             ImageLoader.getInstance().displayImage(arrayList.get(position).getFilepath().toString(),
                     viewHolder.iv_img, new ImageLoadingListener() {
                         @Override

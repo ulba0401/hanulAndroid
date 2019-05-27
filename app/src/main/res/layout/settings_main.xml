@@ -41,7 +41,8 @@
             tools:layout_editor_absoluteY="141dp" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
+            android:layout_marginRight="5dp"
             android:background="#cccccc"/>
 
         <Switch
@@ -49,13 +50,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
             android:text="댓글 알림 기능"
             android:textColor="@color/com_facebook_button_background_color_focused_disabled"
             android:textSize="12dp" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
+            android:layout_marginRight="5dp"
             android:background="#cccccc"/>
 
         <Switch
@@ -63,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
             android:text="단체 알림 기능"
             android:textColor="@color/com_facebook_button_background_color_focused_disabled"

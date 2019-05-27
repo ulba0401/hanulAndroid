@@ -84,7 +84,7 @@ public class Member_modify extends AppCompatActivity {
         back = findViewById(R.id.back);
 
         modify_name.setText(vo.getName());
-        modify_profile.setImageResource(R.mipmap.ic_launcher_round);
+        modify_profile.setImageResource(R.drawable.emptyprofile);
 
         loadImage();
 
@@ -98,7 +98,7 @@ public class Member_modify extends AppCompatActivity {
         modify_photoDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modify_profile.setImageResource(R.mipmap.ic_launcher_round);
+                modify_profile.setImageResource(R.drawable.emptyprofile);
                 LoginRequest.vo.setProfile("");
                 LoginRequest.vo.setProfileName("");
                 uploadType = "delete";
@@ -114,7 +114,8 @@ public class Member_modify extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), LOAD_IMAGE);
             }
         });
-        //비밀번호 확인
+        //두개 비교시 일치확인
+        //비밀번호 확인 일치
         modify_check_pw.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -145,7 +146,7 @@ public class Member_modify extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) { }
         });
-        //비밀번호
+        //비밀번호 일치
         modify_change_pw.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}

@@ -10,9 +10,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:text="예시입니다"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:background="@drawable/emptyimage" />
 
     <TextView

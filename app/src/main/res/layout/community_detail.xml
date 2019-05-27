@@ -53,12 +53,48 @@
                     style="@style/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
                     android:text="게시판 제목" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#cccccc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <TextView
+                    style="@style/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="#ffffff"
+                    android:text="작성자 : " />
+
+                <TextView
+                    android:id="@+id/cmdwriter"
+                    style="@style/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="#ffffff"
+                    android:text="작성자" />
+
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#cccccc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
 
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_gravity="right"
                 android:gravity="center"
@@ -66,18 +102,23 @@
 
                 <Button
                     android:id="@+id/modify"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/modify_b" />
 
                 <Button
                     android:id="@+id/delete"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/cancel_b" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#cccccc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -85,9 +126,15 @@
                 <ImageView
                     android:id="@+id/cmdImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="300dp"
+                    android:paddingLeft="10dp" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#cccccc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -106,38 +153,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
+                        android:paddingLeft="10dp"
                         android:text="게시판 글" />
 
 
                 </LinearLayout>
-
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="1dp"
+                    android:background="#cccccc"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
 
-                    <TextView
-                        style="@style/content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="#ffffff"
-                        android:text="작성자 : " />
-
-                    <TextView
-                        android:id="@+id/cmdwriter"
-                        style="@style/content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:text="작성자" />
-
-                    <Button
-                        android:id="@+id/cmdRefresh"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:background="@drawable/refresh" />
-                </LinearLayout>
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#cccccc"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -145,15 +178,15 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/cmd_cmt_content"
                             android:layout_width="270dp"
-                            android:textSize="11dp"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textSize="11dp" />
 
                         <Button
                             android:id="@+id/cmmd_cmt_insert"
@@ -162,10 +195,21 @@
                             android:layout_marginLeft="10dp"
                             android:background="@drawable/btn_on"
                             android:text="등록"
-                            android:textSize="12dp"
-                            android:textColor="@color/basictxtcolor" />
+                            android:textColor="@color/basictxtcolor"
+                            android:textSize="12dp" />
+                        <Button
+                            android:id="@+id/cmdRefresh"
+                            android:layout_width="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/refresh" />
                     </LinearLayout>
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#cccccc"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">

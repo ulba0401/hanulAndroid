@@ -64,6 +64,12 @@
             android:hint="제목을 입력하세요"
             android:inputType="textPersonName" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,9 +79,15 @@
             android:id="@+id/cmmImageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:padding="5dp" />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -89,6 +101,12 @@
             android:textColor="@color/basictxtcolor" />
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
@@ -103,9 +121,18 @@
             android:hint="내용을 입력하세요"
             android:inputType="textMultiLine" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:gravity="right">
 
         <Button
             android:id="@+id/cmmPhotonLoad"
@@ -122,32 +149,37 @@
             android:textColor="@color/basictxtcolor" />
 
     </LinearLayout>
-
+    <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#cccccc"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center">
 
         <Button
             android:id="@+id/modify"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:background="@drawable/btn_on"
             android:onClick="btnAddClicked"
             android:text="등록"
             android:textColor="@color/basictxtcolor"
-            android:textSize="18dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_gray"
             android:text="취소"
             android:textColor="@color/basictxtcolor"
-            android:textSize="18dp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
 </LinearLayout>
