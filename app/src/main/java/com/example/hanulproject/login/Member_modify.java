@@ -55,7 +55,6 @@ public class Member_modify extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
         if(is_check){
             loadImage();
             is_check = false;
@@ -186,6 +185,13 @@ public class Member_modify extends AppCompatActivity {
                     modify_name.requestFocus();
                     return;
                 }
+                if(!(modify_pw.getText().toString().equals(vo.getPw()))){
+                    //Toast.makeText(Member_modify.this, "현재 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    rpwcheck.setVisibility(View.VISIBLE);
+                    modify_pw.requestFocus();
+                    return;
+                }
+                rpwcheck.setVisibility(View.GONE);
                 if(modify_change_pw.getText().toString().length()==0){
                     Toast.makeText(Member_modify.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                     modify_change_pw.requestFocus();
@@ -196,23 +202,26 @@ public class Member_modify extends AppCompatActivity {
                     modify_check_pw.requestFocus();
                     return;
                 }
-                vo.setName(modify_name.getText().toString());
-                vo.setPw(modify_pw.getText().toString());
-                if (vo.getPw().equals(modify_pw.getText().toString())) {
-                        Log.d("PWCHECK", vo.getPw());
-                        Update update = new Update(vo);
-                        update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
-                        update.execute();
-                        is_check = true;
-                        LoginRequest.vo.setName(modify_name.getText().toString());
-                        finish();
-                } else {
-                    rpwcheck.setVisibility(View.VISIBLE);
+                if(!(modify_change_pw.getText().toString().equals(modify_check_pw.getText().toString()))){
+                    Toast.makeText(Member_modify.this, "새로운 비밀번호와 비밀번호 확인이 서로 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    modify_change_pw.requestFocus();
+                    return;
                 }
+                vo.setName(modify_name.getText().toString());
+                vo.setPw(modify_change_pw.getText().toString());
+
+                Log.d("PWCHECK", vo.getPw());
+                Update update = new Update(vo);
+                update.setFileInfo(uploadType, imageFilePathA, imageUploadPathA, uploadFileName);
+                update.execute();
+                is_check = true;
+                LoginRequest.vo.setName(modify_name.getText().toString());
+                finish();
+
+
             }
         });
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
