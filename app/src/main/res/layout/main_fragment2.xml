@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:weightSum="100">
 
     <LinearLayout
@@ -148,10 +149,12 @@
         android:layout_height="0dp"
         android:layout_weight="30"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="미세먼지정보(예보 or 과거기록)"/>
+            android:paddingLeft="10dp"
+            android:text="미세먼지정보(예보 or 과거기록)" />
 
     </LinearLayout>
 </LinearLayout>

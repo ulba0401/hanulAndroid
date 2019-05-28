@@ -59,6 +59,7 @@ public class Search_pw extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(), Login_page.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

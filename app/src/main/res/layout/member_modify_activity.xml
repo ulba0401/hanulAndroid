@@ -43,7 +43,8 @@
             android:id="@+id/modify_profile"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:background="@drawable/emptyprofile" />
+            android:background="@drawable/emptyprofile"
+            android:paddingRight="10dp" />
     </LinearLayout>
 
     <LinearLayout
