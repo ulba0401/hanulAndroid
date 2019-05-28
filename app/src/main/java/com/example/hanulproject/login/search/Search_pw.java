@@ -1,6 +1,7 @@
 package com.example.hanulproject.login.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,13 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.login.Login_menu;
+import com.example.hanulproject.login.Login_page;
 
 import org.w3c.dom.Text;
 
 public class Search_pw extends Fragment {
 
     Search_main activity;
-    Button findPw;
+    Button findPw, back;
     EditText id, name, email;
     TextView pw1, pw2, pw3;
 
@@ -49,6 +52,15 @@ public class Search_pw extends Fragment {
         pw1=rootView.findViewById(R.id.pw1);
         pw2=rootView.findViewById(R.id.pw2);
         pw3=rootView.findViewById(R.id.pw3);
+        back=rootView.findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), Login_page.class);
+                startActivity(intent);
+            }
+        });
 
         findPw.setOnClickListener(new View.OnClickListener() {
             @Override

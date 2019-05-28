@@ -30,7 +30,7 @@ import static com.example.hanulproject.task.common.CommonMethod.isNetworkConnect
 public class Join_main extends AppCompatActivity {
 
     ToggleButton checkBtn;
-    Button joinBtn, idcheck;
+    Button joinBtn, idcheck, back;
     int check = 0;
     EditText name, id, pw, pwc, email;
     TextView jpwcompl, jpwfail, idcompl, idfail;
@@ -54,6 +54,14 @@ public class Join_main extends AppCompatActivity {
         idcheck=findViewById(R.id.idcheck);
         idcompl=findViewById(R.id.idcompl);
         idfail=findViewById(R.id.idfail);
+        back=findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override

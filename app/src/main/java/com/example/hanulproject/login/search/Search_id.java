@@ -1,6 +1,7 @@
 package com.example.hanulproject.login.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,11 +17,12 @@ import android.widget.Toast;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.join.Join_main;
+import com.example.hanulproject.login.Login_page;
 
 public class Search_id extends Fragment {
 
     Search_main activity;
-    Button findId;
+    Button findId, back;
     EditText name, email;
     TextView id1, id2, id3;
 
@@ -47,7 +49,16 @@ public class Search_id extends Fragment {
         id1=rootView.findViewById(R.id.id1);
         id2=rootView.findViewById(R.id.id2);
         id3=rootView.findViewById(R.id.id3);
+        back=rootView.findViewById(R.id.back);
 
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), Login_page.class);
+                startActivity(intent);
+            }
+        });
 
         findId.setOnClickListener(new View.OnClickListener() {
             @Override
