@@ -52,7 +52,12 @@ public class ComplainDetail extends AppCompatActivity {
         filename.setText(vo.getFilename());
         fileName = vo.getFilename();
         filepath = vo.getFilepath();
-        download();
+        if(filepath != null && !(filepath.equals(""))){
+            download();
+        }else{
+            btnDownload.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
