@@ -11,7 +11,7 @@ import com.example.hanulproject.R;
 public class HomeSecurityView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootview = (ViewGroup) inflater.inflate(R.layout.home_securty_view_fragment, container, false);
+        ViewGroup rootview = (ViewGroup) inflater.inflate(R.layout.home_security_view_fragment, container, false);
         return rootview;
     }
 }

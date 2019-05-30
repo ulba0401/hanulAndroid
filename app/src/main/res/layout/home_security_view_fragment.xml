@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/offwindow"
+        android:id="@+id/offsecurity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -16,7 +16,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/offwindow"/>
+            android:background="@drawable/offlock"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,14 +27,14 @@
                 android:layout_marginRight="5dp"
                 android:textSize="15dp"
                 android:textColor="@color/basictxtcolor"
-                android:text="창문이"/>
+                android:text="도어락이"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
                 android:textSize="15dp"
                 android:textColor="@color/error"
-                android:text="'닫겨'"/>
+                android:text="'잠겨'"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/onwindow"
+        android:id="@+id/onsecurity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -55,7 +55,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/onwindow"/>
+            android:background="@drawable/onlock"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -66,7 +66,7 @@
                 android:layout_marginRight="5dp"
                 android:textSize="15dp"
                 android:textColor="@color/basictxtcolor"
-                android:text="창문이"/>
+                android:text="도어락이"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
