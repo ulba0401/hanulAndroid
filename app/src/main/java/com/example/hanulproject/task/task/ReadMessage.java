@@ -42,7 +42,7 @@ public class ReadMessage {
         }
         reader.endObject();
 
-        Log.d("abc" , no + title + content + writedate + readcnt + filename + filepath);
+        //Log.d("abc" , no + title + content + writedate + readcnt + filename + filepath);
 
         return new NoticeVO(no,title,content,writedate, readcnt, filename,filepath);
     }
