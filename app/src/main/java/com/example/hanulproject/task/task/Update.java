@@ -85,6 +85,7 @@ public class Update extends AsyncTask<Void,Void,Void> {
             builder.addTextBody("no", String.valueOf(cpvo.getNo()), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("title", cpvo.getTitle(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("content", cpvo.getContent(), ContentType.create("Multipart/related", "UTF-8"));
+            if(uploadType == null) uploadType = "";
             builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
             if(uploadType != null && uploadType.equals("image")){
 
@@ -97,6 +98,7 @@ public class Update extends AsyncTask<Void,Void,Void> {
             builder.addTextBody("no", String.valueOf(cmvo.getNo()), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("title", cmvo.getTitle(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("content", cmvo.getContent(), ContentType.create("Multipart/related", "UTF-8"));
+            if(uploadType == null) uploadType = "";
             builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
             if(uploadType != null && uploadType.equals("image")){
                 builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));
@@ -111,6 +113,7 @@ public class Update extends AsyncTask<Void,Void,Void> {
             builder.addTextBody("id", uvo.getId(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("name", uvo.getName(), ContentType.create("Multipart/related", "UTF-8"));
             builder.addTextBody("pw", uvo.getPw(), ContentType.create("Multipart/related", "UTF-8"));
+            if(uploadType == null) uploadType = "";
             builder.addTextBody("uploadType", uploadType, ContentType.create("Multipart/related", "UTF-8"));
             if(uploadType != null && uploadType.equals("image")){
                 builder.addTextBody("fileName", uploadFileName, ContentType.create("Multipart/related", "UTF-8"));

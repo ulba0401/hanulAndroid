@@ -139,6 +139,13 @@
                 android:background="#ffffff"
                 android:text="첨부파일 : " />
 
+            <Button
+                android:id="@+id/btnPhotoLoad"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+
+                android:background="@drawable/download" />
+
             <TextView
                 android:id="@+id/cpdfilename"
                 style="@style/content"
@@ -146,13 +153,6 @@
                 android:layout_height="35dp"
                 android:background="#ffffff"
                 android:text="파일이름" />
-
-            <Button
-                android:id="@+id/btnPhotoLoad"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/download" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
