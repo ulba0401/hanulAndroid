@@ -21,7 +21,7 @@
         android:id="@+id/main_weather"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="40"
+        android:layout_weight="30"
         android:orientation="horizontal"
         android:weightSum="6">
 
@@ -57,7 +57,7 @@
                 <!-- 미세먼지 제외 부분 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -135,28 +135,27 @@
                                 android:textColor="#000000"
                                 android:textSize="10sp" />
                         </LinearLayout>
-
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <!-- 미세먼지 부분 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="미세\n먼지"
+                            android:text="미세먼지"
                             android:textColor="#000000"
                             android:textSize="8sp" />
 
@@ -187,6 +186,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -195,7 +195,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:gravity="center"
-                            android:text="초미세\n먼지"
+                            android:text="초미세먼지"
                             android:textColor="#000000"
                             android:textSize="8sp" />
 
@@ -223,20 +223,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
-
-            <Button
-                style="@style/subTitleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                android:background="#9082baff"
-                android:padding="5dp"
-                android:layout_marginRight="10dp"
-                android:text="우리집 등록 하기"
-                android:textColor="@color/allbackg" />
         </FrameLayout>
     </LinearLayout>
 
@@ -244,7 +231,7 @@
         android:id="@+id/my_home_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="60">
+        android:layout_weight="70">
 
     </ListView>
 

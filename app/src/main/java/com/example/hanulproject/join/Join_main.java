@@ -190,7 +190,7 @@ public class Join_main extends AppCompatActivity {
                     email.requestFocus();
                     return;
                 }
-                if(pw.getText().toString().length()==0||!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", pw.getText().toString())){
+                if(pw.getText().toString().length()==0||!Pattern.matches("^(?=.*\\d)(?=.*[a-z]).{5,10}$", pw.getText().toString())){
                     Toast.makeText(Join_main.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                     pw.requestFocus();
                     return;

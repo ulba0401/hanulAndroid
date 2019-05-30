@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,7 @@ public class Search_id extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(), Login_page.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
