@@ -126,11 +126,16 @@ public class UserVO implements Serializable {
         this.admin = admin;
     }
 
-    public String getIsdel() {
-        return isdel;
-    }
-
-    public void setIsdel(String isdel) {
-        this.isdel = isdel;
+    //로그인할때 이전의 기록을 삭제 시켜주는 메소드
+    public void setClear(){
+        this.id = null;
+        this.pw = null;
+        this.name = null;
+        this.addr = null;
+        this.phone = null;
+        this.email = null;
+        this.profile = null;
+        this.admin = null;
+        this.profileName = null;
     }
 }
