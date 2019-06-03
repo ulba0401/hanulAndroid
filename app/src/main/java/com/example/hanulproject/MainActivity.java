@@ -68,6 +68,8 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public MainActivity mActivity = this;
+
     static public SharedPreferences appData;
     SharedPreferences.Editor editor = appData.edit();
     //static public boolean saveLoginData;
