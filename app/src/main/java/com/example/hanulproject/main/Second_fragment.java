@@ -1,5 +1,6 @@
 package com.example.hanulproject.main;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,13 +17,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 import com.example.hanulproject.main.statusTask.GetStatus;
 import com.example.hanulproject.main.statusTask.Light_on_off;
 import com.example.hanulproject.main.statusTask.StatusSelect;
+import com.example.hanulproject.main.statusTask.Window_on_off;
 import com.example.hanulproject.menu.status.HomeStatus.HomeBoilerView;
 import com.example.hanulproject.menu.status.HomeStatus.HomeGasView;
 import com.example.hanulproject.menu.status.HomeStatus.HomeLightView;
@@ -51,6 +55,7 @@ public class Second_fragment extends Fragment {
     ImageView onLight;
     ImageView offLight;
     public static StatusVO statusVO;
+    ProgressDialog dialog;
 
     //값받아올때까지 쓰레드 정지
     public static boolean status_is_check = true;
@@ -70,7 +75,8 @@ public class Second_fragment extends Fragment {
     private Thread mReceiverThread = null;
 
     //상태체크
-    boolean is_light = false;
+    int is_light = 3; // 1: 전구켜짐 2: 전구꺼짐
+    int is_window = 3; // 1: 문열림 2: 문닫힘
 
     // newInstance constructor for creating fragment with arguments
     public static Second_fragment newInstance(int page, String title) {
@@ -89,7 +95,8 @@ public class Second_fragment extends Fragment {
         page = getArguments().getInt("someInt", 0);
         title = getArguments().getString("someTitle");
         FragmentManager manager=(getActivity().getSupportFragmentManager());
-
+        dialog = new ProgressDialog(getContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -108,10 +115,6 @@ public class Second_fragment extends Fragment {
         onLight = rootview.findViewById(R.id.onLight);
         offLight = rootview.findViewById(R.id.offLight);
 
-
-
-
-
         status_refresh();
 
         // 값을 아두이노로 보내고 싶을때는 senderThread 를 사용해서 매개변수로 값을 넘기면 됨
@@ -126,29 +129,25 @@ public class Second_fragment extends Fragment {
         light.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeLightView tmp = new HomeLightView();
                 Light_on_off light_on_off = new Light_on_off();
                 light_on_off.execute();
-                if(is_light){
+                if(is_light == 1){
                     //new Thread(new SenderThread("C")).start(); // 값넘김 예시
                     offLight.setVisibility(View.VISIBLE);
                     onLight.setVisibility(View.GONE);
-                    status_refresh();
-                }else{
+                }else if(is_light == 2){
                     //new Thread(new SenderThread("B")).start();
                     offLight.setVisibility(View.GONE);
                     onLight.setVisibility(View.VISIBLE);
-                    status_refresh();
                 }
-
-
 //                if (!isConnected) showErrorDialog("서버로 접속된후 다시 해보세요.");
 //                else {
-//
-//
 //                }
+                HomeLightView tmp = new HomeLightView();
                 tmp.setIs_light(is_light);
                 getFragmentManager().beginTransaction().replace(R.id.status,tmp ).commit();
+
+                status_refresh();
             }
         });
 
@@ -173,7 +172,15 @@ public class Second_fragment extends Fragment {
         window.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.status, new HomeWindowView()).commit();
+                Window_on_off window_on_off = new Window_on_off(dialog,is_window);
+                window_on_off.execute();
+
+                HomeWindowView homeWindowView = new HomeWindowView();
+                homeWindowView.setIs_window(is_window);
+                getFragmentManager().beginTransaction().replace(R.id.status, homeWindowView ).commit();
+                status_refresh();
+
+
             }
         });
 
@@ -182,13 +189,18 @@ public class Second_fragment extends Fragment {
         return rootview;
     }
 
+
+
     private void status_refresh(){
+        dialog.setMessage("기다려주세요");
+        dialog.show();
         StatusSelect statusSelect = new StatusSelect();
+        statusSelect.setProgressDialog(dialog);
         try {
             statusVO = statusSelect.execute().get();
-            while(status_is_check) {
-
-            }
+//            while(status_is_check) {
+//
+//            }
             status_is_check = true;
 
         } catch (Exception e) {
@@ -202,12 +214,22 @@ public class Second_fragment extends Fragment {
         if(statusVO.getLight().equals("Y")){
             onLight.setVisibility(View.VISIBLE);
             offLight.setVisibility(View.GONE);
-            is_light = true;
+            is_light = 1;
         }else{
             onLight.setVisibility(View.GONE);
             offLight.setVisibility(View.VISIBLE);
-            is_light = false;
+            is_light = 2;
         }
+
+        if(statusVO.getWindow().equals("O")){
+            is_window = 1;
+        }else if(statusVO.getWindow().equals("C")){
+            is_window = 2;
+        }
+
+
+        dialog.dismiss();
+
     }
 
     // Don't touch bottom of the line

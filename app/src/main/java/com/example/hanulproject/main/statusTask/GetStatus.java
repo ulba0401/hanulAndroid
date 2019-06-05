@@ -52,7 +52,7 @@ public class GetStatus extends AsyncTask<Void,Void,Void> {
     private void readjson(String json){
         try {
             JSONObject obj = new JSONObject(json);
-            vo.setMoisture((Integer) obj.get("moisture"));
+            //vo.setMoisture((Integer) obj.get("moisture"));
             Log.d("Arduino_test", String.valueOf(obj.get("moisture")));
 
         } catch (JSONException e) {

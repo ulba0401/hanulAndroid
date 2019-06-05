@@ -1,10 +1,12 @@
 package com.example.hanulproject.main.statusTask;
 
+import android.app.ProgressDialog;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
+import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.login.LoginRequest;
 import com.example.hanulproject.main.Second_fragment;
 import com.example.hanulproject.vo.StatusVO;
@@ -26,10 +28,17 @@ import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
 
     private String id = LoginRequest.vo.getId();
+    private ProgressDialog progressDialog;
     StatusVO vo;
+
+    public void setProgressDialog(ProgressDialog progressDialog) {
+        this.progressDialog = progressDialog;
+    }
 
     @Override
     protected void onPreExecute() {
+        progressDialog.setMessage("잠시만 기다려주세요...");
+        progressDialog.show();
         super.onPreExecute();
     }
 
@@ -71,6 +80,7 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
 
     @Override
     protected void onPostExecute(StatusVO statusVO) {
+         progressDialog.dismiss();
         super.onPostExecute(statusVO);
     }
 
@@ -87,8 +97,8 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
     }
 
     public StatusVO ReadMessage(JsonReader reader) throws IOException{
-        String id = "", light = "", secure = "", weather = "";
-        int water = 0, temper = 0, dust = 0, moisture = 0;
+        String id = "", light = "", secure = "", weather = "", window = "";
+        int water = 0, temper = 0, dust = 0;
 
         while (reader.hasNext()){
             String readStr = reader.nextName();
@@ -106,8 +116,8 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
                 temper = reader.nextInt();
             }else if (readStr.equals("dust")){
                 dust = reader.nextInt();
-            }else if (readStr.equals("moisture")){
-                moisture = reader.nextInt();
+            }else if (readStr.equals("window")){
+                window = reader.nextString();
             }else{
                 reader.skipValue();
             }
@@ -117,7 +127,7 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
 
         Log.d("status" , id + light + secure + weather + water + temper + dust);
 
-        return new StatusVO(id, light, secure, weather, water, temper, dust, moisture);
+        return new StatusVO(id, light, secure, weather, water, temper, dust, window);
     }
 
 }
