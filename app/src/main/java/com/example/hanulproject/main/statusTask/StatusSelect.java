@@ -6,6 +6,7 @@ import android.util.JsonReader;
 import android.util.Log;
 
 import com.example.hanulproject.login.LoginRequest;
+import com.example.hanulproject.main.Second_fragment;
 import com.example.hanulproject.vo.StatusVO;
 
 import org.apache.http.HttpEntity;
@@ -63,6 +64,7 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
         }finally {
             ((AndroidHttpClient) httpClient).close();
         }
+        Second_fragment.status_is_check = false;
 
         return vo;
     }
@@ -86,7 +88,7 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
 
     public StatusVO ReadMessage(JsonReader reader) throws IOException{
         String id = "", light = "", secure = "", weather = "";
-        int water = 0, temper = 0, dust = 0;
+        int water = 0, temper = 0, dust = 0, moisture = 0;
 
         while (reader.hasNext()){
             String readStr = reader.nextName();
@@ -104,6 +106,8 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
                 temper = reader.nextInt();
             }else if (readStr.equals("dust")){
                 dust = reader.nextInt();
+            }else if (readStr.equals("moisture")){
+                moisture = reader.nextInt();
             }else{
                 reader.skipValue();
             }
@@ -113,7 +117,7 @@ public class StatusSelect extends AsyncTask<Void,Void, StatusVO> {
 
         Log.d("status" , id + light + secure + weather + water + temper + dust);
 
-        return new StatusVO(id, light, secure, weather, water, temper, dust);
+        return new StatusVO(id, light, secure, weather, water, temper, dust, moisture);
     }
 
 }

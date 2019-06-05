@@ -26,7 +26,7 @@ public class HomeLightView extends Fragment {
         ViewGroup rootview = (ViewGroup) inflater.inflate(R.layout.home_light_view_fragment, container, false);
         on = rootview.findViewById(R.id.onlight);
         off = rootview.findViewById(R.id.offlight);
-        if (!is_light){
+        if (is_light){
             on.setVisibility(View.VISIBLE);
             off.setVisibility(View.GONE);
         }else{

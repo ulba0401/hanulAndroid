@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class StatusVO implements Serializable {
     String id, light, secure, weather;
-    int water, temper, dust;
+    int water, temper, dust, moisture;
 
     public StatusVO () {}
-    public StatusVO(String id, String light, String secure, String weather, int water, int temper, int dust) {
+    public StatusVO(String id, String light, String secure, String weather, int water, int temper, int dust, int moistrue) {
         this.id = id;
         this.light = light;
         this.secure = secure;
@@ -15,7 +15,12 @@ public class StatusVO implements Serializable {
         this.water = water;
         this.temper = temper;
         this.dust = dust;
+        this.moisture = moistrue;
     }
+
+    public int getMoisture() { return moisture; }
+
+    public void setMoisture(int moisture) { this.moisture = moisture; }
 
     public String getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.example.hanulproject.main;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
+import com.example.hanulproject.main.statusTask.GetStatus;
 import com.example.hanulproject.main.statusTask.Light_on_off;
 import com.example.hanulproject.main.statusTask.StatusSelect;
 import com.example.hanulproject.menu.status.HomeStatus.HomeBoilerView;
@@ -48,7 +50,11 @@ public class Second_fragment extends Fragment {
     MainActivity activity = new MainActivity();
     ImageView onLight;
     ImageView offLight;
-    StatusVO statusVO;
+    public static StatusVO statusVO;
+
+    //값받아올때까지 쓰레드 정지
+    public static boolean status_is_check = true;
+
 
     static private TextView mConnectionStatus;
 //    private EditText mInputEditText;
@@ -102,21 +108,11 @@ public class Second_fragment extends Fragment {
         onLight = rootview.findViewById(R.id.onLight);
         offLight = rootview.findViewById(R.id.offLight);
 
-        StatusSelect statusSelect = new StatusSelect();
-        try {
-            statusVO = statusSelect.execute().get();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        if(statusVO.getLight().equals("Y")){
-            onLight.setVisibility(View.VISIBLE);
-            offLight.setVisibility(View.GONE);
-        }else{
-            onLight.setVisibility(View.GONE);
-            offLight.setVisibility(View.VISIBLE);
-        }
+
+
+        status_refresh();
 
         // 값을 아두이노로 보내고 싶을때는 senderThread 를 사용해서 매개변수로 값을 넘기면 됨
 
@@ -131,24 +127,28 @@ public class Second_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 HomeLightView tmp = new HomeLightView();
+                Light_on_off light_on_off = new Light_on_off();
+                light_on_off.execute();
+                if(is_light){
+                    //new Thread(new SenderThread("C")).start(); // 값넘김 예시
+                    offLight.setVisibility(View.VISIBLE);
+                    onLight.setVisibility(View.GONE);
+                    status_refresh();
+                }else{
+                    //new Thread(new SenderThread("B")).start();
+                    offLight.setVisibility(View.GONE);
+                    onLight.setVisibility(View.VISIBLE);
+                    status_refresh();
+                }
+
+
+//                if (!isConnected) showErrorDialog("서버로 접속된후 다시 해보세요.");
+//                else {
+//
+//
+//                }
                 tmp.setIs_light(is_light);
                 getFragmentManager().beginTransaction().replace(R.id.status,tmp ).commit();
-                if (!isConnected) showErrorDialog("서버로 접속된후 다시 해보세요.");
-                else {
-                    Light_on_off light_on_off = new Light_on_off();
-                    light_on_off.execute();
-                    if(is_light){
-                        new Thread(new SenderThread("B")).start(); // 값넘김 예시
-                        is_light = false;
-                        offLight.setVisibility(View.VISIBLE);
-                        onLight.setVisibility(View.GONE);
-                    }else{
-                        new Thread(new SenderThread("A")).start();
-                        is_light = true;
-                        offLight.setVisibility(View.GONE);
-                        onLight.setVisibility(View.VISIBLE);
-                    }
-                }
             }
         });
 
@@ -177,18 +177,44 @@ public class Second_fragment extends Fragment {
             }
         });
 
-        new Thread(new ConnectThread("192.168.0.92", 80)).start();
+//        new Thread(new ConnectThread("192.168.0.92", 80)).start();
 
         return rootview;
     }
 
+    private void status_refresh(){
+        StatusSelect statusSelect = new StatusSelect();
+        try {
+            statusVO = statusSelect.execute().get();
+            while(status_is_check) {
+
+            }
+            status_is_check = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //status 상태 받아오기
+//        GetStatus getStatus = new GetStatus();
+//        getStatus.execute();
+
+        if(statusVO.getLight().equals("Y")){
+            onLight.setVisibility(View.VISIBLE);
+            offLight.setVisibility(View.GONE);
+            is_light = true;
+        }else{
+            onLight.setVisibility(View.GONE);
+            offLight.setVisibility(View.VISIBLE);
+            is_light = false;
+        }
+    }
 
     // Don't touch bottom of the line
     //======================================================================================================
     // 밑부터는 와이파이 연결하는 용도 클래스들
     // 손대지 마시오 !!
     // 값을 아두이노로 보내고 싶을때는  new Thread(new SenderThread("보낼값")).start(); 이렇게 사용
-
 
     private class ConnectThread implements Runnable {
 
@@ -306,7 +332,7 @@ public class Second_fragment extends Fragment {
                     final String recvMessage =  mIn.readLine();
 
                     if (recvMessage != null) {
-
+                        Log.d(TAG, "recv message: "+recvMessage);
 //                        runOnUiThread(new Runnable() {
 //
 //                            @Override
