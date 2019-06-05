@@ -1,5 +1,6 @@
 package com.example.hanulproject.main.statusTask;
 
+import android.app.ProgressDialog;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 
@@ -20,9 +21,17 @@ import static com.example.hanulproject.task.common.CommonMethod.ipConfig;
 public class Light_on_off extends AsyncTask<Void,Void,Void> {
 
     private String id = LoginRequest.vo.getId();
+    ProgressDialog progressDialog;
+
+    public Light_on_off(ProgressDialog progressDialog){
+        this.progressDialog = progressDialog;
+    }
+
 
     @Override
     protected void onPreExecute() {
+        progressDialog.setMessage("기다려주세요...");
+        progressDialog.show();
         super.onPreExecute();
     }
 
@@ -59,6 +68,7 @@ public class Light_on_off extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+        progressDialog.dismiss();
         super.onPostExecute(aVoid);
     }
 }

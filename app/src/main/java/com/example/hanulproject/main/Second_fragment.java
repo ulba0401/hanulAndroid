@@ -55,7 +55,7 @@ public class Second_fragment extends Fragment {
     ImageView onLight;
     ImageView offLight;
     public static StatusVO statusVO;
-    ProgressDialog dialog;
+    public static ProgressDialog dialog;
 
     //값받아올때까지 쓰레드 정지
     public static boolean status_is_check = true;
@@ -88,6 +88,20 @@ public class Second_fragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onResume() {
+        dialog = new ProgressDialog(getActivity());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        StatusSelect statusSelect = new StatusSelect();
+        statusSelect.setProgressDialog(dialog);
+        try {
+            statusVO = statusSelect.execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onResume();
+    }
+
     // Store instance variables based on arguments passed
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,8 +109,6 @@ public class Second_fragment extends Fragment {
         page = getArguments().getInt("someInt", 0);
         title = getArguments().getString("someTitle");
         FragmentManager manager=(getActivity().getSupportFragmentManager());
-        dialog = new ProgressDialog(getContext());
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -114,8 +126,8 @@ public class Second_fragment extends Fragment {
         mConnectionStatus = rootview.findViewById(R.id.mConnectionStatus);
         onLight = rootview.findViewById(R.id.onLight);
         offLight = rootview.findViewById(R.id.offLight);
-
-        status_refresh();
+        onLight.setVisibility(View.VISIBLE);
+        offLight.setVisibility(View.GONE);
 
         // 값을 아두이노로 보내고 싶을때는 senderThread 를 사용해서 매개변수로 값을 넘기면 됨
 
@@ -125,32 +137,13 @@ public class Second_fragment extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.status, new HomeWaterView()).commit();
             }
         });
-
         light.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Light_on_off light_on_off = new Light_on_off();
-                light_on_off.execute();
-                if(is_light == 1){
-                    //new Thread(new SenderThread("C")).start(); // 값넘김 예시
-                    offLight.setVisibility(View.VISIBLE);
-                    onLight.setVisibility(View.GONE);
-                }else if(is_light == 2){
-                    //new Thread(new SenderThread("B")).start();
-                    offLight.setVisibility(View.GONE);
-                    onLight.setVisibility(View.VISIBLE);
-                }
-//                if (!isConnected) showErrorDialog("서버로 접속된후 다시 해보세요.");
-//                else {
-//                }
-                HomeLightView tmp = new HomeLightView();
-                tmp.setIs_light(is_light);
-                getFragmentManager().beginTransaction().replace(R.id.status,tmp ).commit();
-
-                status_refresh();
+                //구현함
+                getFragmentManager().beginTransaction().replace(R.id.status,new HomeLightView() ).commit();
             }
         });
-
         secom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,64 +165,14 @@ public class Second_fragment extends Fragment {
         window.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Window_on_off window_on_off = new Window_on_off(dialog,is_window);
-                window_on_off.execute();
-
-                HomeWindowView homeWindowView = new HomeWindowView();
-                homeWindowView.setIs_window(is_window);
-                getFragmentManager().beginTransaction().replace(R.id.status, homeWindowView ).commit();
-                status_refresh();
-
-
+                //구현함
+                getFragmentManager().beginTransaction().replace(R.id.status, new HomeWindowView() ).commit();
             }
         });
 
 //        new Thread(new ConnectThread("192.168.0.92", 80)).start();
 
         return rootview;
-    }
-
-
-
-    private void status_refresh(){
-        dialog.setMessage("기다려주세요");
-        dialog.show();
-        StatusSelect statusSelect = new StatusSelect();
-        statusSelect.setProgressDialog(dialog);
-        try {
-            statusVO = statusSelect.execute().get();
-//            while(status_is_check) {
-//
-//            }
-            status_is_check = true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //status 상태 받아오기
-//        GetStatus getStatus = new GetStatus();
-//        getStatus.execute();
-
-        if(statusVO.getLight().equals("Y")){
-            onLight.setVisibility(View.VISIBLE);
-            offLight.setVisibility(View.GONE);
-            is_light = 1;
-        }else{
-            onLight.setVisibility(View.GONE);
-            offLight.setVisibility(View.VISIBLE);
-            is_light = 2;
-        }
-
-        if(statusVO.getWindow().equals("O")){
-            is_window = 1;
-        }else if(statusVO.getWindow().equals("C")){
-            is_window = 2;
-        }
-
-
-        dialog.dismiss();
-
     }
 
     // Don't touch bottom of the line

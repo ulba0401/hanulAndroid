@@ -4,21 +4,29 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.main.Second_fragment;
+import com.example.hanulproject.main.statusTask.StatusSelect;
+import com.example.hanulproject.main.statusTask.Window_on_off;
+import com.example.hanulproject.vo.StatusVO;
 
 
 public class HomeWindowView extends Fragment {
     private LinearLayout onWindow;
     private LinearLayout offWindow;
-    private int is_window;
+    StatusVO vo = Second_fragment.statusVO;
 
-    public void setIs_window(int is_window) {
-        this.is_window = is_window;
+    @Override
+    public void onResume() {
+
+        status_refresh();
+        super.onResume();
     }
 
     @Override
@@ -29,14 +37,49 @@ public class HomeWindowView extends Fragment {
         onWindow = rootview.findViewById(R.id.onwindow);
         offWindow = rootview.findViewById(R.id.offwindow);
 
-        if(is_window == 2){
-            onWindow.setVisibility(View.VISIBLE);
-            offWindow.setVisibility(View.GONE);
-        }else if(is_window == 1){
-            onWindow.setVisibility(View.GONE);
-            offWindow.setVisibility(View.VISIBLE);
-        }
+        onWindow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Window_on_off window_on_off = new Window_on_off(Second_fragment.dialog,1 );
+                window_on_off.execute();
+
+                status_refresh();
+            }
+        });
+
+        offWindow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Window_on_off window_on_off = new Window_on_off(Second_fragment.dialog,2 );
+                window_on_off.execute();
+
+                status_refresh();
+            }
+        });
+
 
         return rootview;
+    }
+
+    private void status_refresh(){
+
+        StatusSelect statusSelect = new StatusSelect();
+        statusSelect.setProgressDialog(Second_fragment.dialog);
+        try {
+            vo = statusSelect.execute().get();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        onWindow.setVisibility(View.GONE);
+        offWindow.setVisibility(View.GONE);
+
+        if (vo.getWindow().equals("O")){
+            onWindow.setVisibility(View.VISIBLE);
+            offWindow.setVisibility(View.GONE);
+        }else{
+            offWindow.setVisibility(View.VISIBLE);
+            onWindow.setVisibility(View.GONE);
+        }
     }
 }
