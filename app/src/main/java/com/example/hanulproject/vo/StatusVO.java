@@ -3,11 +3,11 @@ package com.example.hanulproject.vo;
 import java.io.Serializable;
 
 public class StatusVO implements Serializable {
-    String id, light, secure, weather, window;
+    String id, light, secure, weather, window, boiler, gas;
     int water, temper, dust;
 
     public StatusVO () {}
-    public StatusVO(String id, String light, String secure, String weather, int water, int temper, int dust, String window) {
+    public StatusVO(String id, String light, String secure, String weather, int water, int temper, int dust, String window, String boiler, String gas) {
         this.id = id;
         this.light = light;
         this.secure = secure;
@@ -16,6 +16,23 @@ public class StatusVO implements Serializable {
         this.temper = temper;
         this.dust = dust;
         this.window = window;
+        this.boiler = boiler;
+    }
+
+    public String getGas() {
+        return gas;
+    }
+
+    public void setGas(String gas) {
+        this.gas = gas;
+    }
+
+    public String getBoiler() {
+        return boiler;
+    }
+
+    public void setBoiler(String boiler) {
+        this.boiler = boiler;
     }
 
     public String getWindow() {

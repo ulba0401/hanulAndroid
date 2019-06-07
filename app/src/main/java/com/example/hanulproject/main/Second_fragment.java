@@ -153,12 +153,14 @@ public class Second_fragment extends Fragment {
         gas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //구현함
                 getFragmentManager().beginTransaction().replace(R.id.status, new HomeGasView()).commit();
             }
         });
         boiler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //구현함
                 getFragmentManager().beginTransaction().replace(R.id.status, new HomeBoilerView()).commit();
             }
         });
