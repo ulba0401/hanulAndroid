@@ -147,6 +147,7 @@ public class Second_fragment extends Fragment {
         secom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //구현함
                 getFragmentManager().beginTransaction().replace(R.id.status, new HomeSecurityView()).commit();
             }
         });

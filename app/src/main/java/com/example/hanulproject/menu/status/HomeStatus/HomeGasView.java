@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.hanulproject.R;
 import com.example.hanulproject.main.Second_fragment;
@@ -41,6 +42,13 @@ public class HomeGasView extends Fragment {
                 gas_off.execute();
 
                 status_refresh();
+            }
+        });
+
+        offgas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "가스를 원격으로 켤수는 없습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
