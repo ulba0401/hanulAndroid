@@ -128,6 +128,7 @@ public class Second_fragment extends Fragment {
         offLight = rootview.findViewById(R.id.offLight);
         onLight.setVisibility(View.VISIBLE);
         offLight.setVisibility(View.GONE);
+        water.setVisibility(View.GONE);
 
         // 값을 아두이노로 보내고 싶을때는 senderThread 를 사용해서 매개변수로 값을 넘기면 됨
 
