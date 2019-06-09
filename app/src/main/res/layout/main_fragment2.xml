@@ -99,22 +99,21 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/status_gas"
+                        android:id="@+id/status_window"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:background="@drawable/gas" />
+                            android:background="@drawable/window"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="가스 상태" />
+                            android:text="창문 상태" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -145,23 +144,7 @@
                             android:text="보일러\n상태" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/status_window"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/window"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="창문 상태" />
-                    </LinearLayout>
+
 
                     <LinearLayout
                         android:id="@+id/status_water"
@@ -181,6 +164,25 @@
                             android:text="물 상태"
                             android:layout_marginTop="5dp"
                             android:gravity="center"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/status_gas"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/gas" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="가스 상태" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
