@@ -64,8 +64,9 @@ public class CommunityAdapter extends BaseAdapter {
             viewHolder = new CommunityViewHolder();
             //viewHolder.no = convertView.findViewById(R.id.cmno);
             viewHolder.iv_img = convertView.findViewById(R.id.cmtitle);
+            viewHolder.title=convertView.findViewById(R.id.cmwriter);
             //viewHolder.content = convertView.findViewById(R.id.cmcontent);
-            viewHolder.writer = convertView.findViewById(R.id.cmwriter);
+            //viewHolder.writer = convertView.findViewById(R.id.cmwriter);
             //viewHolder.readcnt = convertView.findViewById(R.id.cmreadcnt);
             //viewHolder.filename = convertView.findViewById(R.id.cmfilename);
             //viewHolder.filepath = convertView.findViewById(R.id.cmfilepath);
@@ -75,7 +76,8 @@ public class CommunityAdapter extends BaseAdapter {
         }
         //viewHolder.no.setText(arrayList.get(position).getNo());
         viewHolder.iv_img.setImageResource(R.drawable.emptyimage);
-        viewHolder.writer.setText(arrayList.get(position).getWriter());
+        viewHolder.title.setText(arrayList.get(position).getTitle());
+        //viewHolder.writer.setText(arrayList.get(position).getWriter());
         //viewHolder.content.setText(arrayList.get(position).getContent());
         //viewHolder.readcnt.setText(arrayList.get(position).getReadcnt());
         //viewHolder.filename.setText(arrayList.get(position).getFilename());
@@ -132,6 +134,7 @@ public class CommunityAdapter extends BaseAdapter {
         public TextView no;
         public ImageView iv_img;
         public TextView content;
+        public TextView title;
         public TextView writer;
         public TextView readcnt;
         public TextView filename;
