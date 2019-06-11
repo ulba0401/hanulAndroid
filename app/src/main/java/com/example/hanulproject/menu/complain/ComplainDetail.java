@@ -77,6 +77,7 @@ public class ComplainDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                reset();
+               finish();
             }
         });
 

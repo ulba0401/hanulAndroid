@@ -4,21 +4,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="5dp">
     <ImageView
         android:id="@+id/cmtitle"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="예시입니다"
-        android:background="@drawable/emptyimage" />
+        android:text="예시입니다" />
 
     <TextView
         android:id="@+id/cmwriter"
         android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="10dp"
-        android:textSize="13dp"
+        android:textSize="11dp"
         android:text="예시입니다"
         android:textColor="@color/basictxtcolor"/>
 
