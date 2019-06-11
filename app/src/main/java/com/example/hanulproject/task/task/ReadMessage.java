@@ -116,7 +116,7 @@ public class ReadMessage {
             String readStr = reader.nextName();
             if (readStr.equals("id")){
                 id = reader.nextString();
-            } else if (readStr.equals("addr")){
+            } else if (readStr.equals("addrs")){
                 addr = reader.nextString();
             } else if (readStr.equals("nx")){
                 nx = reader.nextDouble();

@@ -54,7 +54,7 @@ public class Member_modify extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        loadImage();
         if(is_check){
             loadImage();
             is_check = false;
@@ -84,9 +84,7 @@ public class Member_modify extends AppCompatActivity {
 
         modify_name.setText(vo.getName());
         modify_profile.setImageResource(R.drawable.emptyprofile);
-
-        loadImage();
-
+        
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

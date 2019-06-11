@@ -68,6 +68,8 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public MainActivity mActivity = this;
+
     static public SharedPreferences appData;
     SharedPreferences.Editor editor = appData.edit();
     //static public boolean saveLoginData;
@@ -257,6 +259,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent.putExtra("selectKey", 5);
             startActivity(intent);
         } else if(id == R.id.nav_logout){
+            LoginRequest.vo.setClear(); //로그아웃시 모든 기록을 삭제시켜주는 메소드
             TokenLogout tokenLogout = new TokenLogout(LoginRequest.vo.getId());
             tokenLogout.execute();
             logout_check = true;

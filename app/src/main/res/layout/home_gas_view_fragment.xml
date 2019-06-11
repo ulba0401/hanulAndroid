@@ -33,7 +33,7 @@
                 android:layout_marginRight="5dp"
                 android:textSize="15dp"
                 android:textColor="@color/basictxtcolor"
-                android:text="보일러 스위치가"/>
+                android:text="가스가"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

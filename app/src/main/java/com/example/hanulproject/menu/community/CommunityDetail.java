@@ -46,8 +46,6 @@ public class CommunityDetail extends AppCompatActivity {
     ArrayList<Community_commentVO> cmmcList;
     CommunityCommentAdpater adpater;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
