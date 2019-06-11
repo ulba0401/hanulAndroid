@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.hanulproject.R;
+import com.example.hanulproject.menu.complain.ComplainInsertPage;
 import com.example.hanulproject.task.common.CommonMethod;
 import com.example.hanulproject.task.task.Insert;
 import com.example.hanulproject.vo.CommunityVO;
@@ -67,6 +68,22 @@ public class CommunityInsertPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cmititle.getText().toString().length()==0){
+                    Toast.makeText(CommunityInsertPage.this, "제목을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    cmititle.requestFocus();
+                    return;
+                }
+                if(cmicontent.getText().toString().length()==0){
+                    Toast.makeText(CommunityInsertPage.this, "내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    cmicontent.requestFocus();
+                    return;
+                }
             }
         });
 

@@ -65,6 +65,22 @@ public class ComplainInsertPage extends AppCompatActivity {
         imageUploadPathA="";
         uploadFileName="";
 
+        insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cpititle.getText().toString().length()==0){
+                    Toast.makeText(ComplainInsertPage.this, "제목을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    cpititle.requestFocus();
+                    return;
+                }
+                if(cpicontent.getText().toString().length()==0){
+                    Toast.makeText(ComplainInsertPage.this, "내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    cpicontent.requestFocus();
+                    return;
+                }
+            }
+        });
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
