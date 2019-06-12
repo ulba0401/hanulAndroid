@@ -69,8 +69,7 @@
                             android:id="@+id/offLight"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:background="@drawable/offlight"
-                            android:visibility="gone"/>
+                            android:background="@drawable/offlight" />
 
                         <TextView
                             android:layout_width="match_parent"
