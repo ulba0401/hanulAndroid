@@ -60,7 +60,7 @@
             android:id="@+id/modify"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/modify_b" />
+            android:background="@drawable/modify" />
 
         <Button
             android:id="@+id/delete"

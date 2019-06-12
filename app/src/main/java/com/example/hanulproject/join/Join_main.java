@@ -70,12 +70,12 @@ public class Join_main extends AppCompatActivity {
                     check = 1;
                     checkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.check));
                     joinBtn.setBackground(getResources().getDrawable(R.drawable.btn_on));
-                    joinBtn.setTextColor(getResources().getColor(R.color.titlecolor));
+                    joinBtn.setTextColor(getResources().getColor(R.color.basictxtcolor));
                 }else{
                     check = 0;
                     checkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.noncheck));
                     joinBtn.setBackground(getResources().getDrawable(R.drawable.btn_gray));
-                    joinBtn.setTextColor(getResources().getColor(R.color.black));
+                    joinBtn.setTextColor(getResources().getColor(R.color.basictxtcolor));
                 }
             }
         });

@@ -243,7 +243,7 @@
         android:layout_gravity="center"
         android:background="@drawable/btn_gray"
         android:text="가입하기"
-        android:textColor="@color/black"
+        android:textColor="@color/basictxtcolor"
         android:textSize="@dimen/btnSize" />
 
 </LinearLayout>
