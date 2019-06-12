@@ -31,7 +31,7 @@ public class StatusWindowAuto extends AsyncTask<Void,Void,Void> {
         HttpResponse httpResponse = null;
         HttpEntity httpEntity = null;
 
-        postURL = ipConfig + "/AA/statusWindowAuto?id=" + id;
+        postURL = ipConfig + "/AA/controll_train?id=" + id;
 
         try {
             //MultipartEntityBuilder 생성
