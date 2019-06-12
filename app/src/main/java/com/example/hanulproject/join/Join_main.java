@@ -70,12 +70,12 @@ public class Join_main extends AppCompatActivity {
                     check = 1;
                     checkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.check));
                     joinBtn.setBackground(getResources().getDrawable(R.drawable.btn_on));
-                    joinBtn.setTextColor(getResources().getColor(R.color.titlecolor));
+                    joinBtn.setTextColor(getResources().getColor(R.color.basictxtcolor));
                 }else{
                     check = 0;
                     checkBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.noncheck));
                     joinBtn.setBackground(getResources().getDrawable(R.drawable.btn_gray));
-                    joinBtn.setTextColor(getResources().getColor(R.color.black));
+                    joinBtn.setTextColor(getResources().getColor(R.color.basictxtcolor));
                 }
             }
         });
@@ -180,7 +180,7 @@ public class Join_main extends AppCompatActivity {
                     name.requestFocus();
                     return;
                 }
-                if(id.getText().toString().length()==0 ){
+                if(id.getText().toString().length()==0  ||!Pattern.matches("^[a-zA-Z0-9]*$",id.getText())){
                     Toast.makeText(Join_main.this, "아이디를 확인하세요.", Toast.LENGTH_SHORT).show();
                     id.requestFocus();
                     return;
@@ -190,7 +190,7 @@ public class Join_main extends AppCompatActivity {
                     email.requestFocus();
                     return;
                 }
-                if(pw.getText().toString().length()==0||!Pattern.matches("^(?=.*\\d)(?=.*[a-z]).{5,10}$", pw.getText().toString())){
+                if(pw.getText().toString().length()==0 ){
                     Toast.makeText(Join_main.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                     pw.requestFocus();
                     return;

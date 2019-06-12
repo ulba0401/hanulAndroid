@@ -71,9 +71,8 @@
                     style="@style/content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:background="#ffffff"
-                    android:text="작성자 : " />
+                    android:text="작성자 :" />
 
                 <TextView
                     android:id="@+id/cmdwriter"
@@ -104,7 +103,7 @@
                     android:id="@+id/modify"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/modify_b" />
+                    android:background="@drawable/modify" />
 
                 <Button
                     android:id="@+id/delete"
