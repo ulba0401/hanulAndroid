@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.hanulproject.MainActivity;
 import com.example.hanulproject.R;
 import com.example.hanulproject.main.statusTask.StatusSelect;
+import com.example.hanulproject.menu.status.HomeStatus.CallStatusValue;
 import com.example.hanulproject.menu.status.HomeStatus.HomeBoilerView;
 import com.example.hanulproject.menu.status.HomeStatus.HomeLightView;
 import com.example.hanulproject.menu.status.HomeStatus.HomeSecurityView;
@@ -77,6 +78,8 @@ public class Second_fragment extends Fragment {
 
     @Override
     public void onResume() {
+//        CallStatusValue callStatusValue = new CallStatusValue();
+//        callStatusValue.execute();
         dialog = new ProgressDialog(getActivity());
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         StatusSelect statusSelect = new StatusSelect();
