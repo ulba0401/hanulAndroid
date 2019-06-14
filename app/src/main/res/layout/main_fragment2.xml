@@ -125,7 +125,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="보일러\n상태" />
+                            android:text="보일러 상태" />
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/status_window"

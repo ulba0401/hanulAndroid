@@ -131,8 +131,9 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/btn_on"
         android:onClick="btnAddClicked"
-        android:text="조회하기"
-        android:textColor="@color/basictxtcolor"
-        android:textSize="@dimen/btnSize" />
+        android:text="조회 하기"
+        android:textColor="#ffffff"
+        android:textSize="11dp"
+        android:textStyle="bold"/>
 
 </LinearLayout>

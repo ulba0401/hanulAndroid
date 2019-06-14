@@ -71,7 +71,11 @@
             android:text="단체 알림 기능"
             android:textColor="@color/com_facebook_button_background_color_focused_disabled"
             android:textSize="12dp" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="5dp"
+            android:background="#cccccc"/>
         <Switch
             android:id="@+id/autoWindow"
             android:layout_width="match_parent"
