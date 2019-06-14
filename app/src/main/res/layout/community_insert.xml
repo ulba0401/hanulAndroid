@@ -165,7 +165,7 @@
 
         <Button
             android:id="@+id/insert"
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="30dp"
             android:background="@drawable/btn_on"
             android:text="등록"
@@ -174,7 +174,7 @@
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="70dp"
+            android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_gray"
