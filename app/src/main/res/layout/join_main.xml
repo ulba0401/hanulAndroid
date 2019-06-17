@@ -87,8 +87,9 @@
                 android:layout_height="30dp"
                 android:background="@drawable/btn_on"
                 android:text="중복확인"
-                android:textColor="@color/basictxtcolor"
-                android:textSize="14sp" />
+                android:textColor="@color/titlecolor"
+                android:textSize="11dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -252,8 +253,9 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:background="@drawable/btn_gray"
-        android:text="가입하기"
-        android:textColor="@color/basictxtcolor"
-        android:textSize="@dimen/btnSize" />
+        android:text="가입 하기"
+        android:textColor="@color/titlecolor"
+        android:textSize="11dp"
+        android:textStyle="bold" />
 
 </LinearLayout>
