@@ -15,7 +15,7 @@ import java.io.OutputStream;
 public class CommonMethod {
 
     /*public static String  ipConfig = "http://192.168.200.151:8989";*/
-    public static String  ipConfig = "http://192.168.0.26:80";
+    public static String  ipConfig = "http://192.168.0.23:80";
 //    public static String  ipConfig = "http://112.164.58.12:80";
     /*public static String  ipConfig = "http://121.148.239.200:80";*/
     public static int activityNum = 0;  // 0:Sub1,  1:Sub1Add,  2:Sub1Updatee, 3:Sub1Delete
